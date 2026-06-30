@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopVerse — E‑Commerce</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Font (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: #8b5cf6 transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6;
+            border-radius: 10px;
+        }
+
+        body {
+            background: #f8fafc;
+        }
+
+        .fade-enter {
+            animation: fadeIn 0.35s ease forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .cart-drawer {
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .cart-drawer.closed {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .cart-drawer.open {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .backdrop {
+            transition: opacity 0.3s ease;
+        }
+        .backdrop.closed {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.closed {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-box {
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .modal-overlay.closed .modal-box {
+            transform: scale(0.92) translateY(20px);
+            opacity: 0;
+        }
+        .modal-overlay.open .modal-box {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .checkout-step {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .checkout-step.hidden-step {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        .checkout-step.visible-step {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .product-card {
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        .product-card .add-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .product-card .add-btn:active {
+            transform: scale(0.92);
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: #1e293b;
+            color: white;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 4px solid #8b5cf6;
+        }
+        .toast.success {
+            border-left-color: #22c55e;
+        }
+        .toast.error {
+            border-left-color: #ef4444;
+        }
+        .toast.info {
+            border-left-color: #3b82f6;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+        .toast-out {
+            animation: toastOut 0.3s ease forwards;
+        }
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(40px) scale(0.95);
+            }
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: none;
+            background: #f1f5f9;
+            color: #1e293b;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-btn:hover {
+            background: #e2e8f0;
+        }
+        .qty-btn:active {
+            transform: scale(0.92);
+        }
+
+        .step-indicator .step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: #e2e8f0;
+            color: #94a3b8;
+            transition: all 0.3s;
+        }
+        .step-indicator .step-dot.active {
+            background: #8b5cf6;
+            color: white;
+        }
+        .step-indicator .step-dot.completed {
+            background: #22c55e;
+            color: white;
+        }
+        .step-indicator .step-line {
+            flex: 1;
+            height: 2px;
+            background: #e2e8f0;
+            transition: background 0.3s;
+        }
+        .step-indicator .step-line.completed {
+            background: #22c55e;
+        }
+
+        @media (max-width: 640px) {
+            .toast-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+            }
+            .toast {
+                font-size: 0.8rem;
+                padding: 12px 16px;
+            }
+        }
+
+        .product-img {
+            background: #f1f5f9;
+            object-fit: cover;
+        }
+
+        .cart-item-enter {
+            animation: cartItemIn 0.3s ease;
+        }
+        @keyframes cartItemIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* product modal quantity stepper */
+        .modal-qty-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: #f1f5f9;
+            color: #1e293b;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .modal-qty-btn:hover {
+            background: #e2e8f0;
+        }
+        .modal-qty-btn:active {
+            transform: scale(0.92);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================= -->
+    <!-- APP ROOT                                                        -->
+    <!-- ============================================================= -->
+    <div id="app" class="min-h-screen bg-slate-50">
+
+        <!-- ==================== HEADER ==================== -->
+        <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="flex items-center justify-between h-16 md:h-20">
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center gap-2.5 group" id="logoLink">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition">
+                            <i class="fas fa-store text-sm"></i>
+                        </div>
+                        <span class="text-xl font-extrabold text-slate-800 tracking-tight">Shop<span class="text-violet-600">Verse</span></span>
+                    </a>
+
+                    <!-- Nav + Actions -->
+                    <div class="flex items-center gap-3 sm:gap-5">
+                        <!-- Search (desktop) -->
+                        <div class="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-2 gap-2 text-sm text-slate-400 border border-transparent focus-within:border-violet-400 focus-within:bg-white transition">
+                            <i class="fas fa-search text-xs"></i>
+                            <input type="text" placeholder="Search products..." class="bg-transparent outline-none text-slate-700 w-40 lg:w-56" id="searchInput" />
+                        </div>
+
+                        <!-- Cart -->
+                        <button id="cartToggle" class="relative p-2 rounded-full hover:bg-slate-100 transition text-slate-600">
+                            <i class="fas fa-shopping-bag text-lg"></i>
+                            <span id="cartBadge" class="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full bg-violet-600 text-white text-[10px] font-bold flex items-center justify-center shadow-sm">0</span>
+                        </button>
+
+                        <!-- Auth / User -->
+                        <div id="authSection">
+                            <button id="authBtn" class="flex items-center gap-2 px-4 py-2 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold transition shadow-sm shadow-violet-500/20">
+                                <i class="fas fa-user text-xs"></i>
+                                <span class="hidden sm:inline">Sign In</span>
+                            </button>
+                        </div>
+
+                        <!-- Mobile search toggle -->
+                        <button id="mobileSearchToggle" class="md:hidden p-2 rounded-full hover:bg-slate-100 text-slate-600">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile search bar -->
+                <div id="mobileSearch" class="md:hidden pb-3 hidden">
+                    <div class="flex items-center bg-white rounded-xl px-4 py-2 gap-2 border border-slate-200 shadow-sm">
+                        <i class="fas fa-search text-slate-400 text-sm"></i>
+                        <input type="text" placeholder="Search products..." class="flex-1 outline-none text-sm text-slate-700 bg-transparent" id="mobileSearchInput" />
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8">
+
+            <!-- ===== HERO BANNER ===== -->
+            <section class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-700 text-white p-6 sm:p-10 mb-8 shadow-xl shadow-violet-500/20">
+                <div class="relative z-10 max-w-xl">
+                    <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold tracking-wider backdrop-blur-sm mb-3">SUMMER SALE</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight">Up to 50% Off</h2>
+                    <p class="text-white/80 text-sm sm:text-base mt-2 max-w-md">Discover premium electronics, fashion &amp; home essentials. Limited time.</p>
+                    <button class="mt-4 px-6 py-2.5 bg-white text-violet-700 font-bold rounded-xl hover:bg-slate-50 transition shadow-lg shadow-black/10 text-sm">
+                        Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="absolute right-0 bottom-0 opacity-10 text-8xl sm:text-9xl font-black select-none -mr-4 mb-4">50%</div>
+            </section>
+
+            <!-- ===== CATEGORY TABS ===== -->
+            <div class="flex flex-wrap gap-2 mb-6" id="categoryFilters">
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-violet-600 text-white shadow-sm shadow-violet-500/20" data-category="all">All</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="electronics">Electronics</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="clothing">Clothing</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="home">Home</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="beauty">Beauty</button>
+            </div>
+
+            <!-- ===== PRODUCT GRID ===== -->
+            <section>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-slate-800">Featured Products</h3>
+                    <span id="productCount" class="text-sm text-slate-400">12 items</span>
+                </div>
+                <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ==================== CART DRAWER ==================== -->
+        <div id="cartBackdrop" class="backdrop closed fixed inset-0 bg-black/30 z-[60]"></div>
+        <div id="cartDrawer" class="cart-drawer closed fixed top-0 right-0 w-full max-w-md h-full bg-white z-[70] shadow-2xl flex flex-col">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 border-b border-slate-200">
+                <h4 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-shopping-bag text-violet-600"></i> Your Cart
+                    <span id="cartItemCount" class="text-sm font-normal text-slate-400 ml-1">(0)</span>
+                </h4>
+                <button id="cartClose" class="w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items -->
+            <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3">
+                <!-- Rendered by JS -->
+                <div id="emptyCart" class="text-center py-12 text-slate-400">
+                    <i class="fas fa-shopping-bag text-4xl mb-3 block text-slate-300"></i>
+                    <p class="text-sm">Your cart is empty</p>
+                    <button id="continueShoppingBtn" class="mt-3 text-violet-600 text-sm font-medium hover:underline">Continue shopping</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="border-t border-slate-200 p-4 space-y-3 bg-slate-50/80">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-slate-500">Subtotal</span>
+                    <span id="cartSubtotal" class="font-bold text-slate-800">$0.00</span>
+                </div>
+                <button id="checkoutBtn" class="w-full py-3 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition shadow-lg shadow-violet-500/25 text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Proceed to Checkout <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                <p class="text-[10px] text-slate-400 text-center">Shipping &amp; taxes calculated at checkout</p>
+            </div>
+        </div>
+
+        <!-- ==================== AUTH MODAL ==================== -->
+        <div id="authModal" class="modal-overlay closed fixed inset-0 z-[80] flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="authModalBackdrop"></div>
+            <div class="modal-box bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button id="authModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <!-- Tabs -->
+                <div class="flex gap-2 bg-slate-100 rounded-xl p-1 mb-6">
+                    <button class="auth-tab flex-1 py-2 rounded-lg text-sm font-semibold transition bg-violet-600 text-white" data-tab="login">Sign In</button>
+                    <button class="auth-tab flex-1 py-2 rounded-lg text-sm font-semibold transition text-slate-600 hover:bg-slate-200" data-tab="register">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form space-y-4">
+                    <h5 class="text-lg font-bold text-slate-800">Welcome Back</h5>
+                    <p class="text-sm text-slate-400">Sign in to access your account &amp; orders.</p>
+                    <div>
+                        <label class="text-xs font-medium text-slate-600 block mb-1">Email</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                    </div>
+                    <div>
+                        <label class="text-xs font-medium text-slate-600 block mb-1">Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                    </div>
+                    <button type="submit" class="w-full py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition shadow-lg shadow-violet-500/25 text-sm">Sign In</button>
+                    <p class="text-center text-xs text-slate-400 mt-2">Demo: any email · password: 123456</p>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form space-y-4 hidden">
+                    <h5 class="text-lg font-bold text-slate-800">Create Account</h5>
+                    <p class="text-sm text-slate-400">Join ShopVerse for exclusive deals.</p>
+                    <div>
+                        <label class="text-xs font-medium text-slate-600 block mb-1">Full Name</label>
+                        <input type="text" id="registerName" placeholder="Jane Doe" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                    </div>
+                    <div>
+                        <label class="text-xs font-medium text-slate-600 block mb-1">Email</label>
+                        <input type="email" id="registerEmail" placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                    </div>
+                    <div>
+                        <label class="text-xs font-medium text-slate-600 block mb-1">Password</label>
+                        <input type="password" id="registerPassword" placeholder="•••••••• (min 6 chars)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required minlength="6" />
+                    </div>
+                    <button type="submit" class="w-full py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition shadow-lg shadow-violet-500/25 text-sm">Create Account</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==================== CHECKOUT MODAL ==================== -->
+        <div id="checkoutModal" class="modal-overlay closed fixed inset-0 z-[90] flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="checkoutModalBackdrop"></div>
+            <div class="modal-box bg-white rounded-2xl w-full max-w-2xl p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
+                <button id="checkoutModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400 z-10">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <!-- Step Indicator -->
+                <div class="step-indicator flex items-center gap-2 mb-6">
+                    <div class="step-dot active" data-step="1">1</div>
+                    <div class="step-line" data-step="1"></div>
+                    <div class="step-dot" data-step="2">2</div>
+                    <div class="step-line" data-step="2"></div>
+                    <div class="step-dot" data-step="3">3</div>
+                    <div class="step-line" data-step="3"></div>
+                    <div class="step-dot" data-step="4">4</div>
+                </div>
+
+                <!-- Step 1: Cart Review -->
+                <div class="checkout-step visible-step" data-step="1">
+                    <h4 class="text-lg font-bold text-slate-800">Review Your Cart</h4>
+                    <p class="text-sm text-slate-400 mb-4">Confirm items before checkout.</p>
+                    <div id="checkoutCartItems" class="space-y-3 max-h-48 overflow-y-auto">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="flex justify-between items-center border-t border-slate-200 pt-4 mt-4">
+                        <span class="font-semibold text-slate-800">Total</span>
+                        <span id="checkoutTotal" class="font-bold text-xl text-violet-600">$0.00</span>
+                    </div>
+                    <button class="checkout-next w-full mt-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition text-sm" data-next="2">Continue to Shipping</button>
+                </div>
+
+                <!-- Step 2: Shipping -->
+                <div class="checkout-step hidden-step" data-step="2">
+                    <h4 class="text-lg font-bold text-slate-800">Shipping Information</h4>
+                    <p class="text-sm text-slate-400 mb-4">Where should we deliver?</p>
+                    <form id="shippingForm" class="space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 block mb-1">First name</label>
+                                <input type="text" id="shipFirstName" placeholder="Jane" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 block mb-1">Last name</label>
+                                <input type="text" id="shipLastName" placeholder="Doe" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-slate-600 block mb-1">Street address</label>
+                            <input type="text" id="shipAddress" placeholder="123 Main St" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 block mb-1">City</label>
+                                <input type="text" id="shipCity" placeholder="New York" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-600 block mb-1">ZIP code</label>
+                                <input type="text" id="shipZip" placeholder="10001" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-slate-600 block mb-1">Country</label>
+                            <select id="shipCountry" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm bg-white">
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="AU">Australia</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="flex gap-3 mt-4">
+                        <button class="checkout-back flex-1 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium transition text-sm" data-prev="1">Back</button>
+                        <button class="checkout-next flex-1 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition text-sm" data-next="3">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment -->
+                <div class="checkout-step hidden-step" data-step="3">
+                    <h4 class="text-lg font-bold text-slate-800">Payment Method</h4>
+                    <p class="text-sm text-slate-400 mb-4">Secure payment powered by ShopVerse.</p>
+                    <form id="paymentForm" class="space-y-3">
+                        <div>
+                            <label class="text-xs font-medium text-slate-600 block mb-1">Card number</label>
+                            <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                        </div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="col-span-1">
+                                <label class="text-xs font-medium text-slate-600 block mb-1">MM/YY</label>
+                                <input type="text" id="cardExpiry" placeholder="12/26" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            </div>
+                            <div class="col-span-1">
+                                <label class="text-xs font-medium text-slate-600 block mb-1">CVC</label>
+                                <input type="text" id="cardCvc" placeholder="123" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            </div>
+                            <div class="col-span-1">
+                                <label class="text-xs font-medium text-slate-600 block mb-1">ZIP</label>
+                                <input type="text" id="cardZip" placeholder="10001" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-500">
+                            <i class="fas fa-lock text-xs text-violet-500"></i>
+                            <span>Your payment is secure and encrypted.</span>
+                        </div>
+                    </form>
+                    <div class="flex gap-3 mt-4">
+                        <button class="checkout-back flex-1 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium transition text-sm" data-prev="2">Back</button>
+                        <button id="placeOrderBtn" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition text-sm shadow-lg shadow-emerald-500/25">
+                            <i class="fas fa-check mr-2"></i> Place Order
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="checkout-step hidden-step" data-step="4">
+                    <div class="text-center py-8">
+                        <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-3xl text-emerald-600"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-slate-800">Order Confirmed!</h4>
+                        <p class="text-slate-500 mt-2">Thank you, <span id="confirmationName" class="font-semibold text-slate-700">Jane</span>!</p>
+                        <p class="text-sm text-slate-400 mt-1">We've sent a confirmation to your email.</p>
+                        <div class="bg-slate-50 rounded-xl p-4 mt-6 text-left text-sm">
+                            <p class="text-slate-500">Order #<span id="orderNumber" class="font-mono font-semibold text-slate-700">#VS-2024-001</span></p>
+                            <p class="text-slate-500 mt-1">Total: <span id="orderTotal" class="font-bold text-violet-600">$0.00</span></p>
+                            <p class="text-slate-400 text-xs mt-2">Estimated delivery: 3-5 business days</p>
+                        </div>
+                        <button id="continueShoppingCheckout" class="mt-6 px-6 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition text-sm shadow-lg shadow-violet-500/25">
+                            <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PRODUCT DETAIL MODAL ==================== -->
+        <div id="productModal" class="modal-overlay closed fixed inset-0 z-[95] flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="productModalBackdrop"></div>
+            <div class="modal-box bg-white rounded-2xl w-full max-w-3xl p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
+                <button id="productModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400 z-10">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Image -->
+                    <div class="bg-slate-100 rounded-2xl overflow-hidden aspect-square flex items-center justify-center">
+                        <img id="productModalImage" src="" alt="Product" class="w-full h-full object-cover" />
+                    </div>
+                    <!-- Details -->
+                    <div class="flex flex-col">
+                        <div class="flex items-start justify-between">
+                            <h4 id="productModalName" class="text-2xl font-bold text-slate-800">Product Name</h4>
+                            <span id="productModalPrice" class="text-xl font-bold text-violet-600">$0.00</span>
+                        </div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span id="productModalRating" class="text-amber-500 text-sm">★★★★★</span>
+                            <span id="productModalRatingValue" class="text-xs text-slate-400">(0.0)</span>
+                            <span class="text-xs text-slate-300 mx-1">|</span>
+                            <span id="productModalCategory" class="text-xs bg-slate-200 px-2 py-0.5 rounded-full text-slate-600">category</span>
+                        </div>
+                        <p id="productModalDescription" class="text-sm text-slate-600 mt-4 leading-relaxed">
+                            Description goes here.
+                        </p>
+
+                        <!-- Quantity selector -->
+                        <div class="flex items-center gap-4 mt-6">
+                            <span class="text-sm font-medium text-slate-600">Qty:</span>
+                            <div class="flex items-center gap-2">
+                                <button class="modal-qty-btn" id="productModalQtyDec">−</button>
+                                <span id="productModalQty" class="w-10 text-center font-bold text-lg">1</span>
+                                <button class="modal-qty-btn" id="productModalQtyInc">+</button>
+                            </div>
+                        </div>
+
+                        <button id="productModalAddBtn" class="mt-6 w-full py-3 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition shadow-lg shadow-violet-500/25 text-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TOAST CONTAINER ==================== -->
+        <div class="toast-container" id="toastContainer"></div>
+
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- JAVASCRIPT — Full E‑Commerce Logic                             -->
+    <!-- ============================================================= -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ─── PRODUCT DATA ──────────────────────────────────────────
+            const PRODUCTS = [{
+                id: 1,
+                name: 'Wireless Noise-Canceling Headphones',
+                price: 249.99,
+                category: 'electronics',
+                image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.8,
+                description: 'Premium sound with active noise cancellation. Enjoy immersive audio with long battery life and supreme comfort.'
+            }, {
+                id: 2,
+                name: 'Smart Fitness Tracker Watch',
+                price: 189.00,
+                category: 'electronics',
+                image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.6,
+                description: 'Track your health and stay connected with heart rate monitor, GPS, and sleep tracking. Water-resistant and stylish.'
+            }, {
+                id: 3,
+                name: 'Organic Cotton T-Shirt',
+                price: 39.99,
+                category: 'clothing',
+                image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.3,
+                description: 'Soft, sustainable, and stylish. Made from 100% organic cotton, perfect for everyday wear.'
+            }, {
+                id: 4,
+                name: 'Classic Denim Jeans',
+                price: 79.99,
+                category: 'clothing',
+                image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.5,
+                description: 'Timeless denim with a perfect fit. Durable and comfortable, available in various sizes.'
+            }, {
+                id: 5,
+                name: 'Modern Desk Lamp',
+                price: 59.99,
+                category: 'home',
+                image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.7,
+                description: 'Minimalist design with warm LED light. Adjustable brightness and angle for your workspace.'
+            }, {
+                id: 6,
+                name: 'Ceramic Coffee Mug Set',
+                price: 34.99,
+                category: 'home',
+                image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.4,
+                description: 'Handcrafted set of 4 mugs. Microwave and dishwasher safe, perfect for your morning brew.'
+            }, {
+                id: 7,
+                name: 'Vitamin C Brightening Serum',
+                price: 54.99,
+                category: 'beauty',
+                image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.9,
+                description: 'Glow-boosting serum for radiant skin. Reduces dark spots and fine lines with natural ingredients.'
+            }, {
+                id: 8,
+                name: 'Eco-Friendly Bamboo Toothbrush',
+                price: 14.99,
+                category: 'beauty',
+                image: 'https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.2,
+                description: 'Sustainable oral care. Biodegradable bamboo handle with soft charcoal bristles.'
+            }, {
+                id: 9,
+                name: 'Portable Bluetooth Speaker',
+                price: 99.99,
+                category: 'electronics',
+                image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.6,
+                description: 'Big sound, small size. Waterproof and dustproof, perfect for outdoor adventures.'
+            }, {
+                id: 10,
+                name: 'Leather Crossbody Bag',
+                price: 129.99,
+                category: 'clothing',
+                image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.7,
+                description: 'Genuine leather, everyday essential. Compact yet spacious, with adjustable strap.'
+            }, {
+                id: 11,
+                name: 'Indoor Plant Set (3 Pots)',
+                price: 44.99,
+                category: 'home',
+                image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.5,
+                description: 'Greenery for your living space. Low-maintenance plants that purify air and lift mood.'
+            }, {
+                id: 12,
+                name: 'Hydrating Face Mask',
+                price: 24.99,
+                category: 'beauty',
+                image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop&crop=center&auto=format',
+                rating: 4.3,
+                description: 'Deep hydration for glowing skin. Infused with hyaluronic acid and natural extracts.'
+            }];
+
+            // ─── STATE ──────────────────────────────────────────────────
+            const state = {
+                cart: [],
+                user: null,
+                currentCategory: 'all',
+                searchQuery: '',
+                isAuthenticated: false,
+                checkoutStep: 1,
+                shippingInfo: null,
+                orderNumber: null,
+                // For product modal
+                productModalQty: 1,
+            };
+
+            // ─── DOM REFS ──────────────────────────────────────────────
+            const $ = (sel) => document.querySelector(sel);
+            const $$ = (sel) => document.querySelectorAll(sel);
+
+            const el = {
+                productGrid: $('#productGrid'),
+                productCount: $('#productCount'),
+                cartToggle: $('#cartToggle'),
+                cartDrawer: $('#cartDrawer'),
+                cartBackdrop: $('#cartBackdrop'),
+                cartClose: $('#cartClose'),
+                cartItems: $('#cartItems'),
+                emptyCart: $('#emptyCart'),
+                cartBadge: $('#cartBadge'),
+                cartItemCount: $('#cartItemCount'),
+                cartSubtotal: $('#cartSubtotal'),
+                checkoutBtn: $('#checkoutBtn'),
+                continueShoppingBtn: $('#continueShoppingBtn'),
+
+                authBtn: $('#authBtn'),
+                authModal: $('#authModal'),
+                authModalClose: $('#authModalClose'),
+                authModalBackdrop: $('#authModalBackdrop'),
+                authTabs: $$('.auth-tab'),
+                loginForm: $('#loginForm'),
+                registerForm: $('#registerForm'),
+                loginEmail: $('#loginEmail'),
+                loginPassword: $('#loginPassword'),
+                registerName: $('#registerName'),
+                registerEmail: $('#registerEmail'),
+                registerPassword: $('#registerPassword'),
+                authSection: $('#authSection'),
+
+                checkoutModal: $('#checkoutModal'),
+                checkoutModalClose: $('#checkoutModalClose'),
+                checkoutModalBackdrop: $('#checkoutModalBackdrop'),
+                checkoutCartItems: $('#checkoutCartItems'),
+                checkoutTotal: $('#checkoutTotal'),
+                checkoutNext: $$('.checkout-next'),
+                checkoutBack: $$('.checkout-back'),
+                checkoutSteps: $$('.checkout-step'),
+                stepDots: $$('.step-dot'),
+                stepLines: $$('.step-line'),
+                shippingForm: $('#shippingForm'),
+                shipFirstName: $('#shipFirstName'),
+                shipLastName: $('#shipLastName'),
+                shipAddress: $('#shipAddress'),
+                shipCity: $('#shipCity'),
+                shipZip: $('#shipZip'),
+                shipCountry: $('#shipCountry'),
+                cardNumber: $('#cardNumber'),
+                cardExpiry: $('#cardExpiry'),
+                cardCvc: $('#cardCvc'),
+                cardZip: $('#cardZip'),
+                placeOrderBtn: $('#placeOrderBtn'),
+                confirmationName: $('#confirmationName'),
+                orderNumber: $('#orderNumber'),
+                orderTotal: $('#orderTotal'),
+                continueShoppingCheckout: $('#continueShoppingCheckout'),
+
+                categoryBtns: $$('.category-btn'),
+                searchInput: $('#searchInput'),
+                mobileSearchInput: $('#mobileSearchInput'),
+                mobileSearchToggle: $('#mobileSearchToggle'),
+                mobileSearch: $('#mobileSearch'),
+
+                toastContainer: $('#toastContainer'),
+                logoLink: $('#logoLink'),
+
+                // Product modal
+                productModal: $('#productModal'),
+                productModalBackdrop: $('#productModalBackdrop'),
+                productModalClose: $('#productModalClose'),
+                productModalImage: $('#productModalImage'),
+                productModalName: $('#productModalName'),
+                productModalPrice: $('#productModalPrice'),
+                productModalRating: $('#productModalRating'),
+                productModalRatingValue: $('#productModalRatingValue'),
+                productModalCategory: $('#productModalCategory'),
+                productModalDescription: $('#productModalDescription'),
+                productModalQty: $('#productModalQty'),
+                productModalQtyDec: $('#productModalQtyDec'),
+                productModalQtyInc: $('#productModalQtyInc'),
+                productModalAddBtn: $('#productModalAddBtn'),
+                productModalCurrentId: null,
+            };
+
+            // ─── UTILITY ──────────────────────────────────────────────
+            function formatCurrency(amount) {
+                return '$' + amount.toFixed(2);
+            }
+
+            function generateOrderNumber() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let result = '#VS-';
+                for (let i = 0; i < 6; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return result;
+            }
+
+            function getProduct(id) {
+                return PRODUCTS.find(p => p.id === id);
+            }
+
+            function getCartTotal() {
+                return state.cart.reduce((sum, item) => {
+                    const p = getProduct(item.productId);
+                    return sum + (p ? p.price * item.quantity : 0);
+                }, 0);
+            }
+
+            function getCartItemCount() {
+                return state.cart.reduce((sum, item) => sum + item.quantity, 0);
+            }
+
+            // ─── TOAST SYSTEM ──────────────────────────────────────────
+            function showToast(message, type = 'info', duration = 3500) {
+                const container = el.toastContainer;
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    info: 'fa-info-circle'
+                };
+                toast.innerHTML = `
+                    <i class="fas ${icons[type] || icons.info} text-lg"></i>
+                    <span>${message}</span>
+                `;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('toast-out');
+                    setTimeout(() => toast.remove(), 350);
+                }, duration);
+            }
+
+            // ─── CART OPERATIONS ──────────────────────────────────────
+            function addToCart(productId, quantity = 1) {
+                const existing = state.cart.find(item => item.productId === productId);
+                if (existing) {
+                    existing.quantity += quantity;
+                } else {
+                    state.cart.push({ productId, quantity });
+                }
+                saveCart();
+                renderCart();
+                updateCartBadge();
+                showToast('Added to cart!', 'success');
+            }
+
+            function removeFromCart(productId) {
+                state.cart = state.cart.filter(item => item.productId !== productId);
+                saveCart();
+                renderCart();
+                updateCartBadge();
+            }
+
+            function updateQuantity(productId, delta) {
+                const item = state.cart.find(i => i.productId === productId);
+                if (!item) return;
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                    return;
+                }
+                saveCart();
+                renderCart();
+                updateCartBadge();
+            }
+
+            function clearCart() {
+                state.cart = [];
+                saveCart();
+                renderCart();
+                updateCartBadge();
+            }
+
+            function saveCart() {
+                localStorage.setItem('shopverse_cart', JSON.stringify(state.cart));
+            }
+
+            function loadCart() {
+                const data = localStorage.getItem('shopverse_cart');
+                if (data) {
+                    try {
+                        state.cart = JSON.parse(data);
+                    } catch (_) { state.cart = []; }
+                }
+                state.cart = state.cart.filter(item => getProduct(item.productId));
+            }
+
+            function updateCartBadge() {
+                const count = getCartItemCount();
+                el.cartBadge.textContent = count;
+                el.cartBadge.style.display = count > 0 ? 'flex' : 'none';
+                el.cartItemCount.textContent = `(${count})`;
+                el.checkoutBtn.disabled = count === 0;
+            }
+
+            // ─── RENDER CART ──────────────────────────────────────────
+            function renderCart() {
+                const container = el.cartItems;
+                const empty = el.emptyCart;
+                const items = state.cart;
+
+                container.querySelectorAll('.cart-item').forEach(el => el.remove());
+
+                if (items.length === 0) {
+                    empty.style.display = 'block';
+                    el.cartSubtotal.textContent = '$0.00';
+                    updateCartBadge();
+                    return;
+                }
+                empty.style.display = 'none';
+
+                let subtotal = 0;
+                items.forEach(item => {
+                    const p = getProduct(item.productId);
+                    if (!p) return;
+                    const total = p.price * item.quantity;
+                    subtotal += total;
+
+                    const div = document.createElement('div');
+                    div.className = 'cart-item cart-item-enter flex items-center gap-3 p-2 rounded-xl bg-slate-50 border border-slate-100';
+                    div.innerHTML = `
+                        <img src="${p.image}" alt="${p.name}" class="w-14 h-14 rounded-lg object-cover flex-shrink-0" />
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-slate-800 truncate">${p.name}</p>
+                            <p class="text-xs text-slate-400">${formatCurrency(p.price)}</p>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button class="qty-btn qty-dec" data-id="${p.id}">−</button>
+                            <span class="w-7 text-center text-sm font-semibold">${item.quantity}</span>
+                            <button class="qty-btn qty-inc" data-id="${p.id}">+</button>
+                        </div>
+                        <button class="text-slate-300 hover:text-rose-500 transition text-sm p-1 cart-remove" data-id="${p.id}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    `;
+                    container.appendChild(div);
+
+                    div.querySelector('.qty-inc').addEventListener('click', () => updateQuantity(p.id, 1));
+                    div.querySelector('.qty-dec').addEventListener('click', () => updateQuantity(p.id, -1));
+                    div.querySelector('.cart-remove').addEventListener('click', () => removeFromCart(p.id));
+                });
+
+                el.cartSubtotal.textContent = formatCurrency(subtotal);
+                updateCartBadge();
+            }
+
+            // ─── RENDER PRODUCTS ──────────────────────────────────────
+            function renderProducts() {
+                const grid = el.productGrid;
+                const query = state.searchQuery.toLowerCase().trim();
+                let filtered = PRODUCTS;
+
+                if (state.currentCategory !== 'all') {
+                    filtered = filtered.filter(p => p.category === state.currentCategory);
+                }
+                if (query) {
+                    filtered = filtered.filter(p =>
+                        p.name.toLowerCase().includes(query) ||
+                        p.category.toLowerCase().includes(query) ||
+                        p.description.toLowerCase().includes(query)
+                    );
+                }
+
+                el.productCount.textContent = filtered.length + ' items';
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-12 text-slate-400">
+                            <i class="fas fa-search text-4xl block mb-3 text-slate-300"></i>
+                            <p class="text-sm">No products found matching your search.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = filtered.map(p => `
+                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/60 hover:shadow-xl transition fade-enter" data-id="${p.id}">
+                        <div class="aspect-square overflow-hidden bg-slate-100">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://picsum.photos/seed/${p.id}/400/400'"/>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div class="flex items-start justify-between">
+                                <h4 class="text-sm font-semibold text-slate-800 line-clamp-1">${p.name}</h4>
+                                <span class="text-xs font-bold text-violet-600">${formatCurrency(p.price)}</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-xs text-amber-500">
+                                ${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 >= 0.5 ? '★' : ''}
+                                <span class="text-slate-400 ml-1">(${p.rating})</span>
+                            </div>
+                            <button class="add-btn w-full py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold transition shadow-sm shadow-violet-500/20" data-id="${p.id}">
+                                <i class="fas fa-plus mr-1.5"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Attach add-to-cart events
+                grid.querySelectorAll('.add-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // prevent opening modal
+                        const id = parseInt(btn.dataset.id);
+                        addToCart(id);
+                    });
+                });
+
+                // Attach click on card (except button) to open product modal
+                grid.querySelectorAll('.product-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        // if click is on the add button, already handled
+                        if (e.target.closest('.add-btn')) return;
+                        const id = parseInt(card.dataset.id);
+                        openProductModal(id);
+                    });
+                });
+            }
+
+            // ─── PRODUCT MODAL ─────────────────────────────────────────
+            function openProductModal(productId) {
+                const product = getProduct(productId);
+                if (!product) return;
+                el.productModalCurrentId = productId;
+                // Populate fields
+                el.productModalImage.src = product.image;
+                el.productModalImage.alt = product.name;
+                el.productModalName.textContent = product.name;
+                el.productModalPrice.textContent = formatCurrency(product.price);
+                // Rating: full stars
+                const fullStars = Math.floor(product.rating);
+                const hasHalf = product.rating % 1 >= 0.5;
+                let stars = '★'.repeat(fullStars);
+                if (hasHalf) stars += '★';
+                stars += '☆'.repeat(5 - Math.ceil(product.rating));
+                el.productModalRating.textContent = stars;
+                el.productModalRatingValue.textContent = `(${product.rating.toFixed(1)})`;
+                el.productModalCategory.textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+                el.productModalDescription.textContent = product.description;
+                // Reset quantity
+                state.productModalQty = 1;
+                el.productModalQty.textContent = '1';
+                // Show modal
+                el.productModal.classList.remove('closed');
+                el.productModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeProductModal() {
+                el.productModal.classList.remove('open');
+                el.productModal.classList.add('closed');
+                document.body.style.overflow = '';
+                el.productModalCurrentId = null;
+            }
+
+            function updateProductModalQty(delta) {
+                let qty = parseInt(el.productModalQty.textContent) + delta;
+                if (qty < 1) qty = 1;
+                state.productModalQty = qty;
+                el.productModalQty.textContent = qty;
+            }
+
+            function addFromProductModal() {
+                const id = el.productModalCurrentId;
+                if (!id) return;
+                const qty = parseInt(el.productModalQty.textContent);
+                addToCart(id, qty);
+                // Optionally close modal
+                closeProductModal();
+            }
+
+            // ─── AUTH ──────────────────────────────────────────────────
+            function loadUser() {
+                const data = localStorage.getItem('shopverse_user');
+                if (data) {
+                    try {
+                        state.user = JSON.parse(data);
+                        state.isAuthenticated = true;
+                        updateAuthUI();
+                    } catch (_) { state.user = null; }
+                }
+            }
+
+            function saveUser() {
+                if (state.user) {
+                    localStorage.setItem('shopverse_user', JSON.stringify(state.user));
+                } else {
+                    localStorage.removeItem('shopverse_user');
+                }
+            }
+
+            function updateAuthUI() {
+                const section = el.authSection;
+                if (state.isAuthenticated && state.user) {
+                    section.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-700 font-bold text-sm">
+                                ${state.user.name.charAt(0).toUpperCase()}
+                            </div>
+                            <span class="text-sm font-medium text-slate-700 hidden sm:inline">${state.user.name}</span>
+                            <button id="logoutBtn" class="text-xs text-slate-400 hover:text-rose-500 transition ml-1">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                    const logoutBtn = section.querySelector('#logoutBtn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', logout);
+                    }
+                } else {
+                    section.innerHTML = `
+                        <button id="authBtn" class="flex items-center gap-2 px-4 py-2 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold transition shadow-sm shadow-violet-500/20">
+                            <i class="fas fa-user text-xs"></i>
+                            <span class="hidden sm:inline">Sign In</span>
+                        </button>
+                    `;
+                    const newAuthBtn = section.querySelector('#authBtn');
+                    if (newAuthBtn) {
+                        newAuthBtn.addEventListener('click', openAuthModal);
+                    }
+                }
+            }
+
+            function login(email, password) {
+                if (password === '123456') {
+                    const name = email.split('@')[0] || 'User';
+                    state.user = { name, email };
+                    state.isAuthenticated = true;
+                    saveUser();
+                    updateAuthUI();
+                    closeAuthModal();
+                    showToast(`Welcome back, ${name}!`, 'success');
+                    return true;
+                } else {
+                    showToast('Invalid password. Use "123456" for demo.', 'error');
+                    return false;
+                }
+            }
+
+            function register(name, email, password) {
+                if (password.length < 6) {
+                    showToast('Password must be at least 6 characters.', 'error');
+                    return false;
+                }
+                state.user = { name, email };
+                state.isAuthenticated = true;
+                saveUser();
+                updateAuthUI();
+                closeAuthModal();
+                showToast(`Account created! Welcome, ${name}!`, 'success');
+                return true;
+            }
+
+            function logout() {
+                state.user = null;
+                state.isAuthenticated = false;
+                saveUser();
+                updateAuthUI();
+                showToast('Signed out.', 'info');
+                closeAuthModal();
+                closeCheckoutModal();
+                closeProductModal();
+            }
+
+            // ─── AUTH MODAL ────────────────────────────────────────────
+            function openAuthModal() {
+                el.authModal.classList.remove('closed');
+                el.authModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                switchAuthTab('login');
+            }
+
+            function closeAuthModal() {
+                el.authModal.classList.remove('open');
+                el.authModal.classList.add('closed');
+                document.body.style.overflow = '';
+            }
+
+            function switchAuthTab(tab) {
+                const tabs = el.authTabs;
+                const loginForm = el.loginForm;
+                const registerForm = el.registerForm;
+
+                tabs.forEach(t => {
+                    t.classList.remove('bg-violet-600', 'text-white');
+                    t.classList.add('text-slate-600');
+                });
+                const active = tab === 'login' ? tabs[0] : tabs[1];
+                active.classList.add('bg-violet-600', 'text-white');
+                active.classList.remove('text-slate-600');
+
+                if (tab === 'login') {
+                    loginForm.classList.remove('hidden');
+                    registerForm.classList.add('hidden');
+                } else {
+                    loginForm.classList.add('hidden');
+                    registerForm.classList.remove('hidden');
+                }
+            }
+
+            // ─── CHECKOUT MODAL ────────────────────────────────────────
+            function openCheckoutModal() {
+                if (getCartItemCount() === 0) {
+                    showToast('Your cart is empty.', 'error');
+                    return;
+                }
+                el.checkoutModal.classList.remove('closed');
+                el.checkoutModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                state.checkoutStep = 1;
+                renderCheckoutStep(1);
+                renderCheckoutCartItems();
+                if (state.user) {
+                    const nameParts = state.user.name.split(' ');
+                    el.shipFirstName.value = nameParts[0] || '';
+                    el.shipLastName.value = nameParts.slice(1).join(' ') || '';
+                }
+            }
+
+            function closeCheckoutModal() {
+                el.checkoutModal.classList.remove('open');
+                el.checkoutModal.classList.add('closed');
+                document.body.style.overflow = '';
+            }
+
+            function renderCheckoutStep(step) {
+                state.checkoutStep = step;
+                el.checkoutSteps.forEach(s => {
+                    const sNum = parseInt(s.dataset.step);
+                    if (sNum === step) {
+                        s.classList.remove('hidden-step');
+                        s.classList.add('visible-step');
+                    } else {
+                        s.classList.remove('visible-step');
+                        s.classList.add('hidden-step');
+                    }
+                });
+                el.stepDots.forEach(d => {
+                    const sNum = parseInt(d.dataset.step);
+                    d.classList.remove('active', 'completed');
+                    if (sNum === step) d.classList.add('active');
+                    else if (sNum < step) d.classList.add('completed');
+                });
+                el.stepLines.forEach(l => {
+                    const sNum = parseInt(l.dataset.step);
+                    l.classList.toggle('completed', sNum < step);
+                });
+            }
+
+            function renderCheckoutCartItems() {
+                const container = el.checkoutCartItems;
+                const items = state.cart;
+                if (items.length === 0) {
+                    container.innerHTML = '<p class="text-sm text-slate-400">Your cart is empty.</p>';
+                    el.checkoutTotal.textContent = '$0.00';
+                    return;
+                }
+                let html = '';
+                let total = 0;
+                items.forEach(item => {
+                    const p = getProduct(item.productId);
+                    if (!p) return;
+                    const itemTotal = p.price * item.quantity;
+                    total += itemTotal;
+                    html += `
+                        <div class="flex items-center gap-3 py-2 border-b border-slate-100 last:border-0">
+                            <img src="${p.image}" alt="${p.name}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-800 truncate">${p.name}</p>
+                                <p class="text-xs text-slate-400">Qty: ${item.quantity}</p>
+                            </div>
+                            <span class="text-sm font-bold text-slate-700">${formatCurrency(itemTotal)}</span>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+                el.checkoutTotal.textContent = formatCurrency(total);
+                el.orderTotal.textContent = formatCurrency(total);
+            }
+
+            function placeOrder() {
+                const shipping = {
+                    firstName: el.shipFirstName.value.trim(),
+                    lastName: el.shipLastName.value.trim(),
+                    address: el.shipAddress.value.trim(),
+                    city: el.shipCity.value.trim(),
+                    zip: el.shipZip.value.trim(),
+                    country: el.shipCountry.value,
+                };
+                if (!shipping.firstName || !shipping.lastName || !shipping.address || !shipping.city || !shipping.zip) {
+                    showToast('Please fill in all shipping fields.', 'error');
+                    return;
+                }
+                const cardNum = el.cardNumber.value.replace(/\s/g, '');
+                if (cardNum.length < 12) {
+                    showToast('Please enter a valid card number.', 'error');
+                    return;
+                }
+                if (!el.cardExpiry.value.includes('/') || el.cardExpiry.value.length < 5) {
+                    showToast('Please enter a valid expiry date (MM/YY).', 'error');
+                    return;
+                }
+                if (el.cardCvc.value.length < 3) {
+                    showToast('Please enter a valid CVC.', 'error');
+                    return;
+                }
+
+                const orderNum = generateOrderNumber();
+                state.orderNumber = orderNum;
+                const total = getCartTotal();
+
+                el.orderNumber.textContent = orderNum;
+                el.orderTotal.textContent = formatCurrency(total);
+                el.confirmationName.textContent = shipping.firstName;
+
+                renderCheckoutStep(4);
+                showToast('Order placed successfully! 🎉', 'success', 5000);
+
+                clearCart();
+                closeCartDrawer();
+                const orderData = {
+                    orderNumber: orderNum,
+                    items: [...state.cart],
+                    total: total,
+                    shipping: shipping,
+                    date: new Date().toISOString(),
+                    user: state.user ? state.user.email : 'guest',
+                };
+                const orders = JSON.parse(localStorage.getItem('shopverse_orders') || '[]');
+                orders.unshift(orderData);
+                localStorage.setItem('shopverse_orders', JSON.stringify(orders));
+
+                state.cart = [];
+                saveCart();
+                renderCart();
+                updateCartBadge();
+            }
+
+            // ─── CART DRAWER ───────────────────────────────────────────
+            function openCartDrawer() {
+                el.cartDrawer.classList.remove('closed');
+                el.cartDrawer.classList.add('open');
+                el.cartBackdrop.classList.remove('closed');
+                el.cartBackdrop.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                renderCart();
+            }
+
+            function closeCartDrawer() {
+                el.cartDrawer.classList.remove('open');
+                el.cartDrawer.classList.add('closed');
+                el.cartBackdrop.classList.remove('open');
+                el.cartBackdrop.classList.add('closed');
+                document.body.style.overflow = '';
+            }
+
+            function toggleCartDrawer() {
+                if (el.cartDrawer.classList.contains('open')) {
+                    closeCartDrawer();
+                } else {
+                    openCartDrawer();
+                }
+            }
+
+            // ─── SEARCH & CATEGORY ────────────────────────────────────
+            function handleSearch(query) {
+                state.searchQuery = query;
+                renderProducts();
+            }
+
+            function setCategory(category) {
+                state.currentCategory = category;
+                el.categoryBtns.forEach(btn => {
+                    btn.classList.remove('bg-violet-600', 'text-white');
+                    btn.classList.add('bg-slate-200', 'text-slate-700');
+                    if (btn.dataset.category === category) {
+                        btn.classList.remove('bg-slate-200', 'text-slate-700');
+                        btn.classList.add('bg-violet-600', 'text-white');
+                    }
+                });
+                renderProducts();
+            }
+
+            // ─── INIT ──────────────────────────────────────────────────
+            function init() {
+                loadCart();
+                loadUser();
+
+                renderProducts();
+                renderCart();
+                updateCartBadge();
+                updateAuthUI();
+
+                // ─── Event Listeners ──────────────────────────────────
+
+                // Cart toggle
+                el.cartToggle.addEventListener('click', toggleCartDrawer);
+                el.cartClose.addEventListener('click', closeCartDrawer);
+                el.cartBackdrop.addEventListener('click', closeCartDrawer);
+                el.continueShoppingBtn.addEventListener('click', closeCartDrawer);
+
+                // Auth
+                const initialAuthBtn = document.querySelector('#authBtn');
+                if (initialAuthBtn) {
+                    initialAuthBtn.addEventListener('click', openAuthModal);
+                }
+                el.authModalClose.addEventListener('click', closeAuthModal);
+                el.authModalBackdrop.addEventListener('click', closeAuthModal);
+
+                el.authTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        switchAuthTab(tab.dataset.tab);
+                    });
+                });
+
+                el.loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = el.loginEmail.value.trim();
+                    const password = el.loginPassword.value.trim();
+                    if (email && password) {
+                        login(email, password);
+                    } else {
+                        showToast('Please fill in all fields.', 'error');
+                    }
+                });
+
+                el.registerForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = el.registerName.value.trim();
+                    const email = el.registerEmail.value.trim();
+                    const password = el.registerPassword.value.trim();
+                    if (name && email && password) {
+                        register(name, email, password);
+                    } else {
+                        showToast('Please fill in all fields.', 'error');
+                    }
+                });
+
+                // Checkout
+                el.checkoutBtn.addEventListener('click', () => {
+                    if (getCartItemCount() === 0) {
+                        showToast('Your cart is empty.', 'error');
+                        return;
+                    }
+                    if (!state.isAuthenticated) {
+                        closeCartDrawer();
+                        openAuthModal();
+                        showToast('Please sign in to checkout.', 'info');
+                        return;
+                    }
+                    closeCartDrawer();
+                    setTimeout(openCheckoutModal, 300);
+                });
+
+                el.checkoutModalClose.addEventListener('click', closeCheckoutModal);
+                el.checkoutModalBackdrop.addEventListener('click', closeCheckoutModal);
+
+                el.checkoutNext.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const next = parseInt(btn.dataset.next);
+                        if (next === 3) {
+                            const firstName = el.shipFirstName.value.trim();
+                            const lastName = el.shipLastName.value.trim();
+                            const address = el.shipAddress.value.trim();
+                            const city = el.shipCity.value.trim();
+                            const zip = el.shipZip.value.trim();
+                            if (!firstName || !lastName || !address || !city || !zip) {
+                                showToast('Please fill in all shipping fields.', 'error');
+                                return;
+                            }
+                        }
+                        renderCheckoutStep(next);
+                        if (next === 2) {
+                            renderCheckoutCartItems();
+                        }
+                    });
+                });
+
+                el.checkoutBack.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const prev = parseInt(btn.dataset.prev);
+                        renderCheckoutStep(prev);
+                    });
+                });
+
+                el.placeOrderBtn.addEventListener('click', placeOrder);
+
+                el.continueShoppingCheckout.addEventListener('click', () => {
+                    closeCheckoutModal();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+
+                // Category filters
+                el.categoryBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        setCategory(btn.dataset.category);
+                    });
+                });
+
+                // Search
+                el.searchInput.addEventListener('input', (e) => {
+                    handleSearch(e.target.value);
+                });
+                el.mobileSearchInput.addEventListener('input', (e) => {
+                    handleSearch(e.target.value);
+                    el.searchInput.value = e.target.value;
+                });
+
+                el.mobileSearchToggle.addEventListener('click', () => {
+                    el.mobileSearch.classList.toggle('hidden');
+                    if (!el.mobileSearch.classList.contains('hidden')) {
+                        el.mobileSearchInput.focus();
+                    }
+                });
+
+                el.logoLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setCategory('all');
+                    el.searchInput.value = '';
+                    el.mobileSearchInput.value = '';
+                    state.searchQuery = '';
+                    renderProducts();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+
+                // Product modal
+                el.productModalClose.addEventListener('click', closeProductModal);
+                el.productModalBackdrop.addEventListener('click', closeProductModal);
+                el.productModalQtyDec.addEventListener('click', () => updateProductModalQty(-1));
+                el.productModalQtyInc.addEventListener('click', () => updateProductModalQty(1));
+                el.productModalAddBtn.addEventListener('click', addFromProductModal);
+
+                // Keyboard: Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        if (el.productModal.classList.contains('open')) {
+                            closeProductModal();
+                        } else if (el.checkoutModal.classList.contains('open')) {
+                            closeCheckoutModal();
+                        } else if (el.authModal.classList.contains('open')) {
+                            closeAuthModal();
+                        } else if (el.cartDrawer.classList.contains('open')) {
+                            closeCartDrawer();
+                        }
+                    }
+                });
+
+                console.log('🛍️ ShopVerse initialized');
+                console.log('👤 Demo login: any email + password "123456"');
+                console.log('🛒 Click any product card to view details');
+            }
+
+            // Run
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            window.__shopverse = {
+                state,
+                products: PRODUCTS,
+                addToCart,
+                removeFromCart,
+                clearCart,
+                login,
+                logout,
+                openAuthModal,
+                closeAuthModal,
+                openCheckoutModal,
+                closeCheckoutModal,
+                openProductModal,
+                closeProductModal,
+                renderProducts,
+                renderCart,
+            };
+
+        })();
+    </script>
+
+</body>
+</html> 
