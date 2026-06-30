@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real‑Time Dashboard (Frontend Only)</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <style>
+        /* Custom scrollbar & smooth transitions */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #4f46e5 transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+            border-radius: 10px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #f1f5f9;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
+        }
+
+        .pulse-dot {
+            animation: pulse-dot 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.85);
+            }
+        }
+
+        .chart-container canvas {
+            max-height: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Dark mode overrides */
+        .dark body {
+            background: #0f172a;
+        }
+        .dark .bg-white {
+            background: #1e293b !important;
+        }
+        .dark .text-gray-900 {
+            color: #f1f5f9 !important;
+        }
+        .dark .text-gray-600 {
+            color: #94a3b8 !important;
+        }
+        .dark .text-gray-500 {
+            color: #64748b !important;
+        }
+        .dark .text-gray-400 {
+            color: #475569 !important;
+        }
+        .dark .text-gray-700 {
+            color: #cbd5e1 !important;
+        }
+        .dark .border-gray-200 {
+            border-color: #334155 !important;
+        }
+        .dark .border-gray-100 {
+            border-color: #1e293b !important;
+        }
+        .dark .bg-gray-50 {
+            background: #0f172a !important;
+        }
+        .dark .bg-gray-100 {
+            background: #1e293b !important;
+        }
+        .dark .hover\:bg-gray-50:hover {
+            background: #1e293b !important;
+        }
+        .dark .hover\:bg-gray-100:hover {
+            background: #2d3a4f !important;
+        }
+        .dark .shadow-sm {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+        }
+        .dark .shadow-lg {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        }
+        .dark .divide-y> :not([hidden])~ :not([hidden]) {
+            border-color: #334155 !important;
+        }
+
+        /* Toggle switch */
+        .toggle-track {
+            width: 48px;
+            height: 26px;
+            border-radius: 999px;
+            background: #cbd5e1;
+            transition: background 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .toggle-track.dark {
+            background: #4f46e5;
+        }
+        .toggle-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        .toggle-track.dark .toggle-thumb {
+            transform: translateX(22px);
+        }
+
+        /* Notification toast */
+        .toast {
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 640px) {
+            .stat-card {
+                padding: 1rem !important;
+            }
+            .stat-card .stat-icon {
+                font-size: 1.25rem !important;
+                width: 40px !important;
+                height: 40px !important;
+            }
+            .stat-card .stat-value {
+                font-size: 1.25rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- APP ROOT -->
+    <!-- ============================================================ -->
+    <div id="app" class="min-h-screen transition-colors duration-300">
+
+        <!-- ==================== HEADER ==================== -->
+        <header class="glass-card sticky top-0 z-50 px-4 sm:px-6 py-3 flex items-center justify-between border-b border-gray-200/50">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
+                    <i class="fas fa-chart-line text-sm"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-900 tracking-tight">RealDash</h1>
+                    <p class="text-[11px] text-gray-500 font-medium -mt-0.5">Live Analytics (Frontend)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Live indicator -->
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/40">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-300">LIVE</span>
+                </div>
+
+                <!-- Dark mode toggle -->
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-sun text-xs text-gray-400 dark:text-gray-500"></i>
+                    <div id="themeToggle" class="toggle-track" role="button" tabindex="0" aria-label="Toggle dark mode">
+                        <div class="toggle-thumb"></div>
+                    </div>
+                    <i class="fas fa-moon text-xs text-gray-400 dark:text-gray-300"></i>
+                </div>
+
+                <!-- Notification bell -->
+                <div class="relative cursor-pointer group" id="notifBell">
+                    <div class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition">
+                        <i class="fas fa-bell text-sm"></i>
+                    </div>
+                    <span class="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-rose-500 text-[9px] font-bold text-white flex items-center justify-center shadow-sm">3</span>
+                </div>
+
+                <!-- Avatar -->
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold shadow-md ring-2 ring-white dark:ring-gray-700">
+                    JD
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+            <!-- ===== STATS ROW ===== -->
+            <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 fade-in">
+                <!-- Stat 1 -->
+                <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
+                    <div class="stat-icon w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xl flex-shrink-0">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Revenue</p>
+                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statRevenue">$48,295</p>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
+                            <i class="fas fa-arrow-up mr-0.5"></i> +12.5%
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
+                    <div class="stat-icon w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl flex-shrink-0">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Users</p>
+                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statUsers">2,847</p>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
+                            <i class="fas fa-arrow-up mr-0.5"></i> +8.3%
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
+                    <div class="stat-icon w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 text-xl flex-shrink-0">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Active Sessions</p>
+                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statSessions">1,203</p>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
+                            <i class="fas fa-arrow-up mr-0.5"></i> +5.7%
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stat 4 -->
+                <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
+                    <div class="stat-icon w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center text-rose-600 dark:text-rose-400 text-xl flex-shrink-0">
+                        <i class="fas fa-percent"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Conversion</p>
+                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statConversion">3.82%</p>
+                        <p class="text-xs text-rose-600 dark:text-rose-400 font-medium mt-0.5">
+                            <i class="fas fa-arrow-down mr-0.5"></i> -0.4%
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== CHARTS ROW ===== -->
+            <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 fade-in">
+                <!-- Main chart: Line -->
+                <div class="glass-card rounded-2xl p-5 lg:col-span-2">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Real-Time Traffic</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Live updates every 2 seconds</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 dark:text-gray-500">Last 30s</span>
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span>
+                        </div>
+                    </div>
+                    <div class="relative h-56 sm:h-64">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Side chart: Doughnut -->
+                <div class="glass-card rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Traffic Sources</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Real-time distribution</p>
+                        </div>
+                    </div>
+                    <div class="relative h-48 sm:h-52 flex items-center justify-center">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                    <!-- Legend inline -->
+                    <div class="flex flex-wrap justify-center gap-3 mt-3 text-xs">
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Direct</span>
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> Social</span>
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Organic</span>
+                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Referral</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== BOTTOM ROW: Bar chart + Activity Table ===== -->
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-4 fade-in">
+                <!-- Bar chart -->
+                <div class="glass-card rounded-2xl p-5 lg:col-span-3">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Weekly Activity</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Last 7 days</p>
+                        </div>
+                        <select class="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+                            <option>This Week</option>
+                            <option>Last Week</option>
+                            <option>This Month</option>
+                        </select>
+                    </div>
+                    <div class="relative h-48 sm:h-56">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Activity feed -->
+                <div class="glass-card rounded-2xl p-5 lg:col-span-2">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Live Activity</h3>
+                        <span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 rounded-full">REAL-TIME</span>
+                    </div>
+                    <div class="space-y-3 max-h-56 overflow-y-auto pr-1" id="activityFeed">
+                        <!-- Items injected by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== FOOTER ===== -->
+            <footer class="text-center text-xs text-gray-400 dark:text-gray-600 py-4 border-t border-gray-200/50 dark:border-gray-800/50 mt-2">
+                <span class="inline-flex items-center gap-2">
+                    <i class="fas fa-circle text-emerald-500 text-[6px] pulse-dot"></i>
+                    RealDash &bull; All data simulated in real-time (frontend only)
+                </span>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT — Fully frontend simulation                        -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ─── STATE ────────────────────────────────────────────────
+            const state = {
+                revenue: 48295,
+                users: 2847,
+                sessions: 1203,
+                conversion: 3.82,
+                // Line chart data (30 points)
+                lineData: Array.from({ length: 30 }, () => Math.floor(Math.random() * 80) + 20),
+                // Bar chart data (7 days)
+                barData: [4200, 5100, 4800, 6200, 5800, 7100, 6500],
+                // Doughnut data
+                doughnutData: [35, 28, 22, 15],
+                // Activity feed
+                activities: [],
+                // Chart instances
+                lineChart: null,
+                doughnutChart: null,
+                barChart: null,
+                // Theme
+                dark: false,
+            };
+
+            // ─── DOM REFS ─────────────────────────────────────────────
+            const $ = (sel) => document.querySelector(sel);
+            const $$ = (sel) => document.querySelectorAll(sel);
+
+            const el = {
+                revenue: $('#statRevenue'),
+                users: $('#statUsers'),
+                sessions: $('#statSessions'),
+                conversion: $('#statConversion'),
+                activityFeed: $('#activityFeed'),
+                themeToggle: $('#themeToggle'),
+                app: $('#app'),
+                notifBell: $('#notifBell'),
+            };
+
+            // ─── THEME ────────────────────────────────────────────────
+            function setTheme(dark) {
+                state.dark = dark;
+                document.documentElement.classList.toggle('dark', dark);
+                el.themeToggle.classList.toggle('dark', dark);
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+            }
+
+            function toggleTheme() {
+                setTheme(!state.dark);
+            }
+
+            // Load saved theme
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') setTheme(true);
+            else if (saved === 'light') setTheme(false);
+            else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme(true);
+
+            el.themeToggle.addEventListener('click', toggleTheme);
+
+            // ─── UTILITY ──────────────────────────────────────────────
+            function fmt(n) {
+                return n.toLocaleString('en-US');
+            }
+
+            function fmtCurrency(n) {
+                return '$' + fmt(n);
+            }
+
+            function randomBetween(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function randomFloat(min, max, decimals = 2) {
+                return +(Math.random() * (max - min) + min).toFixed(decimals);
+            }
+
+            // ─── ACTIVITY FEED ────────────────────────────────────────
+            const activityMessages = [
+                { icon: 'fa-user-plus', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+                text: 'New user registered' },
+                { icon: 'fa-shopping-cart', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-900/20',
+                    text: 'Purchase completed' },
+                { icon: 'fa-comment', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/20',
+                text: 'New comment posted' },
+                { icon: 'fa-arrow-up', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/20',
+                text: 'Revenue milestone' },
+                { icon: 'fa-bell', color: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-900/20',
+                text: 'Alert: high traffic' },
+                { icon: 'fa-check-circle', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+                    text: 'Task completed' },
+                { icon: 'fa-download', color: 'text-cyan-500', bg: 'bg-cyan-50 dark:bg-cyan-900/20',
+                text: 'Report exported' },
+                { icon: 'fa-star', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/20',
+                text: 'New 5-star review' },
+                { icon: 'fa-users', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-900/20',
+                text: 'Team member joined' },
+                { icon: 'fa-credit-card', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20',
+                    text: 'Payment processed' },
+            ];
+
+            function addActivity() {
+                const msg = activityMessages[Math.floor(Math.random() * activityMessages.length)];
+                const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit',
+                    second: '2-digit' });
+                const item = document.createElement('div');
+                item.className =
+                    'flex items-start gap-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700/50 transition-all hover:bg-gray-100 dark:hover:bg-gray-700/60 fade-in';
+                item.innerHTML = `
+                    <div class="w-7 h-7 rounded-lg ${msg.bg} flex items-center justify-center ${msg.color} text-xs flex-shrink-0 mt-0.5">
+                        <i class="fas ${msg.icon}"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-xs font-medium text-gray-800 dark:text-gray-200">${msg.text}</p>
+                        <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5">${time}</p>
+                    </div>
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 dark:bg-indigo-500 flex-shrink-0 mt-1.5"></span>
+                `;
+                el.activityFeed.prepend(item);
+                // Keep max 12 items
+                while (el.activityFeed.children.length > 12) {
+                    el.activityFeed.removeChild(el.activityFeed.lastChild);
+                }
+            }
+
+            // Seed initial activities
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => addActivity(), i * 120);
+            }
+
+            // ─── CHARTS ──────────────────────────────────────────────
+
+            // Chart color helpers
+            function getColors() {
+                const isDark = state.dark;
+                return {
+                    grid: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                    text: isDark ? '#94a3b8' : '#64748b',
+                    border: isDark ? '#334155' : '#e2e8f0',
+                };
+            }
+
+            function initCharts() {
+                const c = getColors();
+
+                // ─── Line Chart ──────────────────────────────────────
+                const lineCtx = document.getElementById('lineChart').getContext('2d');
+                state.lineChart = new Chart(lineCtx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: 30 }, (_, i) => `${i * 2}s`),
+                        datasets: [{
+                            label: 'Requests',
+                            data: state.lineData,
+                            borderColor: '#4f46e5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.10)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 2,
+                            pointBackgroundColor: '#4f46e5',
+                            borderWidth: 2.5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: state.dark ? '#1e293b' : 'white',
+                                titleColor: state.dark ? '#f1f5f9' : '#0f172a',
+                                bodyColor: state.dark ? '#cbd5e1' : '#334155',
+                                borderColor: state.dark ? '#334155' : '#e2e8f0',
+                                borderWidth: 1,
+                                cornerRadius: 10,
+                                padding: 10,
+                                boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: c.grid, drawBorder: false },
+                                ticks: { color: c.text, font: { size: 9 }, maxTicksLimit: 10 }
+                            },
+                            y: {
+                                grid: { color: c.grid, drawBorder: false },
+                                ticks: { color: c.text, font: { size: 9 } },
+                                beginAtZero: true,
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index',
+                        },
+                    }
+                });
+
+                // ─── Doughnut Chart ──────────────────────────────────
+                const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+                state.doughnutChart = new Chart(doughnutCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Direct', 'Social', 'Organic', 'Referral'],
+                        datasets: [{
+                            data: state.doughnutData,
+                            backgroundColor: ['#4f46e5', '#06b6d4', '#f59e0b', '#f43f5e'],
+                            borderColor: state.dark ? '#1e293b' : 'white',
+                            borderWidth: 3,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '68%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: state.dark ? '#1e293b' : 'white',
+                                titleColor: state.dark ? '#f1f5f9' : '#0f172a',
+                                bodyColor: state.dark ? '#cbd5e1' : '#334155',
+                                borderColor: state.dark ? '#334155' : '#e2e8f0',
+                                borderWidth: 1,
+                                cornerRadius: 10,
+                                padding: 10,
+                            }
+                        }
+                    }
+                });
+
+                // ─── Bar Chart ──────────────────────────────────────
+                const barCtx = document.getElementById('barChart').getContext('2d');
+                state.barChart = new Chart(barCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Activity',
+                            data: state.barData,
+                            backgroundColor: [
+                                'rgba(79, 70, 229, 0.7)',
+                                'rgba(79, 70, 229, 0.5)',
+                                'rgba(79, 70, 229, 0.7)',
+                                'rgba(79, 70, 229, 0.9)',
+                                'rgba(79, 70, 229, 0.7)',
+                                'rgba(79, 70, 229, 0.5)',
+                                'rgba(79, 70, 229, 0.7)',
+                            ],
+                            borderColor: '#4f46e5',
+                            borderWidth: 0,
+                            borderRadius: 6,
+                            barPercentage: 0.6,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: state.dark ? '#1e293b' : 'white',
+                                titleColor: state.dark ? '#f1f5f9' : '#0f172a',
+                                bodyColor: state.dark ? '#cbd5e1' : '#334155',
+                                borderColor: state.dark ? '#334155' : '#e2e8f0',
+                                borderWidth: 1,
+                                cornerRadius: 10,
+                                padding: 10,
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: c.grid, drawBorder: false },
+                                ticks: { color: c.text, font: { size: 10 } }
+                            },
+                            y: {
+                                grid: { color: c.grid, drawBorder: false },
+                                ticks: { color: c.text, font: { size: 9 } },
+                                beginAtZero: true,
+                            }
+                        }
+                    }
+                });
+            }
+
+            // ─── UPDATE CHARTS (real-time) ──────────────────────────
+
+            function updateLineChart() {
+                // Shift and push new value
+                state.lineData.shift();
+                const newVal = Math.max(10, state.lineData[state.lineData.length - 1] + randomBetween(-15, 15));
+                state.lineData.push(Math.min(130, newVal));
+                if (state.lineChart) {
+                    state.lineChart.data.datasets[0].data = state.lineData;
+                    state.lineChart.update('none');
+                }
+            }
+
+            function updateBarChart() {
+                // Slightly randomize bar data
+                state.barData = state.barData.map(v => Math.max(2000, v + randomBetween(-400, 500)));
+                if (state.barChart) {
+                    state.barChart.data.datasets[0].data = state.barData;
+                    state.barChart.update('none');
+                }
+            }
+
+            function updateDoughnutChart() {
+                // Slightly shift doughnut values
+                const total = state.doughnutData.reduce((a, b) => a + b, 0);
+                state.doughnutData = state.doughnutData.map(v => {
+                    const change = randomBetween(-3, 3);
+                    return Math.max(5, v + change);
+                });
+                // Normalize to sum ~100
+                const newTotal = state.doughnutData.reduce((a, b) => a + b, 0);
+                state.doughnutData = state.doughnutData.map(v => Math.round((v / newTotal) * 100));
+                if (state.doughnutChart) {
+                    state.doughnutChart.data.datasets[0].data = state.doughnutData;
+                    state.doughnutChart.update('none');
+                }
+            }
+
+            // ─── UPDATE STATS ─────────────────────────────────────────
+
+            function updateStats() {
+                // Random walk for each stat
+                state.revenue += randomBetween(-150, 220);
+                state.revenue = Math.max(30000, state.revenue);
+                state.users += randomBetween(-5, 12);
+                state.users = Math.max(1500, state.users);
+                state.sessions += randomBetween(-8, 18);
+                state.sessions = Math.max(500, state.sessions);
+                state.conversion += randomFloat(-0.15, 0.2, 2);
+                state.conversion = Math.max(1.5, Math.min(6.5, state.conversion));
+
+                el.revenue.textContent = fmtCurrency(state.revenue);
+                el.users.textContent = fmt(state.users);
+                el.sessions.textContent = fmt(state.sessions);
+                el.conversion.textContent = state.conversion.toFixed(2) + '%';
+            }
+
+            // ─── SIMULATION LOOP ──────────────────────────────────────
+
+            function startSimulation() {
+                // Stats update every 2.5s
+                setInterval(() => {
+                    updateStats();
+                    updateLineChart();
+                    if (Math.random() < 0.35) addActivity();
+                }, 2500);
+
+                // Bar chart update every 5s
+                setInterval(() => {
+                    updateBarChart();
+                }, 5000);
+
+                // Doughnut update every 8s
+                setInterval(() => {
+                    updateDoughnutChart();
+                }, 8000);
+
+                // Extra line updates for smoothness
+                setInterval(() => {
+                    updateLineChart();
+                }, 1200);
+
+                // Simulate notification bell pulse
+                setInterval(() => {
+                    const bell = el.notifBell.querySelector('.w-9');
+                    if (bell) {
+                        bell.style.transform = 'scale(1.15)';
+                        setTimeout(() => { bell.style.transform = 'scale(1)'; }, 150);
+                    }
+                }, 12000);
+            }
+
+            // ─── THEME CHANGE: re-render charts ──────────────────────
+
+            function onThemeChange() {
+                const c = getColors();
+                if (state.lineChart) {
+                    state.lineChart.options.scales.x.grid.color = c.grid;
+                    state.lineChart.options.scales.y.grid.color = c.grid;
+                    state.lineChart.options.scales.x.ticks.color = c.text;
+                    state.lineChart.options.scales.y.ticks.color = c.text;
+                    state.lineChart.update();
+                }
+                if (state.barChart) {
+                    state.barChart.options.scales.x.grid.color = c.grid;
+                    state.barChart.options.scales.y.grid.color = c.grid;
+                    state.barChart.options.scales.x.ticks.color = c.text;
+                    state.barChart.options.scales.y.ticks.color = c.text;
+                    state.barChart.update();
+                }
+                if (state.doughnutChart) {
+                    state.doughnutChart.options.plugins.tooltip.backgroundColor = state.dark ? '#1e293b' : 'white';
+                    state.doughnutChart.options.plugins.tooltip.titleColor = state.dark ? '#f1f5f9' : '#0f172a';
+                    state.doughnutChart.options.plugins.tooltip.bodyColor = state.dark ? '#cbd5e1' : '#334155';
+                    state.doughnutChart.options.plugins.tooltip.borderColor = state.dark ? '#334155' : '#e2e8f0';
+                    state.doughnutChart.update();
+                }
+            }
+
+            // Watch theme changes
+            const origSetTheme = setTheme;
+            setTheme = function(dark) {
+                origSetTheme(dark);
+                setTimeout(onThemeChange, 50);
+            };
+
+            // ─── INIT ──────────────────────────────────────────────────
+
+            function init() {
+                initCharts();
+                startSimulation();
+
+                // Initial activity burst
+                setTimeout(() => {
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(addActivity, i * 300);
+                    }
+                }, 800);
+
+                console.log('🚀 RealDash (frontend-only) initialized');
+                console.log('📊 All data simulated locally — no backend required');
+                console.log('🌓 Toggle theme with the sun/moon button');
+            }
+
+            // Run after DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+            // ─── RESIZE HANDLER ──────────────────────────────────────
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    if (state.lineChart) state.lineChart.resize();
+                    if (state.barChart) state.barChart.resize();
+                    if (state.doughnutChart) state.doughnutChart.resize();
+                }, 200);
+            });
+
+            // ─── EXPOSE FOR CONSOLE DEBUG ────────────────────────────
+
+            window.__dashboard = {
+                state,
+                addActivity,
+                updateStats,
+                updateLineChart,
+                updateBarChart,
+                updateDoughnutChart,
+                toggleTheme,
+            };
+
+        })();
+    </script>
+
+</body>
+</html>
