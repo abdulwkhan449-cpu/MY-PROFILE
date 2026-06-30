@@ -34,6 +34,148 @@
 
         body {
             background: #f8fafc;
+            transition: background 0.35s ease, color 0.35s ease;
+        }
+
+        /* Dark theme overrides */
+        body.dark-theme {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        body.dark-theme .bg-white {
+            background: #1e293b !important;
+        }
+        body.dark-theme .bg-slate-50 {
+            background: #0f172a !important;
+        }
+        body.dark-theme .bg-slate-100 {
+            background: #1e293b !important;
+        }
+        body.dark-theme .bg-slate-200 {
+            background: #334155 !important;
+        }
+        body.dark-theme .text-slate-800 {
+            color: #e2e8f0 !important;
+        }
+        body.dark-theme .text-slate-700 {
+            color: #cbd5e1 !important;
+        }
+        body.dark-theme .text-slate-600 {
+            color: #94a3b8 !important;
+        }
+        body.dark-theme .text-slate-500 {
+            color: #94a3b8 !important;
+        }
+        body.dark-theme .text-slate-400 {
+            color: #64748b !important;
+        }
+        body.dark-theme .border-slate-200 {
+            border-color: #334155 !important;
+        }
+        body.dark-theme .border-slate-100 {
+            border-color: #1e293b !important;
+        }
+        body.dark-theme .border-slate-300 {
+            border-color: #334155 !important;
+        }
+        body.dark-theme .bg-slate-50\/80 {
+            background: #0f172a !important;
+        }
+        body.dark-theme .bg-white\/80 {
+            background: #1e293bcc !important;
+        }
+        body.dark-theme .shadow-sm {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+        }
+        body.dark-theme .shadow-lg {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        }
+        body.dark-theme .shadow-xl {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+        }
+        body.dark-theme .product-card {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        body.dark-theme .product-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+        }
+        body.dark-theme .cart-item {
+            background: #0f172a !important;
+            border-color: #1e293b !important;
+        }
+        body.dark-theme .modal-box {
+            background: #1e293b !important;
+        }
+        body.dark-theme .cart-drawer {
+            background: #1e293b !important;
+        }
+        body.dark-theme .toast {
+            background: #1e293b !important;
+            border-left-color: #8b5cf6;
+        }
+        body.dark-theme .qty-btn {
+            background: #334155 !important;
+            color: #e2e8f0 !important;
+        }
+        body.dark-theme .qty-btn:hover {
+            background: #475569 !important;
+        }
+        body.dark-theme .modal-qty-btn {
+            background: #334155 !important;
+            color: #e2e8f0 !important;
+        }
+        body.dark-theme .modal-qty-btn:hover {
+            background: #475569 !important;
+        }
+        body.dark-theme .step-dot {
+            background: #334155 !important;
+            color: #94a3b8 !important;
+        }
+        body.dark-theme .step-dot.active {
+            background: #8b5cf6 !important;
+            color: white !important;
+        }
+        body.dark-theme .step-dot.completed {
+            background: #22c55e !important;
+            color: white !important;
+        }
+        body.dark-theme .step-line {
+            background: #334155 !important;
+        }
+        body.dark-theme .step-line.completed {
+            background: #22c55e !important;
+        }
+        body.dark-theme .footer-link:hover {
+            color: #a78bfa !important;
+        }
+        body.dark-theme .social-icon {
+            background: rgba(255, 255, 255, 0.06) !important;
+            color: #94a3b8 !important;
+        }
+        body.dark-theme .social-icon:hover {
+            background: #8b5cf6 !important;
+            color: white !important;
+        }
+        body.dark-theme .payment-icon {
+            color: #64748b !important;
+        }
+        body.dark-theme .payment-icon:hover {
+            color: #a78bfa !important;
+        }
+        body.dark-theme .newsletter-input {
+            background: #0f172a !important;
+            border-color: #334155 !important;
+            color: #e2e8f0 !important;
+        }
+        body.dark-theme .newsletter-input:focus {
+            border-color: #8b5cf6 !important;
+        }
+        body.dark-theme .bg-slate-900 {
+            background: #0b1120 !important;
+        }
+        body.dark-theme .footer-divider {
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent) !important;
         }
 
         .fade-enter {
@@ -130,6 +272,8 @@
         .product-card {
             transition: all 0.25s ease;
             cursor: pointer;
+            background: white;
+            border: 1px solid #e2e8f0;
         }
         .product-card:hover {
             transform: translateY(-6px);
@@ -280,7 +424,6 @@
             }
         }
 
-        /* product modal quantity stepper */
         .modal-qty-btn {
             width: 36px;
             height: 36px;
@@ -302,6 +445,100 @@
         .modal-qty-btn:active {
             transform: scale(0.92);
         }
+
+        /* --- FOOTER STYLES --- */
+        .footer-link {
+            transition: color 0.2s ease;
+            cursor: pointer;
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-link:hover {
+            color: #8b5cf6;
+        }
+        body.dark-theme .footer-link {
+            color: #94a3b8;
+        }
+        body.dark-theme .footer-link:hover {
+            color: #a78bfa;
+        }
+
+        .newsletter-input {
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .newsletter-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+            outline: none;
+        }
+
+        .social-icon {
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            background: #8b5cf6;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            transition: color 0.2s ease;
+        }
+        .payment-icon:hover {
+            color: #8b5cf6;
+        }
+
+        .footer-divider {
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.15), transparent);
+            height: 1px;
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        /* Auth error feedback */
+        .auth-error {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .auth-error.show {
+            display: block;
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 4px;
+            border-radius: 4px;
+            margin-top: 6px;
+            background: #e2e8f0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -309,10 +546,10 @@
     <!-- ============================================================= -->
     <!-- APP ROOT                                                        -->
     <!-- ============================================================= -->
-    <div id="app" class="min-h-screen bg-slate-50">
+    <div id="app" class="min-h-screen bg-slate-50 flex flex-col">
 
         <!-- ==================== HEADER ==================== -->
-        <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/60 shadow-sm">
+        <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/60 shadow-sm transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div class="flex items-center justify-between h-16 md:h-20">
                     <!-- Logo -->
@@ -320,19 +557,25 @@
                         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition">
                             <i class="fas fa-store text-sm"></i>
                         </div>
-                        <span class="text-xl font-extrabold text-slate-800 tracking-tight">Shop<span class="text-violet-600">Verse</span></span>
+                        <span class="text-xl font-extrabold text-slate-800 tracking-tight dark:text-white">Shop<span class="text-violet-600">Verse</span></span>
                     </a>
 
                     <!-- Nav + Actions -->
-                    <div class="flex items-center gap-3 sm:gap-5">
+                    <div class="flex items-center gap-2 sm:gap-4">
+
+                        <!-- Theme Toggle -->
+                        <button id="themeToggle" class="theme-toggle p-2 rounded-full hover:bg-slate-100 transition text-slate-600 dark:text-slate-300 dark:hover:bg-slate-700/50" aria-label="Toggle theme">
+                            <i id="themeIcon" class="fas fa-moon text-lg"></i>
+                        </button>
+
                         <!-- Search (desktop) -->
-                        <div class="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-2 gap-2 text-sm text-slate-400 border border-transparent focus-within:border-violet-400 focus-within:bg-white transition">
+                        <div class="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-2 gap-2 text-sm text-slate-400 border border-transparent focus-within:border-violet-400 focus-within:bg-white transition dark:bg-slate-800 dark:border-slate-700 dark:focus-within:border-violet-500">
                             <i class="fas fa-search text-xs"></i>
-                            <input type="text" placeholder="Search products..." class="bg-transparent outline-none text-slate-700 w-40 lg:w-56" id="searchInput" />
+                            <input type="text" placeholder="Search products..." class="bg-transparent outline-none text-slate-700 w-40 lg:w-56 dark:text-slate-200" id="searchInput" />
                         </div>
 
                         <!-- Cart -->
-                        <button id="cartToggle" class="relative p-2 rounded-full hover:bg-slate-100 transition text-slate-600">
+                        <button id="cartToggle" class="relative p-2 rounded-full hover:bg-slate-100 transition text-slate-600 dark:text-slate-300 dark:hover:bg-slate-700/50">
                             <i class="fas fa-shopping-bag text-lg"></i>
                             <span id="cartBadge" class="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full bg-violet-600 text-white text-[10px] font-bold flex items-center justify-center shadow-sm">0</span>
                         </button>
@@ -346,7 +589,7 @@
                         </div>
 
                         <!-- Mobile search toggle -->
-                        <button id="mobileSearchToggle" class="md:hidden p-2 rounded-full hover:bg-slate-100 text-slate-600">
+                        <button id="mobileSearchToggle" class="md:hidden p-2 rounded-full hover:bg-slate-100 transition text-slate-600 dark:text-slate-300 dark:hover:bg-slate-700/50">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -354,16 +597,16 @@
 
                 <!-- Mobile search bar -->
                 <div id="mobileSearch" class="md:hidden pb-3 hidden">
-                    <div class="flex items-center bg-white rounded-xl px-4 py-2 gap-2 border border-slate-200 shadow-sm">
+                    <div class="flex items-center bg-white rounded-xl px-4 py-2 gap-2 border border-slate-200 shadow-sm dark:bg-slate-800 dark:border-slate-700">
                         <i class="fas fa-search text-slate-400 text-sm"></i>
-                        <input type="text" placeholder="Search products..." class="flex-1 outline-none text-sm text-slate-700 bg-transparent" id="mobileSearchInput" />
+                        <input type="text" placeholder="Search products..." class="flex-1 outline-none text-sm text-slate-700 bg-transparent dark:text-slate-200" id="mobileSearchInput" />
                     </div>
                 </div>
             </div>
         </header>
 
         <!-- ==================== MAIN CONTENT ==================== -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8">
+        <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8 w-full">
 
             <!-- ===== HERO BANNER ===== -->
             <section class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-700 text-white p-6 sm:p-10 mb-8 shadow-xl shadow-violet-500/20">
@@ -381,17 +624,17 @@
             <!-- ===== CATEGORY TABS ===== -->
             <div class="flex flex-wrap gap-2 mb-6" id="categoryFilters">
                 <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-violet-600 text-white shadow-sm shadow-violet-500/20" data-category="all">All</button>
-                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="electronics">Electronics</button>
-                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="clothing">Clothing</button>
-                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="home">Home</button>
-                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition" data-category="beauty">Beauty</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600" data-category="electronics">Electronics</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600" data-category="clothing">Clothing</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600" data-category="home">Home</button>
+                <button class="category-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600" data-category="beauty">Beauty</button>
             </div>
 
             <!-- ===== PRODUCT GRID ===== -->
             <section>
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-slate-800">Featured Products</h3>
-                    <span id="productCount" class="text-sm text-slate-400">12 items</span>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">Featured Products</h3>
+                    <span id="productCount" class="text-sm text-slate-400 dark:text-slate-500">12 items</span>
                 </div>
                 <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                     <!-- Rendered by JS -->
@@ -400,35 +643,122 @@
 
         </main>
 
+        <!-- ============================================================= -->
+        <!-- FOOTER                                                         -->
+        <!-- ============================================================= -->
+        <footer class="bg-slate-900 text-slate-300 border-t border-slate-800/50 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+                <!-- Main footer grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 py-12 lg:py-16">
+
+                    <!-- Brand & tagline -->
+                    <div class="lg:col-span-1.5 space-y-4">
+                        <a href="#" class="flex items-center gap-2.5 group" id="footerLogoLink">
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/25">
+                                <i class="fas fa-store text-sm"></i>
+                            </div>
+                            <span class="text-xl font-extrabold text-white tracking-tight">Shop<span class="text-violet-400">Verse</span></span>
+                        </a>
+                        <p class="text-sm text-slate-400 max-w-xs leading-relaxed">
+                            Your one-stop destination for premium electronics, fashion, home essentials &amp; beauty.
+                        </p>
+                        <div class="flex items-center gap-3 pt-1">
+                            <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="social-icon" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h5 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Quick Links</h5>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">Contact</a></li>
+                            <li><a href="#" class="footer-link">FAQs</a></li>
+                            <li><a href="#" class="footer-link">Track Order</a></li>
+                            <li><a href="#" class="footer-link">Returns &amp; Exchanges</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Categories -->
+                    <div>
+                        <h5 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Categories</h5>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><a href="#" class="footer-link category-footer-link" data-cat="electronics">Electronics</a></li>
+                            <li><a href="#" class="footer-link category-footer-link" data-cat="clothing">Clothing</a></li>
+                            <li><a href="#" class="footer-link category-footer-link" data-cat="home">Home &amp; Living</a></li>
+                            <li><a href="#" class="footer-link category-footer-link" data-cat="beauty">Beauty &amp; Care</a></li>
+                            <li><a href="#" class="footer-link category-footer-link" data-cat="all">All Products</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="lg:col-span-1.5">
+                        <h5 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Newsletter</h5>
+                        <p class="text-sm text-slate-400 mb-3">Subscribe for exclusive offers &amp; updates.</p>
+                        <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2">
+                            <input type="email" placeholder="Your email" required
+                            class="newsletter-input flex-1 px-4 py-2.5 rounded-xl bg-slate-800/50 border border-slate-700 text-sm text-white placeholder-slate-500 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 outline-none transition" />
+                            <button type="submit" class="px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-sm transition shadow-lg shadow-violet-500/25 whitespace-nowrap">
+                                <i class="fas fa-paper-plane mr-1.5"></i> Subscribe
+                            </button>
+                        </form>
+                        <div id="newsletterMessage" class="text-xs mt-2 text-emerald-400 hidden"></div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="footer-divider"></div>
+
+                <!-- Bottom bar -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 text-sm text-slate-500">
+                    <div class="flex items-center gap-6 flex-wrap justify-center">
+                        <span>&copy; 2026 ShopVerse. All rights reserved.</span>
+                        <a href="#" class="footer-link text-xs">Privacy Policy</a>
+                        <a href="#" class="footer-link text-xs">Terms of Service</a>
+                        <a href="#" class="footer-link text-xs">Cookie Policy</a>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs text-slate-600">We accept</span>
+                        <i class="fab fa-cc-visa payment-icon"></i>
+                        <i class="fab fa-cc-mastercard payment-icon"></i>
+                        <i class="fab fa-cc-amex payment-icon"></i>
+                        <i class="fab fa-cc-paypal payment-icon"></i>
+                        <i class="fab fa-cc-apple-pay payment-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
         <!-- ==================== CART DRAWER ==================== -->
         <div id="cartBackdrop" class="backdrop closed fixed inset-0 bg-black/30 z-[60]"></div>
-        <div id="cartDrawer" class="cart-drawer closed fixed top-0 right-0 w-full max-w-md h-full bg-white z-[70] shadow-2xl flex flex-col">
-            <!-- Header -->
-            <div class="flex items-center justify-between p-4 border-b border-slate-200">
-                <h4 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+        <div id="cartDrawer" class="cart-drawer closed fixed top-0 right-0 w-full max-w-md h-full bg-white z-[70] shadow-2xl flex flex-col dark:bg-slate-800">
+            <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
+                <h4 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
                     <i class="fas fa-shopping-bag text-violet-600"></i> Your Cart
                     <span id="cartItemCount" class="text-sm font-normal text-slate-400 ml-1">(0)</span>
                 </h4>
-                <button id="cartClose" class="w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-500">
+                <button id="cartClose" class="w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-500 dark:hover:bg-slate-700 dark:text-slate-400">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
 
-            <!-- Cart Items -->
             <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3">
-                <!-- Rendered by JS -->
-                <div id="emptyCart" class="text-center py-12 text-slate-400">
-                    <i class="fas fa-shopping-bag text-4xl mb-3 block text-slate-300"></i>
+                <div id="emptyCart" class="text-center py-12 text-slate-400 dark:text-slate-500">
+                    <i class="fas fa-shopping-bag text-4xl mb-3 block text-slate-300 dark:text-slate-600"></i>
                     <p class="text-sm">Your cart is empty</p>
                     <button id="continueShoppingBtn" class="mt-3 text-violet-600 text-sm font-medium hover:underline">Continue shopping</button>
                 </div>
             </div>
 
-            <!-- Footer -->
-            <div class="border-t border-slate-200 p-4 space-y-3 bg-slate-50/80">
+            <div class="border-t border-slate-200 dark:border-slate-700 p-4 space-y-3 bg-slate-50/80 dark:bg-slate-900/50">
                 <div class="flex items-center justify-between text-sm">
-                    <span class="text-slate-500">Subtotal</span>
-                    <span id="cartSubtotal" class="font-bold text-slate-800">$0.00</span>
+                    <span class="text-slate-500 dark:text-slate-400">Subtotal</span>
+                    <span id="cartSubtotal" class="font-bold text-slate-800 dark:text-white">$0.00</span>
                 </div>
                 <button id="checkoutBtn" class="w-full py-3 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition shadow-lg shadow-violet-500/25 text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     Proceed to Checkout <i class="fas fa-arrow-right ml-2"></i>
@@ -440,48 +770,51 @@
         <!-- ==================== AUTH MODAL ==================== -->
         <div id="authModal" class="modal-overlay closed fixed inset-0 z-[80] flex items-center justify-center p-4">
             <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="authModalBackdrop"></div>
-            <div class="modal-box bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-                <button id="authModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400">
+            <div class="modal-box bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto dark:bg-slate-800 dark:border dark:border-slate-700">
+                <button id="authModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400 dark:hover:bg-slate-700 dark:text-slate-500">
                     <i class="fas fa-times"></i>
                 </button>
 
-                <!-- Tabs -->
-                <div class="flex gap-2 bg-slate-100 rounded-xl p-1 mb-6">
+                <div class="flex gap-2 bg-slate-100 rounded-xl p-1 mb-6 dark:bg-slate-700">
                     <button class="auth-tab flex-1 py-2 rounded-lg text-sm font-semibold transition bg-violet-600 text-white" data-tab="login">Sign In</button>
-                    <button class="auth-tab flex-1 py-2 rounded-lg text-sm font-semibold transition text-slate-600 hover:bg-slate-200" data-tab="register">Register</button>
+                    <button class="auth-tab flex-1 py-2 rounded-lg text-sm font-semibold transition text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-600" data-tab="register">Register</button>
                 </div>
 
                 <!-- Login Form -->
                 <form id="loginForm" class="auth-form space-y-4">
-                    <h5 class="text-lg font-bold text-slate-800">Welcome Back</h5>
-                    <p class="text-sm text-slate-400">Sign in to access your account &amp; orders.</p>
+                    <h5 class="text-lg font-bold text-slate-800 dark:text-white">Welcome Back</h5>
+                    <p class="text-sm text-slate-400 dark:text-slate-500">Sign in to access your account &amp; orders.</p>
                     <div>
-                        <label class="text-xs font-medium text-slate-600 block mb-1">Email</label>
-                        <input type="email" id="loginEmail" placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                        <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Email</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
+                        <div id="loginError" class="auth-error">Invalid email or password. Try again.</div>
                     </div>
                     <div>
-                        <label class="text-xs font-medium text-slate-600 block mb-1">Password</label>
-                        <input type="password" id="loginPassword" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                        <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                     </div>
                     <button type="submit" class="w-full py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition shadow-lg shadow-violet-500/25 text-sm">Sign In</button>
-                    <p class="text-center text-xs text-slate-400 mt-2">Demo: any email · password: 123456</p>
+                    <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-2">Demo: any email · password: <span class="font-mono bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">123456</span></p>
                 </form>
 
                 <!-- Register Form -->
                 <form id="registerForm" class="auth-form space-y-4 hidden">
-                    <h5 class="text-lg font-bold text-slate-800">Create Account</h5>
-                    <p class="text-sm text-slate-400">Join ShopVerse for exclusive deals.</p>
+                    <h5 class="text-lg font-bold text-slate-800 dark:text-white">Create Account</h5>
+                    <p class="text-sm text-slate-400 dark:text-slate-500">Join ShopVerse for exclusive deals.</p>
                     <div>
-                        <label class="text-xs font-medium text-slate-600 block mb-1">Full Name</label>
-                        <input type="text" id="registerName" placeholder="Jane Doe" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                        <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Full Name</label>
+                        <input type="text" id="registerName" placeholder="Jane Doe" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                     </div>
                     <div>
-                        <label class="text-xs font-medium text-slate-600 block mb-1">Email</label>
-                        <input type="email" id="registerEmail" placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required />
+                        <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Email</label>
+                        <input type="email" id="registerEmail" placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
+                        <div id="registerEmailError" class="auth-error">Email already registered.</div>
                     </div>
                     <div>
-                        <label class="text-xs font-medium text-slate-600 block mb-1">Password</label>
-                        <input type="password" id="registerPassword" placeholder="•••••••• (min 6 chars)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm" required minlength="6" />
+                        <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Password</label>
+                        <input type="password" id="registerPassword" placeholder="•••••••• (min 6 chars)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none transition text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required minlength="6" />
+                        <div class="password-strength"><div class="password-strength-bar" id="passwordStrengthBar"></div></div>
+                        <div id="registerPasswordError" class="auth-error">Password must be at least 6 characters.</div>
                     </div>
                     <button type="submit" class="w-full py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition shadow-lg shadow-violet-500/25 text-sm">Create Account</button>
                 </form>
@@ -491,12 +824,11 @@
         <!-- ==================== CHECKOUT MODAL ==================== -->
         <div id="checkoutModal" class="modal-overlay closed fixed inset-0 z-[90] flex items-center justify-center p-4">
             <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="checkoutModalBackdrop"></div>
-            <div class="modal-box bg-white rounded-2xl w-full max-w-2xl p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
-                <button id="checkoutModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400 z-10">
+            <div class="modal-box bg-white rounded-2xl w-full max-w-2xl p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto dark:bg-slate-800 dark:border dark:border-slate-700">
+                <button id="checkoutModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400 z-10 dark:hover:bg-slate-700 dark:text-slate-500">
                     <i class="fas fa-times"></i>
                 </button>
 
-                <!-- Step Indicator -->
                 <div class="step-indicator flex items-center gap-2 mb-6">
                     <div class="step-dot active" data-step="1">1</div>
                     <div class="step-line" data-step="1"></div>
@@ -509,13 +841,13 @@
 
                 <!-- Step 1: Cart Review -->
                 <div class="checkout-step visible-step" data-step="1">
-                    <h4 class="text-lg font-bold text-slate-800">Review Your Cart</h4>
-                    <p class="text-sm text-slate-400 mb-4">Confirm items before checkout.</p>
+                    <h4 class="text-lg font-bold text-slate-800 dark:text-white">Review Your Cart</h4>
+                    <p class="text-sm text-slate-400 dark:text-slate-500 mb-4">Confirm items before checkout.</p>
                     <div id="checkoutCartItems" class="space-y-3 max-h-48 overflow-y-auto">
                         <!-- Rendered by JS -->
                     </div>
-                    <div class="flex justify-between items-center border-t border-slate-200 pt-4 mt-4">
-                        <span class="font-semibold text-slate-800">Total</span>
+                    <div class="flex justify-between items-center border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
+                        <span class="font-semibold text-slate-800 dark:text-white">Total</span>
                         <span id="checkoutTotal" class="font-bold text-xl text-violet-600">$0.00</span>
                     </div>
                     <button class="checkout-next w-full mt-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition text-sm" data-next="2">Continue to Shipping</button>
@@ -523,36 +855,36 @@
 
                 <!-- Step 2: Shipping -->
                 <div class="checkout-step hidden-step" data-step="2">
-                    <h4 class="text-lg font-bold text-slate-800">Shipping Information</h4>
-                    <p class="text-sm text-slate-400 mb-4">Where should we deliver?</p>
+                    <h4 class="text-lg font-bold text-slate-800 dark:text-white">Shipping Information</h4>
+                    <p class="text-sm text-slate-400 dark:text-slate-500 mb-4">Where should we deliver?</p>
                     <form id="shippingForm" class="space-y-3">
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="text-xs font-medium text-slate-600 block mb-1">First name</label>
-                                <input type="text" id="shipFirstName" placeholder="Jane" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                                <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">First name</label>
+                                <input type="text" id="shipFirstName" placeholder="Jane" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                             </div>
                             <div>
-                                <label class="text-xs font-medium text-slate-600 block mb-1">Last name</label>
-                                <input type="text" id="shipLastName" placeholder="Doe" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                                <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Last name</label>
+                                <input type="text" id="shipLastName" placeholder="Doe" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                             </div>
                         </div>
                         <div>
-                            <label class="text-xs font-medium text-slate-600 block mb-1">Street address</label>
-                            <input type="text" id="shipAddress" placeholder="123 Main St" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Street address</label>
+                            <input type="text" id="shipAddress" placeholder="123 Main St" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="text-xs font-medium text-slate-600 block mb-1">City</label>
-                                <input type="text" id="shipCity" placeholder="New York" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                                <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">City</label>
+                                <input type="text" id="shipCity" placeholder="New York" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                             </div>
                             <div>
-                                <label class="text-xs font-medium text-slate-600 block mb-1">ZIP code</label>
-                                <input type="text" id="shipZip" placeholder="10001" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                                <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">ZIP code</label>
+                                <input type="text" id="shipZip" placeholder="10001" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                             </div>
                         </div>
                         <div>
-                            <label class="text-xs font-medium text-slate-600 block mb-1">Country</label>
-                            <select id="shipCountry" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm bg-white">
+                            <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Country</label>
+                            <select id="shipCountry" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm bg-white dark:bg-slate-700 dark:border-slate-600 dark:text-white">
                                 <option value="US">United States</option>
                                 <option value="CA">Canada</option>
                                 <option value="UK">United Kingdom</option>
@@ -563,41 +895,41 @@
                         </div>
                     </form>
                     <div class="flex gap-3 mt-4">
-                        <button class="checkout-back flex-1 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium transition text-sm" data-prev="1">Back</button>
+                        <button class="checkout-back flex-1 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium transition text-sm dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700" data-prev="1">Back</button>
                         <button class="checkout-next flex-1 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition text-sm" data-next="3">Continue to Payment</button>
                     </div>
                 </div>
 
                 <!-- Step 3: Payment -->
                 <div class="checkout-step hidden-step" data-step="3">
-                    <h4 class="text-lg font-bold text-slate-800">Payment Method</h4>
-                    <p class="text-sm text-slate-400 mb-4">Secure payment powered by ShopVerse.</p>
+                    <h4 class="text-lg font-bold text-slate-800 dark:text-white">Payment Method</h4>
+                    <p class="text-sm text-slate-400 dark:text-slate-500 mb-4">Secure payment powered by ShopVerse.</p>
                     <form id="paymentForm" class="space-y-3">
                         <div>
-                            <label class="text-xs font-medium text-slate-600 block mb-1">Card number</label>
-                            <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                            <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">Card number</label>
+                            <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                         </div>
                         <div class="grid grid-cols-3 gap-3">
                             <div class="col-span-1">
-                                <label class="text-xs font-medium text-slate-600 block mb-1">MM/YY</label>
-                                <input type="text" id="cardExpiry" placeholder="12/26" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                                <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">MM/YY</label>
+                                <input type="text" id="cardExpiry" placeholder="12/26" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                             </div>
                             <div class="col-span-1">
-                                <label class="text-xs font-medium text-slate-600 block mb-1">CVC</label>
-                                <input type="text" id="cardCvc" placeholder="123" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                                <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">CVC</label>
+                                <input type="text" id="cardCvc" placeholder="123" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                             </div>
                             <div class="col-span-1">
-                                <label class="text-xs font-medium text-slate-600 block mb-1">ZIP</label>
-                                <input type="text" id="cardZip" placeholder="10001" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm" required />
+                                <label class="text-xs font-medium text-slate-600 block mb-1 dark:text-slate-400">ZIP</label>
+                                <input type="text" id="cardZip" placeholder="10001" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 outline-none text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:focus:ring-violet-500/30" required />
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 text-sm text-slate-500">
+                        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
                             <i class="fas fa-lock text-xs text-violet-500"></i>
                             <span>Your payment is secure and encrypted.</span>
                         </div>
                     </form>
                     <div class="flex gap-3 mt-4">
-                        <button class="checkout-back flex-1 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium transition text-sm" data-prev="2">Back</button>
+                        <button class="checkout-back flex-1 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium transition text-sm dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-700" data-prev="2">Back</button>
                         <button id="placeOrderBtn" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition text-sm shadow-lg shadow-emerald-500/25">
                             <i class="fas fa-check mr-2"></i> Place Order
                         </button>
@@ -607,16 +939,16 @@
                 <!-- Step 4: Confirmation -->
                 <div class="checkout-step hidden-step" data-step="4">
                     <div class="text-center py-8">
-                        <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-check text-3xl text-emerald-600"></i>
+                        <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4 dark:bg-emerald-900/30">
+                            <i class="fas fa-check text-3xl text-emerald-600 dark:text-emerald-400"></i>
                         </div>
-                        <h4 class="text-2xl font-bold text-slate-800">Order Confirmed!</h4>
-                        <p class="text-slate-500 mt-2">Thank you, <span id="confirmationName" class="font-semibold text-slate-700">Jane</span>!</p>
-                        <p class="text-sm text-slate-400 mt-1">We've sent a confirmation to your email.</p>
-                        <div class="bg-slate-50 rounded-xl p-4 mt-6 text-left text-sm">
-                            <p class="text-slate-500">Order #<span id="orderNumber" class="font-mono font-semibold text-slate-700">#VS-2024-001</span></p>
-                            <p class="text-slate-500 mt-1">Total: <span id="orderTotal" class="font-bold text-violet-600">$0.00</span></p>
-                            <p class="text-slate-400 text-xs mt-2">Estimated delivery: 3-5 business days</p>
+                        <h4 class="text-2xl font-bold text-slate-800 dark:text-white">Order Confirmed!</h4>
+                        <p class="text-slate-500 dark:text-slate-400 mt-2">Thank you, <span id="confirmationName" class="font-semibold text-slate-700 dark:text-slate-300">Jane</span>!</p>
+                        <p class="text-sm text-slate-400 dark:text-slate-500 mt-1">We've sent a confirmation to your email.</p>
+                        <div class="bg-slate-50 rounded-xl p-4 mt-6 text-left text-sm dark:bg-slate-700/50">
+                            <p class="text-slate-500 dark:text-slate-400">Order #<span id="orderNumber" class="font-mono font-semibold text-slate-700 dark:text-slate-300">#VS-2024-001</span></p>
+                            <p class="text-slate-500 dark:text-slate-400 mt-1">Total: <span id="orderTotal" class="font-bold text-violet-600">$0.00</span></p>
+                            <p class="text-slate-400 text-xs mt-2 dark:text-slate-500">Estimated delivery: 3-5 business days</p>
                         </div>
                         <button id="continueShoppingCheckout" class="mt-6 px-6 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-bold transition text-sm shadow-lg shadow-violet-500/25">
                             <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
@@ -629,39 +961,36 @@
         <!-- ==================== PRODUCT DETAIL MODAL ==================== -->
         <div id="productModal" class="modal-overlay closed fixed inset-0 z-[95] flex items-center justify-center p-4">
             <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="productModalBackdrop"></div>
-            <div class="modal-box bg-white rounded-2xl w-full max-w-3xl p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
-                <button id="productModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400 z-10">
+            <div class="modal-box bg-white rounded-2xl w-full max-w-3xl p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto dark:bg-slate-800 dark:border dark:border-slate-700">
+                <button id="productModalClose" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-slate-100 transition flex items-center justify-center text-slate-400 z-10 dark:hover:bg-slate-700 dark:text-slate-500">
                     <i class="fas fa-times"></i>
                 </button>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Image -->
-                    <div class="bg-slate-100 rounded-2xl overflow-hidden aspect-square flex items-center justify-center">
+                    <div class="bg-slate-100 rounded-2xl overflow-hidden aspect-square flex items-center justify-center dark:bg-slate-700">
                         <img id="productModalImage" src="" alt="Product" class="w-full h-full object-cover" />
                     </div>
-                    <!-- Details -->
                     <div class="flex flex-col">
                         <div class="flex items-start justify-between">
-                            <h4 id="productModalName" class="text-2xl font-bold text-slate-800">Product Name</h4>
+                            <h4 id="productModalName" class="text-2xl font-bold text-slate-800 dark:text-white">Product Name</h4>
                             <span id="productModalPrice" class="text-xl font-bold text-violet-600">$0.00</span>
                         </div>
                         <div class="flex items-center gap-2 mt-1">
                             <span id="productModalRating" class="text-amber-500 text-sm">★★★★★</span>
-                            <span id="productModalRatingValue" class="text-xs text-slate-400">(0.0)</span>
-                            <span class="text-xs text-slate-300 mx-1">|</span>
-                            <span id="productModalCategory" class="text-xs bg-slate-200 px-2 py-0.5 rounded-full text-slate-600">category</span>
+                            <span id="productModalRatingValue" class="text-xs text-slate-400 dark:text-slate-500">(0.0)</span>
+                            <span class="text-xs text-slate-300 mx-1 dark:text-slate-600">|</span>
+                            <span id="productModalCategory" class="text-xs bg-slate-200 px-2 py-0.5 rounded-full text-slate-600 dark:bg-slate-700 dark:text-slate-300">category</span>
                         </div>
-                        <p id="productModalDescription" class="text-sm text-slate-600 mt-4 leading-relaxed">
+                        <p id="productModalDescription" class="text-sm text-slate-600 mt-4 leading-relaxed dark:text-slate-400">
                             Description goes here.
                         </p>
 
-                        <!-- Quantity selector -->
                         <div class="flex items-center gap-4 mt-6">
-                            <span class="text-sm font-medium text-slate-600">Qty:</span>
+                            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Qty:</span>
                             <div class="flex items-center gap-2">
-                                <button class="modal-qty-btn" id="productModalQtyDec">−</button>
-                                <span id="productModalQty" class="w-10 text-center font-bold text-lg">1</span>
-                                <button class="modal-qty-btn" id="productModalQtyInc">+</button>
+                                <button class="modal-qty-btn dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600" id="productModalQtyDec">−</button>
+                                <span id="productModalQty" class="w-10 text-center font-bold text-lg dark:text-white">1</span>
+                                <button class="modal-qty-btn dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600" id="productModalQtyInc">+</button>
                             </div>
                         </div>
 
@@ -794,8 +1123,9 @@
                 checkoutStep: 1,
                 shippingInfo: null,
                 orderNumber: null,
-                // For product modal
                 productModalQty: 1,
+                theme: 'light',
+                registeredUsers: [],
             };
 
             // ─── DOM REFS ──────────────────────────────────────────────
@@ -826,9 +1156,13 @@
                 registerForm: $('#registerForm'),
                 loginEmail: $('#loginEmail'),
                 loginPassword: $('#loginPassword'),
+                loginError: $('#loginError'),
                 registerName: $('#registerName'),
                 registerEmail: $('#registerEmail'),
                 registerPassword: $('#registerPassword'),
+                registerEmailError: $('#registerEmailError'),
+                registerPasswordError: $('#registerPasswordError'),
+                passwordStrengthBar: $('#passwordStrengthBar'),
                 authSection: $('#authSection'),
 
                 checkoutModal: $('#checkoutModal'),
@@ -866,8 +1200,8 @@
 
                 toastContainer: $('#toastContainer'),
                 logoLink: $('#logoLink'),
+                footerLogoLink: $('#footerLogoLink'),
 
-                // Product modal
                 productModal: $('#productModal'),
                 productModalBackdrop: $('#productModalBackdrop'),
                 productModalClose: $('#productModalClose'),
@@ -883,6 +1217,12 @@
                 productModalQtyInc: $('#productModalQtyInc'),
                 productModalAddBtn: $('#productModalAddBtn'),
                 productModalCurrentId: null,
+
+                themeToggle: $('#themeToggle'),
+                themeIcon: $('#themeIcon'),
+                newsletterForm: $('#newsletterForm'),
+                newsletterMessage: $('#newsletterMessage'),
+                categoryFooterLinks: $$('.category-footer-link'),
             };
 
             // ─── UTILITY ──────────────────────────────────────────────
@@ -933,6 +1273,37 @@
                     toast.classList.add('toast-out');
                     setTimeout(() => toast.remove(), 350);
                 }, duration);
+            }
+
+            // ─── THEME ──────────────────────────────────────────────────
+            function loadTheme() {
+                const saved = localStorage.getItem('shopverse_theme') || 'light';
+                state.theme = saved;
+                applyTheme(saved);
+            }
+
+            function applyTheme(theme) {
+                const body = document.body;
+                if (theme === 'dark') {
+                    body.classList.add('dark-theme');
+                    el.themeIcon.className = 'fas fa-sun text-lg';
+                } else {
+                    body.classList.remove('dark-theme');
+                    el.themeIcon.className = 'fas fa-moon text-lg';
+                }
+                state.theme = theme;
+                localStorage.setItem('shopverse_theme', theme);
+            }
+
+            function toggleTheme() {
+                const newTheme = state.theme === 'light' ? 'dark' : 'light';
+                applyTheme(newTheme);
+                // Also update Tailwind dark mode class on html
+                if (newTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
             }
 
             // ─── CART OPERATIONS ──────────────────────────────────────
@@ -1022,19 +1393,19 @@
                     subtotal += total;
 
                     const div = document.createElement('div');
-                    div.className = 'cart-item cart-item-enter flex items-center gap-3 p-2 rounded-xl bg-slate-50 border border-slate-100';
+                    div.className = 'cart-item cart-item-enter flex items-center gap-3 p-2 rounded-xl bg-slate-50 border border-slate-100 dark:bg-slate-700/50 dark:border-slate-600';
                     div.innerHTML = `
                         <img src="${p.image}" alt="${p.name}" class="w-14 h-14 rounded-lg object-cover flex-shrink-0" />
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-semibold text-slate-800 truncate">${p.name}</p>
-                            <p class="text-xs text-slate-400">${formatCurrency(p.price)}</p>
+                            <p class="text-sm font-semibold text-slate-800 dark:text-white truncate">${p.name}</p>
+                            <p class="text-xs text-slate-400 dark:text-slate-500">${formatCurrency(p.price)}</p>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button class="qty-btn qty-dec" data-id="${p.id}">−</button>
-                            <span class="w-7 text-center text-sm font-semibold">${item.quantity}</span>
-                            <button class="qty-btn qty-inc" data-id="${p.id}">+</button>
+                            <button class="qty-btn qty-dec dark:bg-slate-600 dark:text-white dark:hover:bg-slate-500" data-id="${p.id}">−</button>
+                            <span class="w-7 text-center text-sm font-semibold dark:text-white">${item.quantity}</span>
+                            <button class="qty-btn qty-inc dark:bg-slate-600 dark:text-white dark:hover:bg-slate-500" data-id="${p.id}">+</button>
                         </div>
-                        <button class="text-slate-300 hover:text-rose-500 transition text-sm p-1 cart-remove" data-id="${p.id}">
+                        <button class="text-slate-300 hover:text-rose-500 transition text-sm p-1 cart-remove dark:text-slate-500 dark:hover:text-rose-400" data-id="${p.id}">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     `;
@@ -1070,8 +1441,8 @@
 
                 if (filtered.length === 0) {
                     grid.innerHTML = `
-                        <div class="col-span-full text-center py-12 text-slate-400">
-                            <i class="fas fa-search text-4xl block mb-3 text-slate-300"></i>
+                        <div class="col-span-full text-center py-12 text-slate-400 dark:text-slate-500">
+                            <i class="fas fa-search text-4xl block mb-3 text-slate-300 dark:text-slate-600"></i>
                             <p class="text-sm">No products found matching your search.</p>
                         </div>
                     `;
@@ -1079,18 +1450,18 @@
                 }
 
                 grid.innerHTML = filtered.map(p => `
-                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/60 hover:shadow-xl transition fade-enter" data-id="${p.id}">
-                        <div class="aspect-square overflow-hidden bg-slate-100">
+                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/60 hover:shadow-xl transition fade-enter dark:bg-slate-800 dark:border-slate-700" data-id="${p.id}">
+                        <div class="aspect-square overflow-hidden bg-slate-100 dark:bg-slate-700">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://picsum.photos/seed/${p.id}/400/400'"/>
                         </div>
                         <div class="p-3 space-y-2">
                             <div class="flex items-start justify-between">
-                                <h4 class="text-sm font-semibold text-slate-800 line-clamp-1">${p.name}</h4>
-                                <span class="text-xs font-bold text-violet-600">${formatCurrency(p.price)}</span>
+                                <h4 class="text-sm font-semibold text-slate-800 dark:text-white line-clamp-1">${p.name}</h4>
+                                <span class="text-xs font-bold text-violet-600 dark:text-violet-400">${formatCurrency(p.price)}</span>
                             </div>
                             <div class="flex items-center gap-1 text-xs text-amber-500">
                                 ${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 >= 0.5 ? '★' : ''}
-                                <span class="text-slate-400 ml-1">(${p.rating})</span>
+                                <span class="text-slate-400 dark:text-slate-500 ml-1">(${p.rating})</span>
                             </div>
                             <button class="add-btn w-full py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold transition shadow-sm shadow-violet-500/20" data-id="${p.id}">
                                 <i class="fas fa-plus mr-1.5"></i> Add to Cart
@@ -1099,19 +1470,16 @@
                     </div>
                 `).join('');
 
-                // Attach add-to-cart events
                 grid.querySelectorAll('.add-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
-                        e.stopPropagation(); // prevent opening modal
+                        e.stopPropagation();
                         const id = parseInt(btn.dataset.id);
                         addToCart(id);
                     });
                 });
 
-                // Attach click on card (except button) to open product modal
                 grid.querySelectorAll('.product-card').forEach(card => {
                     card.addEventListener('click', (e) => {
-                        // if click is on the add button, already handled
                         if (e.target.closest('.add-btn')) return;
                         const id = parseInt(card.dataset.id);
                         openProductModal(id);
@@ -1124,12 +1492,10 @@
                 const product = getProduct(productId);
                 if (!product) return;
                 el.productModalCurrentId = productId;
-                // Populate fields
                 el.productModalImage.src = product.image;
                 el.productModalImage.alt = product.name;
                 el.productModalName.textContent = product.name;
                 el.productModalPrice.textContent = formatCurrency(product.price);
-                // Rating: full stars
                 const fullStars = Math.floor(product.rating);
                 const hasHalf = product.rating % 1 >= 0.5;
                 let stars = '★'.repeat(fullStars);
@@ -1139,10 +1505,8 @@
                 el.productModalRatingValue.textContent = `(${product.rating.toFixed(1)})`;
                 el.productModalCategory.textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
                 el.productModalDescription.textContent = product.description;
-                // Reset quantity
                 state.productModalQty = 1;
                 el.productModalQty.textContent = '1';
-                // Show modal
                 el.productModal.classList.remove('closed');
                 el.productModal.classList.add('open');
                 document.body.style.overflow = 'hidden';
@@ -1167,11 +1531,23 @@
                 if (!id) return;
                 const qty = parseInt(el.productModalQty.textContent);
                 addToCart(id, qty);
-                // Optionally close modal
                 closeProductModal();
             }
 
             // ─── AUTH ──────────────────────────────────────────────────
+            function loadUsers() {
+                const data = localStorage.getItem('shopverse_users');
+                if (data) {
+                    try {
+                        state.registeredUsers = JSON.parse(data);
+                    } catch (_) { state.registeredUsers = []; }
+                }
+            }
+
+            function saveUsers() {
+                localStorage.setItem('shopverse_users', JSON.stringify(state.registeredUsers));
+            }
+
             function loadUser() {
                 const data = localStorage.getItem('shopverse_user');
                 if (data) {
@@ -1196,11 +1572,11 @@
                 if (state.isAuthenticated && state.user) {
                     section.innerHTML = `
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-700 font-bold text-sm">
+                            <div class="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-700 font-bold text-sm dark:bg-violet-900/40 dark:text-violet-300">
                                 ${state.user.name.charAt(0).toUpperCase()}
                             </div>
-                            <span class="text-sm font-medium text-slate-700 hidden sm:inline">${state.user.name}</span>
-                            <button id="logoutBtn" class="text-xs text-slate-400 hover:text-rose-500 transition ml-1">
+                            <span class="text-sm font-medium text-slate-700 hidden sm:inline dark:text-slate-300">${state.user.name}</span>
+                            <button id="logoutBtn" class="text-xs text-slate-400 hover:text-rose-500 transition ml-1 dark:text-slate-500 dark:hover:text-rose-400">
                                 <i class="fas fa-sign-out-alt"></i>
                             </button>
                         </div>
@@ -1224,26 +1600,56 @@
             }
 
             function login(email, password) {
-                if (password === '123456') {
-                    const name = email.split('@')[0] || 'User';
-                    state.user = { name, email };
-                    state.isAuthenticated = true;
-                    saveUser();
-                    updateAuthUI();
-                    closeAuthModal();
-                    showToast(`Welcome back, ${name}!`, 'success');
-                    return true;
+                // Check if user exists in registered users
+                const found = state.registeredUsers.find(u => u.email === email);
+                if (found) {
+                    if (found.password === password) {
+                        state.user = { name: found.name, email: found.email };
+                        state.isAuthenticated = true;
+                        saveUser();
+                        updateAuthUI();
+                        closeAuthModal();
+                        showToast(`Welcome back, ${found.name}!`, 'success');
+                        return true;
+                    } else {
+                        el.loginError.textContent = 'Incorrect password. Try again.';
+                        el.loginError.classList.add('show');
+                        return false;
+                    }
                 } else {
-                    showToast('Invalid password. Use "123456" for demo.', 'error');
-                    return false;
+                    // Demo: allow login with password 123456 for any email
+                    if (password === '123456') {
+                        const name = email.split('@')[0] || 'User';
+                        state.user = { name, email };
+                        state.isAuthenticated = true;
+                        saveUser();
+                        updateAuthUI();
+                        closeAuthModal();
+                        showToast(`Welcome back, ${name}!`, 'success');
+                        return true;
+                    } else {
+                        el.loginError.textContent = 'No account found with this email. Please register.';
+                        el.loginError.classList.add('show');
+                        return false;
+                    }
                 }
             }
 
             function register(name, email, password) {
                 if (password.length < 6) {
-                    showToast('Password must be at least 6 characters.', 'error');
+                    el.registerPasswordError.textContent = 'Password must be at least 6 characters.';
+                    el.registerPasswordError.classList.add('show');
                     return false;
                 }
+                // Check if email already registered
+                if (state.registeredUsers.some(u => u.email === email)) {
+                    el.registerEmailError.textContent = 'This email is already registered. Please sign in.';
+                    el.registerEmailError.classList.add('show');
+                    return false;
+                }
+                // Save new user
+                state.registeredUsers.push({ name, email, password });
+                saveUsers();
                 state.user = { name, email };
                 state.isAuthenticated = true;
                 saveUser();
@@ -1269,6 +1675,10 @@
                 el.authModal.classList.remove('closed');
                 el.authModal.classList.add('open');
                 document.body.style.overflow = 'hidden';
+                // Clear errors
+                el.loginError.classList.remove('show');
+                el.registerEmailError.classList.remove('show');
+                el.registerPasswordError.classList.remove('show');
                 switchAuthTab('login');
             }
 
@@ -1285,11 +1695,11 @@
 
                 tabs.forEach(t => {
                     t.classList.remove('bg-violet-600', 'text-white');
-                    t.classList.add('text-slate-600');
+                    t.classList.add('text-slate-600', 'dark:text-slate-300');
                 });
                 const active = tab === 'login' ? tabs[0] : tabs[1];
                 active.classList.add('bg-violet-600', 'text-white');
-                active.classList.remove('text-slate-600');
+                active.classList.remove('text-slate-600', 'dark:text-slate-300');
 
                 if (tab === 'login') {
                     loginForm.classList.remove('hidden');
@@ -1353,7 +1763,7 @@
                 const container = el.checkoutCartItems;
                 const items = state.cart;
                 if (items.length === 0) {
-                    container.innerHTML = '<p class="text-sm text-slate-400">Your cart is empty.</p>';
+                    container.innerHTML = '<p class="text-sm text-slate-400 dark:text-slate-500">Your cart is empty.</p>';
                     el.checkoutTotal.textContent = '$0.00';
                     return;
                 }
@@ -1365,13 +1775,13 @@
                     const itemTotal = p.price * item.quantity;
                     total += itemTotal;
                     html += `
-                        <div class="flex items-center gap-3 py-2 border-b border-slate-100 last:border-0">
+                        <div class="flex items-center gap-3 py-2 border-b border-slate-100 last:border-0 dark:border-slate-700">
                             <img src="${p.image}" alt="${p.name}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
                             <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-slate-800 truncate">${p.name}</p>
-                                <p class="text-xs text-slate-400">Qty: ${item.quantity}</p>
+                                <p class="text-sm font-medium text-slate-800 dark:text-white truncate">${p.name}</p>
+                                <p class="text-xs text-slate-400 dark:text-slate-500">Qty: ${item.quantity}</p>
                             </div>
-                            <span class="text-sm font-bold text-slate-700">${formatCurrency(itemTotal)}</span>
+                            <span class="text-sm font-bold text-slate-700 dark:text-slate-300">${formatCurrency(itemTotal)}</span>
                         </div>
                     `;
                 });
@@ -1418,8 +1828,6 @@
                 renderCheckoutStep(4);
                 showToast('Order placed successfully! 🎉', 'success', 5000);
 
-                clearCart();
-                closeCartDrawer();
                 const orderData = {
                     orderNumber: orderNum,
                     items: [...state.cart],
@@ -1474,9 +1882,9 @@
                 state.currentCategory = category;
                 el.categoryBtns.forEach(btn => {
                     btn.classList.remove('bg-violet-600', 'text-white');
-                    btn.classList.add('bg-slate-200', 'text-slate-700');
+                    btn.classList.add('bg-slate-200', 'text-slate-700', 'dark:bg-slate-700', 'dark:text-slate-200');
                     if (btn.dataset.category === category) {
-                        btn.classList.remove('bg-slate-200', 'text-slate-700');
+                        btn.classList.remove('bg-slate-200', 'text-slate-700', 'dark:bg-slate-700', 'dark:text-slate-200');
                         btn.classList.add('bg-violet-600', 'text-white');
                     }
                 });
@@ -1485,7 +1893,9 @@
 
             // ─── INIT ──────────────────────────────────────────────────
             function init() {
+                loadTheme();
                 loadCart();
+                loadUsers();
                 loadUser();
 
                 renderProducts();
@@ -1494,6 +1904,9 @@
                 updateAuthUI();
 
                 // ─── Event Listeners ──────────────────────────────────
+
+                // Theme toggle
+                el.themeToggle.addEventListener('click', toggleTheme);
 
                 // Cart toggle
                 el.cartToggle.addEventListener('click', toggleCartDrawer);
@@ -1535,6 +1948,26 @@
                         register(name, email, password);
                     } else {
                         showToast('Please fill in all fields.', 'error');
+                    }
+                });
+
+                // Password strength
+                el.registerPassword.addEventListener('input', () => {
+                    const val = el.registerPassword.value;
+                    const bar = el.passwordStrengthBar;
+                    const strength = Math.min(val.length / 10 * 100, 100);
+                    bar.style.width = strength + '%';
+                    if (val.length === 0) {
+                        bar.style.background = '#e2e8f0';
+                    } else if (val.length < 4) {
+                        bar.style.background = '#ef4444';
+                    } else if (val.length < 6) {
+                        bar.style.background = '#f59e0b';
+                    } else {
+                        bar.style.background = '#22c55e';
+                    }
+                    if (val.length >= 6) {
+                        el.registerPasswordError.classList.remove('show');
                     }
                 });
 
@@ -1586,7 +2019,6 @@
                 });
 
                 el.placeOrderBtn.addEventListener('click', placeOrder);
-
                 el.continueShoppingCheckout.addEventListener('click', () => {
                     closeCheckoutModal();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1596,6 +2028,20 @@
                 el.categoryBtns.forEach(btn => {
                     btn.addEventListener('click', () => {
                         setCategory(btn.dataset.category);
+                    });
+                });
+
+                // Footer category links
+                el.categoryFooterLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const cat = link.dataset.cat;
+                        setCategory(cat);
+                        // Update search
+                        el.searchInput.value = '';
+                        el.mobileSearchInput.value = '';
+                        state.searchQuery = '';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                     });
                 });
 
@@ -1625,6 +2071,32 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
 
+                el.footerLogoLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setCategory('all');
+                    el.searchInput.value = '';
+                    el.mobileSearchInput.value = '';
+                    state.searchQuery = '';
+                    renderProducts();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+
+                // Newsletter
+                el.newsletterForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const input = el.newsletterForm.querySelector('input[type="email"]');
+                    const email = input.value.trim();
+                    if (email) {
+                        el.newsletterMessage.textContent = '✅ Subscribed successfully!';
+                        el.newsletterMessage.classList.remove('hidden');
+                        input.value = '';
+                        setTimeout(() => {
+                            el.newsletterMessage.classList.add('hidden');
+                        }, 4000);
+                        showToast('Thanks for subscribing! 🎉', 'success');
+                    }
+                });
+
                 // Product modal
                 el.productModalClose.addEventListener('click', closeProductModal);
                 el.productModalBackdrop.addEventListener('click', closeProductModal);
@@ -1650,6 +2122,7 @@
                 console.log('🛍️ ShopVerse initialized');
                 console.log('👤 Demo login: any email + password "123456"');
                 console.log('🛒 Click any product card to view details');
+                console.log('🌓 Click the moon/sun icon to toggle theme');
             }
 
             // Run
@@ -1667,6 +2140,7 @@
                 clearCart,
                 login,
                 logout,
+                register,
                 openAuthModal,
                 closeAuthModal,
                 openCheckoutModal,
@@ -1675,10 +2149,11 @@
                 closeProductModal,
                 renderProducts,
                 renderCart,
+                toggleTheme,
             };
 
         })();
     </script>
 
 </body>
-</html> 
+</html>
