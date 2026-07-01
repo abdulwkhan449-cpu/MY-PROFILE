@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Real‑Time Dashboard (Frontend Only)</title>
-        <link rel="icon" type="image/png" sizes="16x16" href="./stockfavicon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./stockfavicon.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="./stockfavicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./stockfavicon.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZAAAAVdJREFUOE9jZMAADQwMDOGAxfD/9y9Lhv///zP+/fubgQxYv399Nf3/t+cMI3z1cEH6AwODAOTeALz8P///MQA5DEyM///9YkDIMTKyMEBpRjADKQ/n/f/9lYHhP48Y1mQN6SYEB0QGXqahhhoA9gNSj41GJwU9QSn+wMhIfdP//vzGmHMA6gWQMv7///v/2//f/3/+BQkz/P/1g+Hf758MIB9B/QwV/f/3NwNY6P/Pjwy///1i+A4SRor//wHp8u+fnxl+/PwA9cffH18Zfv7+Dkzz/xm+fv8CkhMAKfv56xP0VCT9F9TQ/0ivNAa6CxP8wwS0MAEkDKAA5uWXw7uQAUi6Cx3//cXAAKQxA1Ry+P//zz8M///+BTHhwv/+QGT9A8oDuQwg/j8GEGPA8pA4+fP7K9xHmPFIAIAC4s+fvwxgX8JdAw1mTEJIKmwBJbCpyMII6f/4D+oimWlGAAA9wKTvXTQOKAAAAABJRU5ErkJggg==" />
 
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com">
     </script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./stockfavicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./stockfavicon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="./stockfavicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./stockfavicon.png">
+
     <!-- Chart.js for charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+
     </script>
 
     <style>
@@ -24,12 +29,15 @@
             scrollbar-width: thin;
             scrollbar-color: #4f46e5 transparent;
         }
+
         ::-webkit-scrollbar {
             width: 5px;
         }
+
         ::-webkit-scrollbar-track {
             background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #4f46e5;
             border-radius: 10px;
@@ -57,6 +65,7 @@
         .stat-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .stat-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15);
@@ -65,12 +74,15 @@
         .pulse-dot {
             animation: pulse-dot 1.8s ease-in-out infinite;
         }
+
         @keyframes pulse-dot {
+
             0%,
             100% {
                 opacity: 1;
                 transform: scale(1);
             }
+
             50% {
                 opacity: 0.4;
                 transform: scale(0.85);
@@ -86,50 +98,112 @@
         .dark body {
             background: #0f172a;
         }
+
         .dark .bg-white {
             background: #1e293b !important;
         }
+
         .dark .text-gray-900 {
             color: #f1f5f9 !important;
         }
+
         .dark .text-gray-600 {
             color: #94a3b8 !important;
         }
+
         .dark .text-gray-500 {
             color: #64748b !important;
         }
+
         .dark .text-gray-400 {
             color: #475569 !important;
         }
+
         .dark .text-gray-700 {
             color: #cbd5e1 !important;
         }
+
         .dark .border-gray-200 {
             border-color: #334155 !important;
         }
+
         .dark .border-gray-100 {
             border-color: #1e293b !important;
         }
+
         .dark .bg-gray-50 {
             background: #0f172a !important;
         }
+
         .dark .bg-gray-100 {
             background: #1e293b !important;
         }
+
         .dark .hover\:bg-gray-50:hover {
             background: #1e293b !important;
         }
+
         .dark .hover\:bg-gray-100:hover {
             background: #2d3a4f !important;
         }
+
         .dark .shadow-sm {
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
         }
+
         .dark .shadow-lg {
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
         }
+
         .dark .divide-y> :not([hidden])~ :not([hidden]) {
             border-color: #334155 !important;
+        }
+
+        /* --- FOOTER DARK MODE --- */
+        .dark .footer-bg {
+            background: rgba(15, 23, 42, 0.85) !important;
+            border-color: rgba(51, 65, 85, 0.4) !important;
+        }
+
+        .dark .footer-link {
+            color: #94a3b8 !important;
+        }
+
+        .dark .footer-link:hover {
+            color: #818cf8 !important;
+        }
+
+        .dark .footer-social {
+            background: rgba(255, 255, 255, 0.06) !important;
+            color: #94a3b8 !important;
+        }
+
+        .dark .footer-social:hover {
+            background: #4f46e5 !important;
+            color: white !important;
+        }
+
+        .dark .footer-input {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+
+        .dark .footer-input:focus {
+            border-color: #4f46e5 !important;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2) !important;
+        }
+
+        .dark .footer-divider {
+            background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.15), transparent) !important;
+        }
+
+        .dark .footer-bottom-text {
+            color: #64748b !important;
+        }
+
+        .dark .footer-heading {
+            color: #e2e8f0 !important;
         }
 
         /* Toggle switch */
@@ -143,9 +217,11 @@
             position: relative;
             flex-shrink: 0;
         }
+
         .toggle-track.dark {
             background: #4f46e5;
         }
+
         .toggle-thumb {
             width: 20px;
             height: 20px;
@@ -157,6 +233,7 @@
             transition: transform 0.3s ease;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
+
         .toggle-track.dark .toggle-thumb {
             transform: translateX(22px);
         }
@@ -165,11 +242,13 @@
         .toast {
             animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         @keyframes slideUp {
             from {
                 opacity: 0;
                 transform: translateY(20px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -179,15 +258,74 @@
         .fade-in {
             animation: fadeIn 0.5s ease;
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* Footer link hover */
+        .footer-link {
+            transition: color 0.2s ease;
+            cursor: pointer;
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            color: #4f46e5;
+        }
+
+        .footer-social {
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.04);
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        .footer-social:hover {
+            background: #4f46e5;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-input {
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .footer-input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+            outline: none;
+        }
+
+        .footer-divider {
+            background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.08), transparent);
+            height: 1px;
+        }
+
+        .footer-bg {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        .footer-heading {
+            color: #0f172a;
         }
 
         /* Responsive tweaks */
@@ -195,28 +333,33 @@
             .stat-card {
                 padding: 1rem !important;
             }
+
             .stat-card .stat-icon {
                 font-size: 1.25rem !important;
                 width: 40px !important;
                 height: 40px !important;
             }
+
             .stat-card .stat-value {
                 font-size: 1.25rem !important;
             }
         }
     </style>
 </head>
+
 <body>
 
     <!-- ============================================================ -->
     <!-- APP ROOT -->
     <!-- ============================================================ -->
-    <div id="app" class="min-h-screen transition-colors duration-300">
+    <div id="app" class="min-h-screen transition-colors duration-300 flex flex-col">
 
         <!-- ==================== HEADER ==================== -->
-        <header class="glass-card sticky top-0 z-50 px-4 sm:px-6 py-3 flex items-center justify-between border-b border-gray-200/50">
+        <header
+            class="glass-card sticky top-0 z-50 px-4 sm:px-6 py-3 flex items-center justify-between border-b border-gray-200/50">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
+                <div
+                    class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
                     <i class="fas fa-chart-line text-sm"></i>
                 </div>
                 <div>
@@ -227,9 +370,11 @@
 
             <div class="flex items-center gap-4">
                 <!-- Live indicator -->
-                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/40">
+                <div
+                    class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/40">
                     <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
                     <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-300">LIVE</span>
@@ -246,32 +391,38 @@
 
                 <!-- Notification bell -->
                 <div class="relative cursor-pointer group" id="notifBell">
-                    <div class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition">
+                    <div
+                        class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition">
                         <i class="fas fa-bell text-sm"></i>
                     </div>
-                    <span class="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-rose-500 text-[9px] font-bold text-white flex items-center justify-center shadow-sm">3</span>
+                    <span
+                        class="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-rose-500 text-[9px] font-bold text-white flex items-center justify-center shadow-sm">3</span>
                 </div>
 
                 <!-- Avatar -->
-                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold shadow-md ring-2 ring-white dark:ring-gray-700">
+                <div
+                    class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold shadow-md ring-2 ring-white dark:ring-gray-700">
                     JD
                 </div>
             </div>
         </header>
 
         <!-- ==================== MAIN CONTENT ==================== -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+        <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6 w-full">
 
             <!-- ===== STATS ROW ===== -->
             <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 fade-in">
                 <!-- Stat 1 -->
                 <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
-                    <div class="stat-icon w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xl flex-shrink-0">
+                    <div
+                        class="stat-icon w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xl flex-shrink-0">
                         <i class="fas fa-dollar-sign"></i>
                     </div>
                     <div>
-                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Revenue</p>
-                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statRevenue">$48,295</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Revenue
+                        </p>
+                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statRevenue">$48,295
+                        </p>
                         <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
                             <i class="fas fa-arrow-up mr-0.5"></i> +12.5%
                         </p>
@@ -280,11 +431,13 @@
 
                 <!-- Stat 2 -->
                 <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
-                    <div class="stat-icon w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl flex-shrink-0">
+                    <div
+                        class="stat-icon w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl flex-shrink-0">
                         <i class="fas fa-users"></i>
                     </div>
                     <div>
-                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Users</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Users
+                        </p>
                         <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statUsers">2,847</p>
                         <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
                             <i class="fas fa-arrow-up mr-0.5"></i> +8.3%
@@ -294,12 +447,15 @@
 
                 <!-- Stat 3 -->
                 <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
-                    <div class="stat-icon w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 text-xl flex-shrink-0">
+                    <div
+                        class="stat-icon w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 text-xl flex-shrink-0">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <div>
-                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Active Sessions</p>
-                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statSessions">1,203</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Active
+                            Sessions</p>
+                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statSessions">1,203
+                        </p>
                         <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
                             <i class="fas fa-arrow-up mr-0.5"></i> +5.7%
                         </p>
@@ -308,12 +464,15 @@
 
                 <!-- Stat 4 -->
                 <div class="stat-card glass-card rounded-2xl p-5 flex items-center gap-4">
-                    <div class="stat-icon w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center text-rose-600 dark:text-rose-400 text-xl flex-shrink-0">
+                    <div
+                        class="stat-icon w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center text-rose-600 dark:text-rose-400 text-xl flex-shrink-0">
                         <i class="fas fa-percent"></i>
                     </div>
                     <div>
-                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Conversion</p>
-                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statConversion">3.82%</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Conversion</p>
+                        <p class="stat-value text-2xl font-bold text-gray-900 dark:text-white" id="statConversion">3.82%
+                        </p>
                         <p class="text-xs text-rose-600 dark:text-rose-400 font-medium mt-0.5">
                             <i class="fas fa-arrow-down mr-0.5"></i> -0.4%
                         </p>
@@ -353,10 +512,14 @@
                     </div>
                     <!-- Legend inline -->
                     <div class="flex flex-wrap justify-center gap-3 mt-3 text-xs">
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Direct</span>
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> Social</span>
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Organic</span>
-                        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Referral</span>
+                        <span class="flex items-center gap-1.5"><span
+                                class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Direct</span>
+                        <span class="flex items-center gap-1.5"><span
+                                class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> Social</span>
+                        <span class="flex items-center gap-1.5"><span
+                                class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Organic</span>
+                        <span class="flex items-center gap-1.5"><span
+                                class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Referral</span>
                     </div>
                 </div>
             </section>
@@ -370,7 +533,8 @@
                             <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Weekly Activity</h3>
                             <p class="text-xs text-gray-500 dark:text-gray-400">Last 7 days</p>
                         </div>
-                        <select class="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+                        <select
+                            class="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
                             <option>This Week</option>
                             <option>Last Week</option>
                             <option>This Month</option>
@@ -385,7 +549,8 @@
                 <div class="glass-card rounded-2xl p-5 lg:col-span-2">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Live Activity</h3>
-                        <span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 rounded-full">REAL-TIME</span>
+                        <span
+                            class="text-[10px] font-medium text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 rounded-full">REAL-TIME</span>
                     </div>
                     <div class="space-y-3 max-h-56 overflow-y-auto pr-1" id="activityFeed">
                         <!-- Items injected by JS -->
@@ -393,22 +558,121 @@
                 </div>
             </section>
 
-            <!-- ===== FOOTER ===== -->
-            <footer class="text-center text-xs text-gray-400 dark:text-gray-600 py-4 border-t border-gray-200/50 dark:border-gray-800/50 mt-2">
-                <span class="inline-flex items-center gap-2">
-                    <i class="fas fa-circle text-emerald-500 text-[6px] pulse-dot"></i>
-                    RealDash &bull; All data simulated in real-time (frontend only)
-                </span>
-            </footer>
-
         </main>
+
+        <!-- ============================================================ -->
+        <!-- FOOTER                                                         -->
+        <!-- ============================================================ -->
+        <footer class="footer-bg mt-8 border-t border-gray-200/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+                <!-- Main footer grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 py-10 lg:py-14">
+
+                    <!-- Brand -->
+                    <div class="lg:col-span-1.5 space-y-4">
+                        <div class="flex items-center gap-2.5">
+                            <div
+                                class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
+                                <i class="fas fa-chart-line text-sm"></i>
+                            </div>
+                            <span class="text-xl font-extrabold text-gray-900 tracking-tight">Real<span
+                                    class="text-indigo-600">Dash</span></span>
+                        </div>
+                        <p class="text-sm text-gray-500 max-w-xs leading-relaxed">
+                            Real-time analytics dashboard for modern teams. Monitor metrics, track performance, and make
+                            data-driven decisions.
+                        </p>
+                        <div class="flex items-center gap-2 pt-1">
+                            <a href="#" class="footer-social" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="footer-social" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" class="footer-social" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="footer-social" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="#" class="footer-social" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Product -->
+                    <div>
+                        <h5 class="footer-heading font-semibold text-sm uppercase tracking-wider mb-4">Product</h5>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><a href="#" class="footer-link">Features</a></li>
+                            <li><a href="#" class="footer-link">Pricing</a></li>
+                            <li><a href="#" class="footer-link">Integrations</a></li>
+                            <li><a href="#" class="footer-link">Changelog</a></li>
+                            <li><a href="#" class="footer-link">Roadmap</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Company -->
+                    <div>
+                        <h5 class="footer-heading font-semibold text-sm uppercase tracking-wider mb-4">Company</h5>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><a href="#" class="footer-link">About</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Careers</a></li>
+                            <li><a href="#" class="footer-link">Press</a></li>
+                            <li><a href="#" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Resources -->
+                    <div>
+                        <h5 class="footer-heading font-semibold text-sm uppercase tracking-wider mb-4">Resources</h5>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><a href="#" class="footer-link">Documentation</a></li>
+                            <li><a href="#" class="footer-link">API Reference</a></li>
+                            <li><a href="#" class="footer-link">Support</a></li>
+                            <li><a href="#" class="footer-link">Community</a></li>
+                            <li><a href="#" class="footer-link">Status</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="lg:col-span-1.5">
+                        <h5 class="footer-heading font-semibold text-sm uppercase tracking-wider mb-4">Stay Updated</h5>
+                        <p class="text-sm text-gray-500 mb-3">Get the latest insights and product updates.</p>
+                        <form id="footerNewsletter" class="flex flex-col sm:flex-row gap-2">
+                            <input type="email" placeholder="Enter your email" required
+                                class="footer-input flex-1 px-4 py-2.5 rounded-xl border border-gray-200 bg-white/60 text-sm text-gray-700 placeholder-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition" />
+                            <button type="submit"
+                                class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition shadow-lg shadow-indigo-500/25 whitespace-nowrap">
+                                <i class="fas fa-paper-plane mr-1.5"></i> Subscribe
+                            </button>
+                        </form>
+                        <div id="footerNewsletterMsg"
+                            class="text-xs mt-2 text-emerald-600 dark:text-emerald-400 hidden"></div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="footer-divider"></div>
+
+                <!-- Bottom bar -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 text-sm">
+                    <div class="flex items-center gap-6 flex-wrap justify-center">
+                        <span class="text-gray-400">&copy; 2026 RealDash. All rights reserved.</span>
+                        <a href="#" class="footer-link text-xs">Privacy Policy</a>
+                        <a href="#" class="footer-link text-xs">Terms of Service</a>
+                        <a href="#" class="footer-link text-xs">Cookie Policy</a>
+                    </div>
+                    <div class="flex items-center gap-3 text-gray-400 text-xs">
+                        <span>Made with</span>
+                        <i class="fas fa-heart text-rose-500 text-xs"></i>
+                        <span>— data simulated in real-time</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
     </div>
 
     <!-- ============================================================ -->
     <!-- JAVASCRIPT — Fully frontend simulation                        -->
     <!-- ============================================================ -->
     <script>
-        (function() {
+        (function () {
             'use strict';
 
             // ─── STATE ────────────────────────────────────────────────
@@ -446,6 +710,8 @@
                 themeToggle: $('#themeToggle'),
                 app: $('#app'),
                 notifBell: $('#notifBell'),
+                footerNewsletter: $('#footerNewsletter'),
+                footerNewsletterMsg: $('#footerNewsletterMsg'),
             };
 
             // ─── THEME ────────────────────────────────────────────────
@@ -487,32 +753,54 @@
 
             // ─── ACTIVITY FEED ────────────────────────────────────────
             const activityMessages = [
-                { icon: 'fa-user-plus', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20',
-                text: 'New user registered' },
-                { icon: 'fa-shopping-cart', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-900/20',
-                    text: 'Purchase completed' },
-                { icon: 'fa-comment', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/20',
-                text: 'New comment posted' },
-                { icon: 'fa-arrow-up', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/20',
-                text: 'Revenue milestone' },
-                { icon: 'fa-bell', color: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-900/20',
-                text: 'Alert: high traffic' },
-                { icon: 'fa-check-circle', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20',
-                    text: 'Task completed' },
-                { icon: 'fa-download', color: 'text-cyan-500', bg: 'bg-cyan-50 dark:bg-cyan-900/20',
-                text: 'Report exported' },
-                { icon: 'fa-star', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/20',
-                text: 'New 5-star review' },
-                { icon: 'fa-users', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-900/20',
-                text: 'Team member joined' },
-                { icon: 'fa-credit-card', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20',
-                    text: 'Payment processed' },
+                {
+                    icon: 'fa-user-plus', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+                    text: 'New user registered'
+                },
+                {
+                    icon: 'fa-shopping-cart', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-900/20',
+                    text: 'Purchase completed'
+                },
+                {
+                    icon: 'fa-comment', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/20',
+                    text: 'New comment posted'
+                },
+                {
+                    icon: 'fa-arrow-up', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/20',
+                    text: 'Revenue milestone'
+                },
+                {
+                    icon: 'fa-bell', color: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-900/20',
+                    text: 'Alert: high traffic'
+                },
+                {
+                    icon: 'fa-check-circle', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+                    text: 'Task completed'
+                },
+                {
+                    icon: 'fa-download', color: 'text-cyan-500', bg: 'bg-cyan-50 dark:bg-cyan-900/20',
+                    text: 'Report exported'
+                },
+                {
+                    icon: 'fa-star', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-900/20',
+                    text: 'New 5-star review'
+                },
+                {
+                    icon: 'fa-users', color: 'text-indigo-500', bg: 'bg-indigo-50 dark:bg-indigo-900/20',
+                    text: 'Team member joined'
+                },
+                {
+                    icon: 'fa-credit-card', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20',
+                    text: 'Payment processed'
+                },
             ];
 
             function addActivity() {
                 const msg = activityMessages[Math.floor(Math.random() * activityMessages.length)];
-                const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit',
-                    second: '2-digit' });
+                const time = new Date().toLocaleTimeString('en-US', {
+                    hour: '2-digit', minute: '2-digit',
+                    second: '2-digit'
+                });
                 const item = document.createElement('div');
                 item.className =
                     'flex items-start gap-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700/50 transition-all hover:bg-gray-100 dark:hover:bg-gray-700/60 fade-in';
@@ -694,7 +982,6 @@
             // ─── UPDATE CHARTS (real-time) ──────────────────────────
 
             function updateLineChart() {
-                // Shift and push new value
                 state.lineData.shift();
                 const newVal = Math.max(10, state.lineData[state.lineData.length - 1] + randomBetween(-15, 15));
                 state.lineData.push(Math.min(130, newVal));
@@ -705,7 +992,6 @@
             }
 
             function updateBarChart() {
-                // Slightly randomize bar data
                 state.barData = state.barData.map(v => Math.max(2000, v + randomBetween(-400, 500)));
                 if (state.barChart) {
                     state.barChart.data.datasets[0].data = state.barData;
@@ -714,13 +1000,11 @@
             }
 
             function updateDoughnutChart() {
-                // Slightly shift doughnut values
                 const total = state.doughnutData.reduce((a, b) => a + b, 0);
                 state.doughnutData = state.doughnutData.map(v => {
                     const change = randomBetween(-3, 3);
                     return Math.max(5, v + change);
                 });
-                // Normalize to sum ~100
                 const newTotal = state.doughnutData.reduce((a, b) => a + b, 0);
                 state.doughnutData = state.doughnutData.map(v => Math.round((v / newTotal) * 100));
                 if (state.doughnutChart) {
@@ -732,7 +1016,6 @@
             // ─── UPDATE STATS ─────────────────────────────────────────
 
             function updateStats() {
-                // Random walk for each stat
                 state.revenue += randomBetween(-150, 220);
                 state.revenue = Math.max(30000, state.revenue);
                 state.users += randomBetween(-5, 12);
@@ -751,29 +1034,24 @@
             // ─── SIMULATION LOOP ──────────────────────────────────────
 
             function startSimulation() {
-                // Stats update every 2.5s
                 setInterval(() => {
                     updateStats();
                     updateLineChart();
                     if (Math.random() < 0.35) addActivity();
                 }, 2500);
 
-                // Bar chart update every 5s
                 setInterval(() => {
                     updateBarChart();
                 }, 5000);
 
-                // Doughnut update every 8s
                 setInterval(() => {
                     updateDoughnutChart();
                 }, 8000);
 
-                // Extra line updates for smoothness
                 setInterval(() => {
                     updateLineChart();
                 }, 1200);
 
-                // Simulate notification bell pulse
                 setInterval(() => {
                     const bell = el.notifBell.querySelector('.w-9');
                     if (bell) {
@@ -810,12 +1088,53 @@
                 }
             }
 
-            // Watch theme changes
             const origSetTheme = setTheme;
-            setTheme = function(dark) {
+            setTheme = function (dark) {
                 origSetTheme(dark);
                 setTimeout(onThemeChange, 50);
             };
+
+            // ─── FOOTER NEWSLETTER ────────────────────────────────────
+
+            el.footerNewsletter.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const input = this.querySelector('input[type="email"]');
+                const email = input.value.trim();
+                if (email) {
+                    el.footerNewsletterMsg.textContent = '✅ Subscribed successfully!';
+                    el.footerNewsletterMsg.classList.remove('hidden');
+                    input.value = '';
+                    setTimeout(() => {
+                        el.footerNewsletterMsg.classList.add('hidden');
+                    }, 4000);
+                    // Show a toast notification
+                    showToast('Thanks for subscribing! 🎉', 'success');
+                }
+            });
+
+            // ─── TOAST NOTIFICATION ───────────────────────────────────
+
+            function showToast(message, type = 'info') {
+                // Simple inline toast for footer actions
+                const container = document.querySelector('.toast-container') || (() => {
+                    const div = document.createElement('div');
+                    div.className = 'toast-container';
+                    document.body.appendChild(div);
+                    return div;
+                })();
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+                toast.innerHTML = `
+                    <i class="fas ${icons[type] || icons.info} text-lg"></i>
+                    <span>${message}</span>
+                `;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('toast-out');
+                    setTimeout(() => toast.remove(), 350);
+                }, 3500);
+            }
 
             // ─── INIT ──────────────────────────────────────────────────
 
@@ -823,7 +1142,6 @@
                 initCharts();
                 startSimulation();
 
-                // Initial activity burst
                 setTimeout(() => {
                     for (let i = 0; i < 3; i++) {
                         setTimeout(addActivity, i * 300);
@@ -833,9 +1151,9 @@
                 console.log('🚀 RealDash (frontend-only) initialized');
                 console.log('📊 All data simulated locally — no backend required');
                 console.log('🌓 Toggle theme with the sun/moon button');
+                console.log('📬 Footer newsletter is fully functional');
             }
 
-            // Run after DOM ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', init);
             } else {
@@ -870,4 +1188,5 @@
     </script>
 
 </body>
+
 </html>
