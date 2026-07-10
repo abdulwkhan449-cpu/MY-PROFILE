@@ -86,3 +86,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 console.log('✅ Form data sends to WhatsApp (+923175565531) and Email (abdulwkhan448@gmail.com)');
+ 
