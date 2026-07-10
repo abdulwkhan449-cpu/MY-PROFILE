@@ -622,7 +622,7 @@ nav.scrolled::after {
 }
 
 .project-card .project-thumb {
-    width: 100%;
+    width: 200px;
     height: 180px;
     object-fit: cover;
     border-radius: 12px;
