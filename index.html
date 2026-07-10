@@ -639,7 +639,7 @@
         }
 
         /* ============================================================
-           PROJECTS — smaller images
+           PROJECTS — SMALLER IMAGES (REDUCED HEIGHT)
         ============================================================ */
         .projects-grid {
             display: grid;
@@ -651,7 +651,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            padding: 24px 20px;
+            padding: 22px 18px;
             transition: all 0.4s ease;
             cursor: default;
         }
@@ -664,10 +664,11 @@
 
         .project-card .thumb {
             width: 100%;
-            height: 150px;
+            height: 110px;
+            /* reduced from 150px */
             background: linear-gradient(135deg, #1f1814, #2f2520);
             border-radius: 12px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -685,32 +686,33 @@
 
         .project-card h3 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             margin-bottom: 4px;
         }
 
         .project-card p {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 300;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .project-tags span {
             background: rgba(230, 57, 70, 0.06);
             border: 1px solid rgba(230, 57, 70, 0.08);
             color: var(--neon-red);
-            padding: 4px 14px;
+            padding: 3px 12px;
             border-radius: 30px;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
         .project-tags span a {
@@ -1168,7 +1170,8 @@
             }
 
             .project-card .thumb {
-                height: 120px;
+                height: 90px;
+                /* smaller on tablet */
             }
         }
 
@@ -1226,7 +1229,8 @@
             }
 
             .project-card .thumb {
-                height: 100px;
+                height: 80px;
+                /* even smaller on mobile */
             }
         }
     </style>
