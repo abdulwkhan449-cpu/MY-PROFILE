@@ -55,7 +55,6 @@ form.addEventListener('submit', function (e) {
         `Email: ${email}%0A%0A` +
         `Message:%0A${message}`;
     const mailtoUrl = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-    // Open mailto in a new window (some browsers may block popups, but it's the simplest client-side approach)
     window.open(mailtoUrl, '_blank');
 
     // Show success message & hide form
@@ -86,4 +85,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 console.log('✅ Form data sends to WhatsApp (+923175565531) and Email (abdulwkhan448@gmail.com)');
- 
