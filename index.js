@@ -8,13 +8,14 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== HAMBURGER MENU TOGGLE =====
+// ===== HAMBURGER MENU – FULLSCREEN POPUP =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
-    // Change icon between bars and times
+    document.body.classList.toggle('menu-open');
+
     const icon = hamburger.querySelector('i');
     if (navLinks.classList.contains('active')) {
         icon.className = 'fas fa-times';
@@ -23,10 +24,11 @@ hamburger.addEventListener('click', () => {
     }
 });
 
-// Close menu when a link is clicked (optional)
+// Close menu when a link is clicked
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
+        document.body.classList.remove('menu-open');
         const icon = hamburger.querySelector('i');
         icon.className = 'fas fa-bars';
     });
@@ -102,6 +104,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-console.log('🔥 Portfolio updated with hamburger menu, project buttons, and fixed hero image.');
-console.log('ℹ️ Replace PASTE_YOUR_LIVE_URL and PASTE_YOUR_GITHUB_REPO with actual links.');
-console.log('ℹ️ Update FORMSPREE_ENDPOINT with your Formspree ID.');
+console.log('🔥 Full code updated: Mobile popup menu + Website styled project buttons.');
+console.log('ℹ️ Update FORMSPREE_ENDPOINT with your Formspree ID if needed.');
