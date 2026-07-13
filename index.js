@@ -8,14 +8,13 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== HAMBURGER MENU – FULLSCREEN POPUP =====
+// ===== HAMBURGER MENU – SLIDE-IN SIDE PANEL =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-
+    // change icon
     const icon = hamburger.querySelector('i');
     if (navLinks.classList.contains('active')) {
         icon.className = 'fas fa-times';
@@ -28,7 +27,6 @@ hamburger.addEventListener('click', () => {
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
-        document.body.classList.remove('menu-open');
         const icon = hamburger.querySelector('i');
         icon.className = 'fas fa-bars';
     });
