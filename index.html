@@ -17,10 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./index.css">
-    <style>
-       
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -34,10 +31,14 @@
         <!-- ===== NAVIGATION ===== -->
         <nav id="navbar">
             <div class="logo">ABDUL WALI</div>
-            <ul class="nav-links">
+            <!-- Hamburger button (only visible on mobile) -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#work">Project</a></li>
+                <li><a href="#work">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -176,31 +177,34 @@
             <div class="section-glass reveal">
                 <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
                 <div class="projects-grid">
+                    <!-- Project 1: StockAI -->
                     <div class="project-card">
-                        <div class="thumb"><img src="./servicespic-1.png" alt="Project One" /></div>
-                        <h3>Project One</h3>
+                        <div class="thumb"><img src="./servicespic-1.png" alt="StockAI" /></div>
+                        <h3>StockAI</h3>
                         <p>A full-stack web application with real-time data and a sleek dashboard.</p>
-                        <div class="project-tags">
-                            <span><a href="./stockai.html">Visit Now</a></span>
-                            <span>Socket.ai</span>
+                        <div class="project-buttons">
+                            <a href="PASTE_YOUR_LIVE_URL" target="_blank" rel="noopener noreferrer" class="btn-live">View Live</a>
+                            <a href="PASTE_YOUR_GITHUB_REPO" target="_blank" rel="noopener noreferrer" class="btn-github">GitHub</a>
                         </div>
                     </div>
+                    <!-- Project 2: ShopVerse -->
                     <div class="project-card">
-                        <div class="thumb"><img src="./servicepic-2.png" alt="Project Two" /></div>
-                        <h3>Project Two</h3>
+                        <div class="thumb"><img src="./servicepic-2.png" alt="ShopVerse" /></div>
+                        <h3>ShopVerse</h3>
                         <p>Responsive e-commerce platform with seamless checkout and user auth.</p>
-                        <div class="project-tags">
-                            <span><a href="./ecommerence.html">Visit Now</a></span>
-                            <span>E-Commerce</span>
+                        <div class="project-buttons">
+                            <a href="PASTE_YOUR_LIVE_URL" target="_blank" rel="noopener noreferrer" class="btn-live">View Live</a>
+                            <a href="PASTE_YOUR_GITHUB_REPO" target="_blank" rel="noopener noreferrer" class="btn-github">GitHub</a>
                         </div>
                     </div>
+                    <!-- Project 3: WeatherVue -->
                     <div class="project-card">
-                        <div class="thumb"><img src="./servicepic-3.png" alt="Project Three" /></div>
-                        <h3>Project Three</h3>
+                        <div class="thumb"><img src="./servicepic-3.png" alt="WeatherVue" /></div>
+                        <h3>WeatherVue</h3>
                         <p>A Weather app that shows you what's coming.</p>
-                        <div class="project-tags">
-                            <span><a href="./weatherapp.html">Visit Now</a></span>
-                            <span>Weather</span>
+                        <div class="project-buttons">
+                            <a href="PASTE_YOUR_LIVE_URL" target="_blank" rel="noopener noreferrer" class="btn-live">View Live</a>
+                            <a href="PASTE_YOUR_GITHUB_REPO" target="_blank" rel="noopener noreferrer" class="btn-github">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -308,10 +312,7 @@
 
 </div>
 
-<script src="./index.js">
-   
-</script>
-
+<script src="./script.js"></script>
 </body>
 
 </html>
