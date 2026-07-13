@@ -1074,7 +1074,7 @@ footer .footer-icon.mug {
     }
 }
 
-/* ===== MOBILE MENU – FULLSCREEN POPUP OVERLAY ===== */
+/* ===== MOBILE MENU – SLIDE-IN SIDE PANEL ===== */
 @media (max-width: 768px) {
     nav {
         flex-direction: row;
@@ -1098,58 +1098,50 @@ footer .footer-icon.mug {
     .nav-links {
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100vw;
+        right: -280px; /* hidden off-screen */
+        width: 260px;
         height: 100vh;
-        background: rgba(13, 11, 9, 0.92);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        display: none; /* hidden by default */
+        background: rgba(13, 11, 9, 0.95);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 32px;
+        gap: 28px;
         z-index: 1000;
         margin: 0;
         padding: 40px 20px;
         border: none;
         border-radius: 0;
-        animation: fadePopup 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+        border-left: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .nav-links.active {
-        display: flex;
+        right: 0; /* slide in */
     }
 
     .nav-links a {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         font-weight: 600;
         color: var(--text-primary);
-        letter-spacing: 2px;
+        letter-spacing: 1px;
         transition: color 0.3s ease, transform 0.3s ease;
+        padding: 6px 0;
     }
 
     .nav-links a:hover {
         color: var(--neon-orange);
-        transform: scale(1.05);
+        transform: translateX(-6px);
     }
 
     .nav-links a::after {
         display: none;
     }
 
-    @keyframes fadePopup {
-        0% {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    /* Hero image fix */
+    /* Hero image fix (same as before) */
     .hero-image-wrapper {
         width: 100%;
         max-width: 280px;
@@ -1201,6 +1193,7 @@ footer .footer-icon.mug {
         height: 160px;
     }
 }
+
 
 @media (max-width: 480px) {
     .about-stats {
