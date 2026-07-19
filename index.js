@@ -1,10 +1,10 @@
-// ===== PRELOADER: Hide after 5 seconds =====
+// ===== PRELOADER: Hide after 3 seconds =====
 window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
         setTimeout(() => {
             preloader.classList.add('fade-out');
-        }, 5000); // 5 seconds
+        }, 3000); // 3 seconds
     }
 });
 
@@ -24,7 +24,7 @@ const navLinks = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
-    document.body.classList.toggle('menu-open'); // FIX: adds the dark overlay
+    document.body.classList.toggle('menu-open');
 
     const icon = hamburger.querySelector('i');
     if (navLinks.classList.contains('active')) {
@@ -38,7 +38,7 @@ hamburger.addEventListener('click', () => {
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
-        document.body.classList.remove('menu-open'); // FIX: removes the overlay
+        document.body.classList.remove('menu-open');
         const icon = hamburger.querySelector('i');
         icon.className = 'fas fa-bars';
     });
@@ -63,8 +63,7 @@ const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
-// ⚠️ IMPORTANT: Replace the endpoint below with your own Formspree form ID.
-// Get a free endpoint at https://formspree.io/ (create a new form, copy its ID).
+// ⚠️ IMPORTANT: Replace with your own Formspree form ID.
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormID';
 
 form.addEventListener('submit', async function(e) {
@@ -117,7 +116,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
-            // Small delay to allow mobile menu to close smoothly
             setTimeout(() => {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 200);
@@ -127,5 +125,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 console.log('🚀 Portfolio ready!');
 console.log('ℹ️ Update FORMSPREE_ENDPOINT with your Formspree ID if needed.');
-
-
