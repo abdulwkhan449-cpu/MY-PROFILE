@@ -68,7 +68,7 @@ section {
 }
 
 /* ============================================================
-   PRELOADER (5 seconds)
+   PRELOADER – Circular Ring · 3 seconds · No name
 ============================================================ */
 #preloader {
     position: fixed;
@@ -94,61 +94,24 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 30px;
 }
 
-.loader-ring {
+/* ── Circular Rotating Ring ── */
+.loader-ring-circular {
     width: 80px;
     height: 80px;
-    border-radius: 16px;
-    background: conic-gradient(from 0deg, #fd802e, #E63946, #fd802e, #E63946);
-    padding: 4px;
-    animation: spinRing 1.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-    box-shadow: 0 0 60px rgba(253, 128, 46, 0.25);
+    border-radius: 50%;
+    border: 6px solid transparent;
+    border-top-color: var(--neon-orange);
+    border-right-color: var(--neon-red);
+    border-bottom-color: var(--neon-orange);
+    border-left-color: var(--neon-red);
+    animation: spinCircular 1s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    box-shadow: 0 0 50px rgba(253, 128, 46, 0.2), 0 0 80px rgba(230, 57, 70, 0.1);
 }
 
-.loader-ring::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-primary);
-    border-radius: 13px;
-}
-
-.loader-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-
-.loader-text span {
-    display: inline-block;
-    background: var(--gradient-hero);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shimmer 2s ease infinite, popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
-}
-
-.loader-text span:nth-child(1) { animation-delay: 0.0s; }
-.loader-text span:nth-child(2) { animation-delay: 0.05s; }
-.loader-text span:nth-child(3) { animation-delay: 0.10s; }
-.loader-text span:nth-child(4) { animation-delay: 0.15s; }
-.loader-text span:nth-child(5) { animation-delay: 0.20s; }
-.loader-text span:nth-child(7) { animation-delay: 0.30s; }
-.loader-text span:nth-child(8) { animation-delay: 0.35s; }
-.loader-text span:nth-child(9) { animation-delay: 0.40s; }
-.loader-text span:nth-child(10) { animation-delay: 0.45s; }
-
-@keyframes popIn {
-    0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes spinRing {
+@keyframes spinCircular {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
@@ -156,10 +119,15 @@ section {
 .loader-sub {
     color: var(--text-muted);
     font-size: 0.8rem;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: 300;
-    margin-top: -8px;
+    animation: pulseSub 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseSub {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
 }
 
 /* ===== GLASS CARD WRAPPER ===== */
@@ -476,7 +444,7 @@ nav.scrolled::after {
     margin-bottom: 32px;
 }
 
-/* Hero Image - Static Gradient Border (NO ROTATION ANIMATION) */
+/* Hero Image – Static Gradient Border (NO ROTATION) */
 .hero-image-wrapper {
     flex-shrink: 0;
     width: 380px;
