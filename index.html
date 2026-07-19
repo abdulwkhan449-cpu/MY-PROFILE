@@ -14,22 +14,17 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
-    <!-- Font Awesome 6 (recommended for better compatibility) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
 
-    <!-- ===== PRELOADER (5 seconds) ===== -->
+    <!-- ===== PRELOADER (3 seconds · Circular) ===== -->
     <div id="preloader">
         <div class="loader-container">
-            <div class="loader-ring"></div>
-            <div class="loader-text">
-                <span>A</span><span>B</span><span>D</span><span>U</span><span>L</span>
-                <span>&nbsp;</span>
-                <span>W</span><span>A</span><span>L</span><span>I</span>
-            </div>
+            <!-- Circular rotating ring -->
+            <div class="loader-ring-circular"></div>
             <p class="loader-sub">Loading experience...</p>
         </div>
     </div>
@@ -43,7 +38,6 @@
         <!-- ===== NAVIGATION ===== -->
         <nav id="navbar">
             <div class="logo">ABDUL WALI</div>
-            <!-- Hamburger button (only visible on mobile) -->
             <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
@@ -189,7 +183,6 @@
             <div class="section-glass reveal">
                 <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
                 <div class="projects-grid">
-                    <!-- Project 1: StockAI -->
                     <div class="project-card">
                         <div class="thumb"><img src="./servicespic-1.png" alt="StockAI" loading="lazy" /></div>
                         <h3>StockAI</h3>
@@ -199,7 +192,6 @@
                             <a href="https://github.com/abdulwkhan449-cpu/MY-PROFILE/blob/main/stockai.html" target="_blank" rel="noopener noreferrer" class="btn-github">GitHub</a>
                         </div>
                     </div>
-                    <!-- Project 2: ShopVerse -->
                     <div class="project-card">
                         <div class="thumb"><img src="./servicepic-2.png" alt="ShopVerse" loading="lazy" /></div>
                         <h3>ShopVerse</h3>
@@ -209,7 +201,6 @@
                             <a href="https://github.com/abdulwkhan449-cpu/MY-PROFILE/blob/main/ecommerence.html" target="_blank" rel="noopener noreferrer" class="btn-github">GitHub</a>
                         </div>
                     </div>
-                    <!-- Project 3: WeatherVue -->
                     <div class="project-card">
                         <div class="thumb"><img src="./servicepic-3.png" alt="WeatherVue" loading="lazy" /></div>
                         <h3>WeatherVue</h3>
@@ -255,7 +246,6 @@
             <div class="section-glass reveal">
                 <h2 class="section-title">Let's <span class="accent">Connect</span></h2>
                 <div class="contact-wrapper">
-                    <!-- Left side: info -->
                     <div class="contact-info">
                         <h2>Get in touch.</h2>
                         <p>
@@ -286,9 +276,7 @@
                         </div>
                     </div>
 
-                    <!-- Right side: form + inline success -->
                     <div class="contact-right-col">
-                        <!-- The form -->
                         <form class="contact-form" id="contactForm">
                             <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
                             <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
@@ -296,7 +284,6 @@
                             <button type="submit">✦ Send Message</button>
                         </form>
 
-                        <!-- Inline success message (hidden by default) -->
                         <div class="form-success" id="formSuccess">
                             <div class="success-icon">
                                 <i class="fa-solid fa-check"></i>
