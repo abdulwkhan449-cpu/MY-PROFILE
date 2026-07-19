@@ -14,13 +14,25 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Awesome 6 (recommended for better compatibility) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
+
+    <!-- ===== PRELOADER (5 seconds) ===== -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="loader-ring"></div>
+            <div class="loader-text">
+                <span>A</span><span>B</span><span>D</span><span>U</span><span>L</span>
+                <span>&nbsp;</span>
+                <span>W</span><span>A</span><span>L</span><span>I</span>
+            </div>
+            <p class="loader-sub">Loading experience...</p>
+        </div>
+    </div>
 
     <!-- Background Orbs -->
     <div class="orb orb-1"></div>
@@ -179,7 +191,7 @@
                 <div class="projects-grid">
                     <!-- Project 1: StockAI -->
                     <div class="project-card">
-                        <div class="thumb"><img src="./servicespic-1.png" alt="StockAI" /></div>
+                        <div class="thumb"><img src="./servicespic-1.png" alt="StockAI" loading="lazy" /></div>
                         <h3>StockAI</h3>
                         <p>A full-stack web application with real-time data and a sleek dashboard.</p>
                         <div class="project-buttons">
@@ -189,7 +201,7 @@
                     </div>
                     <!-- Project 2: ShopVerse -->
                     <div class="project-card">
-                        <div class="thumb"><img src="./servicepic-2.png" alt="ShopVerse" /></div>
+                        <div class="thumb"><img src="./servicepic-2.png" alt="ShopVerse" loading="lazy" /></div>
                         <h3>ShopVerse</h3>
                         <p>Responsive e-commerce platform with seamless checkout and user auth.</p>
                         <div class="project-buttons">
@@ -199,7 +211,7 @@
                     </div>
                     <!-- Project 3: WeatherVue -->
                     <div class="project-card">
-                        <div class="thumb"><img src="./servicepic-3.png" alt="WeatherVue" /></div>
+                        <div class="thumb"><img src="./servicepic-3.png" alt="WeatherVue" loading="lazy" /></div>
                         <h3>WeatherVue</h3>
                         <p>A Weather app that shows you what's coming.</p>
                         <div class="project-buttons">
@@ -251,68 +263,66 @@
                             I'm always open to interesting conversations.
                         </p>
                         <div class="social-links">
-                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-link">
+                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-link" aria-label="Email">
                                 <span class="icon"><i class="fa-solid fa-envelope"></i></span>
                                 Email
                             </a>
-                            <a href="https://www.linkedin.com/in/abdul-wali-15829a40a/" target="_blank"
-                            class="social-link">
-                            <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
-                            LinkedIn
-                        </a>
-                        <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20Wali%2C%20I%20have%20a%20project%20idea!"
-                        target="_blank" class="social-link">
-                        <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
-                        Whatsapp
-                    </a>
-                    <a href="https://www.facebook.com/abdulwali.17/" class="social-link">
-                        <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
-                        Facebook
-                    </a>
-                    <a href="https://www.instagram.com/iabdulwali19/" class="social-link">
-                        <span class="icon"><i class="fa-brands fa-instagram"></i></span>
-                        Instagram
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right side: form + inline success -->
-            <div class="contact-right-col">
-                <!-- The form -->
-                <form class="contact-form" id="contactForm">
-                    <input type="text" name="name" placeholder="Your Name" required />
-                    <input type="email" name="email" placeholder="Your Email" required />
-                    <textarea name="message" placeholder="Tell me about your project..." required></textarea>
-                    <button type="submit">✦ Send Message</button>
-                </form>
-
-                <!-- Inline success message (hidden by default) -->
-                <div class="form-success" id="formSuccess">
-                    <div class="success-icon">
-                        <i class="fa-solid fa-check"></i>
+                            <a href="https://www.linkedin.com/in/abdul-wali-15829a40a/" target="_blank" class="social-link" aria-label="LinkedIn">
+                                <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
+                                LinkedIn
+                            </a>
+                            <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20Wali%2C%20I%20have%20a%20project%20idea!" target="_blank" class="social-link" aria-label="WhatsApp">
+                                <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+                                Whatsapp
+                            </a>
+                            <a href="https://www.facebook.com/abdulwali.17/" class="social-link" aria-label="Facebook">
+                                <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
+                                Facebook
+                            </a>
+                            <a href="https://www.instagram.com/iabdulwali19/" class="social-link" aria-label="Instagram">
+                                <span class="icon"><i class="fa-brands fa-instagram"></i></span>
+                                Instagram
+                            </a>
+                        </div>
                     </div>
-                    <h3>Thank You!</h3>
-                    <p>
-                        Your message has been sent successfully.<br />
-                        I will connect with you shortly.
-                    </p>
-                    <button class="btn-reset" id="resetFormBtn">Send another message</button>
+
+                    <!-- Right side: form + inline success -->
+                    <div class="contact-right-col">
+                        <!-- The form -->
+                        <form class="contact-form" id="contactForm">
+                            <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
+                            <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
+                            <textarea name="message" placeholder="Tell me about your project..." required aria-label="Your Message"></textarea>
+                            <button type="submit">✦ Send Message</button>
+                        </form>
+
+                        <!-- Inline success message (hidden by default) -->
+                        <div class="form-success" id="formSuccess">
+                            <div class="success-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h3>Thank You!</h3>
+                            <p>
+                                Your message has been sent successfully.<br />
+                                I will connect with you shortly.
+                            </p>
+                            <button class="btn-reset" id="resetFormBtn" type="button">Send another message</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            &copy; 2026 <span style="color:var(--text-primary);">Abdul Wali</span>.
+            Crafted with <span class="footer-icon"><i class="fa-solid fa-heart"></i></span>
+            and a lot of <span class="footer-icon mug"><i class="fa-solid fa-mug-hot"></i></span>.
+        </footer>
+
     </div>
-</section>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-    &copy; 2026 <span style="color:var(--text-primary);">Abdul Wali</span>.
-    Crafted with <span class="footer-icon"><i class="fa-solid fa-heart"></i></span>
-    and a lot of <span class="footer-icon mug"><i class="fa-solid fa-mug-hot"></i></span>.
-</footer>
-
-</div>
-
-<script src="./index.js"></script>
+    <script src="./index.js"></script>
 </body>
 
 </html>
