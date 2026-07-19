@@ -1,3 +1,13 @@
+// ===== PRELOADER: Hide after 5 seconds =====
+window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.classList.add('fade-out');
+        }, 5000); // 5 seconds
+    }
+});
+
 // ===== NAV: scrolled class =====
 const nav = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -8,13 +18,14 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== HAMBURGER MENU – SLIDE-IN SIDE PANEL =====
+// ===== HAMBURGER MENU – SLIDE-IN SIDE PANEL (with overlay fix) =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
-    // change icon
+    document.body.classList.toggle('menu-open'); // FIX: adds the dark overlay
+
     const icon = hamburger.querySelector('i');
     if (navLinks.classList.contains('active')) {
         icon.className = 'fas fa-times';
@@ -27,6 +38,7 @@ hamburger.addEventListener('click', () => {
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
+        document.body.classList.remove('menu-open'); // FIX: removes the overlay
         const icon = hamburger.querySelector('i');
         icon.className = 'fas fa-bars';
     });
@@ -58,6 +70,11 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormID';
 form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = '✦ Sending...';
+    submitBtn.disabled = true;
+
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
 
@@ -81,6 +98,9 @@ form.addEventListener('submit', async function(e) {
     } catch (error) {
         alert('Network error. Please check your connection and try again.');
     }
+
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
 });
 
 resetBtn.addEventListener('click', function() {
@@ -97,10 +117,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Small delay to allow mobile menu to close smoothly
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 200);
         }
     });
 });
 
-console.log('🔥 Full code updated: Mobile popup menu + Website styled project buttons.');
+console.log('🚀 Portfolio ready!');
 console.log('ℹ️ Update FORMSPREE_ENDPOINT with your Formspree ID if needed.');
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormID';
