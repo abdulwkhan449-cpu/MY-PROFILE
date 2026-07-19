@@ -1,12 +1,23 @@
-// ===== PRELOADER: Hide after 3 seconds =====
-window.addEventListener('load', function() {
+// ===== PRELOADER: Hide after 3 seconds (FIXED - multiple safety nets) =====
+function hidePreloader() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
-        setTimeout(() => {
-            preloader.classList.add('fade-out');
-        }, 3000); // 3 seconds
+        preloader.classList.add('fade-out');
     }
+}
+
+// Try hiding on load
+window.addEventListener('load', function() {
+    setTimeout(hidePreloader, 3000); // 3 seconds
 });
+
+// Fallback: Also try hiding after DOM is ready (in case load fires late)
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(hidePreloader, 3000);
+});
+
+// Ultimate fallback: Hide after 4 seconds no matter what
+setTimeout(hidePreloader, 4000);
 
 // ===== NAV: scrolled class =====
 const nav = document.getElementById('navbar');
@@ -64,6 +75,7 @@ const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
 // ⚠️ IMPORTANT: Replace with your own Formspree form ID.
+// Get a free endpoint at https://formspree.io/
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormID';
 
 form.addEventListener('submit', async function(e) {
