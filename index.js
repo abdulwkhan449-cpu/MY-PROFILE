@@ -128,4 +128,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 console.log('🚀 Portfolio ready!');
 console.log('ℹ️ Update FORMSPREE_ENDPOINT with your Formspree ID if needed.');
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormID';
+
