@@ -8,10 +8,10 @@ function hidePreloader() {
 
 // Try hiding on load
 window.addEventListener('load', function() {
-    setTimeout(hidePreloader, 3000); // 3 seconds
+    setTimeout(hidePreloader, 3000);
 });
 
-// Fallback: Also try hiding after DOM is ready (in case load fires late)
+// Fallback: Also try hiding after DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(hidePreloader, 3000);
 });
@@ -29,7 +29,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== HAMBURGER MENU – SLIDE-IN SIDE PANEL (with overlay fix) =====
+// ===== HAMBURGER MENU – SLIDE-IN SIDE PANEL =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
@@ -69,7 +69,75 @@ const observer = new IntersectionObserver((entries) => {
 });
 revealElements.forEach((el) => observer.observe(el));
 
-// ===== CONTACT FORM – SEND DATA TO EMAIL =====
+// ============================================================
+//  🚀 3D TILT EFFECT ON HERO IMAGE
+// ============================================================
+const heroImage = document.getElementById('heroImage');
+
+if (heroImage) {
+    // Only enable on desktop (screen width > 768px)
+    const isDesktop = window.innerWidth > 768;
+
+    if (isDesktop) {
+        heroImage.addEventListener('mousemove', (e) => {
+            const rect = heroImage.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Calculate rotation angles (max ±15 degrees)
+            const rotateX = ((y - centerY) / centerY) * -15;
+            const rotateY = ((x - centerX) / centerX) * 15;
+
+            // Calculate shadow direction based on tilt
+            const shadowX = rotateY * 0.5;
+            const shadowY = rotateX * 0.5;
+
+            // Apply transform with perspective
+            heroImage.style.transform = `
+                perspective(800px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                scale(1.02)
+            `;
+
+            // Dynamic glow shadow that follows the tilt direction
+            heroImage.style.boxShadow = `
+                0 0 60px rgba(253, 128, 46, 0.4),
+                0 0 100px rgba(230, 57, 70, 0.2),
+                ${shadowX}px ${shadowY}px 60px rgba(0, 0, 0, 0.3)
+            `;
+        });
+
+        heroImage.addEventListener('mouseleave', () => {
+            // Smoothly return to neutral
+            heroImage.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+            heroImage.style.boxShadow = '0 0 50px rgba(253, 128, 46, 0.25), 0 0 80px rgba(230, 57, 70, 0.1)';
+        });
+    } else {
+        // On mobile, keep it simple - just a subtle hover effect
+        heroImage.addEventListener('mouseenter', () => {
+            heroImage.style.transform = 'scale(1.02)';
+            heroImage.style.boxShadow = '0 0 60px rgba(253, 128, 46, 0.4), 0 0 100px rgba(230, 57, 70, 0.2)';
+        });
+
+        heroImage.addEventListener('mouseleave', () => {
+            heroImage.style.transform = 'scale(1)';
+            heroImage.style.boxShadow = '0 0 50px rgba(253, 128, 46, 0.25), 0 0 80px rgba(230, 57, 70, 0.1)';
+        });
+    }
+
+    // Optional: Re-check on resize
+    window.addEventListener('resize', () => {
+        // You could re-initialize or disable on resize if needed
+    });
+}
+
+// ============================================================
+//  📧 CONTACT FORM
+// ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
@@ -135,5 +203,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-console.log('🚀 Portfolio ready!');
+console.log('🚀 Portfolio ready with 3D Tilt!');
 console.log('ℹ️ Update FORMSPREE_ENDPOINT with your Formspree ID if needed.');
