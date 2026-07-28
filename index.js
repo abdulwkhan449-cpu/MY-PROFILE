@@ -1,33 +1,27 @@
 // ============================================================
 //  🚀 PRELOADER – GUARANTEED HIDE (3 seconds)
 // ============================================================
-// Initially prevent scrolling while preloader is active
 document.body.style.overflow = 'hidden';
 
 function hidePreloader() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
         preloader.classList.add('fade-out');
-        // Extra safety: force hide after transition
         setTimeout(function() {
             preloader.style.display = 'none';
-            // Re‑enable scrolling
             document.body.style.overflow = '';
         }, 700);
     }
 }
 
-// 1. Hide on window load
 window.addEventListener('load', function() {
     setTimeout(hidePreloader, 3000);
 });
 
-// 2. Fallback: hide after DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(hidePreloader, 3000);
 });
 
-// 3. ULTIMATE FALLBACK: hide after 4 seconds no matter what
 setTimeout(hidePreloader, 4000);
 
 // ============================================================
@@ -43,12 +37,12 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================================
-//  📱 HAMBURGER MENU – Slide-in panel + overlay
+//  📱 HAMBURGER MENU – Toggle + overlay close
 // ============================================================
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
-hamburger.addEventListener('click', () => {
+function toggleMenu() {
     navLinks.classList.toggle('active');
     document.body.classList.toggle('menu-open');
 
@@ -58,16 +52,26 @@ hamburger.addEventListener('click', () => {
     } else {
         icon.className = 'fas fa-bars';
     }
-});
+}
 
-// Close menu when a link is clicked
+hamburger.addEventListener('click', toggleMenu);
+
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        document.body.classList.remove('menu-open');
-        const icon = hamburger.querySelector('i');
-        icon.className = 'fas fa-bars';
+        if (navLinks.classList.contains('active')) {
+            toggleMenu();
+        }
     });
+});
+
+document.addEventListener('click', function(e) {
+    if (navLinks.classList.contains('active')) {
+        const isClickInsideMenu = navLinks.contains(e.target);
+        const isClickOnHamburger = hamburger.contains(e.target);
+        if (!isClickInsideMenu && !isClickOnHamburger) {
+            toggleMenu();
+        }
+    }
 });
 
 // ============================================================
@@ -93,8 +97,7 @@ const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
-// ⚠️ IMPORTANT: Replace with your own Formspree form ID.
-// Get a free endpoint at https://formspree.io/
+// ⚠️ Replace with your actual Formspree endpoint
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormID';
 
 form.addEventListener('submit', async function(e) {
