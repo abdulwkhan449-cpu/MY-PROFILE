@@ -462,14 +462,17 @@ nav.scrolled::after { opacity: 1; }
     transform: translateY(-8px);
     box-shadow: 0 0 40px rgba(230, 57, 70, 0.05);
 }
-.skill-item .icon { font-size: 2.6rem; display: block; margin-bottom: 8px; }
-.skill-item .name { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.3px; }
-.skill-item:nth-child(1) .icon { color: #21759b; }
-.skill-item:nth-child(2) .icon { color: #e34f26; }
-.skill-item:nth-child(3) .icon { color: #1572b6; }
-.skill-item:nth-child(4) .icon { color: #f7df1e; }
-.skill-item:nth-child(5) .icon { color: #7952b3; }
-.skill-item:nth-child(6) .icon { color: #777bb3; }
+/* Services Icons */
+.service-card .icon-globe,
+.service-card .icon-palette,
+.service-card .icon-bolt {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 16px;
+}
+.service-card .icon-globe i { color: #4fc3f7; }
+.service-card .icon-palette i { color: #ffb74d; }
+.service-card .icon-bolt i { color: #ffd54f; }
 
 /* ===== SERVICES ===== */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
