@@ -496,18 +496,63 @@ nav.scrolled::after { opacity: 1; }
     transform: translateY(-8px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
+/* ===== SERVICES ICONS – ADVANCED ===== */
 .service-card .icon-globe,
 .service-card .icon-palette,
 .service-card .icon-bolt {
-    font-size: 2.8rem;
-    display: block;
-    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #fff;
+    background: var(--gradient-hero);
+    background-size: 200% 200%;
+    animation: shimmer 4s ease infinite;
+    box-shadow: 0 8px 30px rgba(253, 128, 46, 0.25);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
 }
-.service-card .icon-globe i { color: #4fc3f7; }
-.service-card .icon-palette i { color: #ffb74d; }
-.service-card .icon-bolt i { color: #ffd54f; }
-.service-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 8px; color: #fff; }
-.service-card p { color: var(--text-secondary); font-size: 0.9rem; font-weight: 300; }
+
+/* Pseudo‑element for extra glow */
+.service-card .icon-globe::after,
+.service-card .icon-palette::after,
+.service-card .icon-bolt::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: var(--gradient-hero);
+    background-size: 200% 200%;
+    animation: shimmer 4s ease infinite;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(12px);
+    transition: opacity 0.4s ease;
+}
+
+/* Hover effects */
+.service-card:hover .icon-globe,
+.service-card:hover .icon-palette,
+.service-card:hover .icon-bolt {
+    transform: scale(1.12) rotate(4deg);
+    box-shadow: 0 0 40px rgba(253, 128, 46, 0.5), 0 0 80px rgba(230, 57, 70, 0.3);
+}
+
+.service-card:hover .icon-globe::after,
+.service-card:hover .icon-palette::after,
+.service-card:hover .icon-bolt::after {
+    opacity: 1;
+}
+
+/* Optional: different colours per icon (if you want to keep individual colours) */
+/* You can either keep the gradient or override with specific colours */
+.service-card .icon-globe i { color: #fff; }
+.service-card .icon-palette i { color: #fff; }
+.service-card .icon-bolt i { color: #fff; }
 
 /* ===== PROJECTS ===== */
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
