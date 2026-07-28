@@ -1,6 +1,9 @@
 // ============================================================
 //  🚀 PRELOADER – GUARANTEED HIDE (3 seconds)
 // ============================================================
+// Initially prevent scrolling while preloader is active
+document.body.style.overflow = 'hidden';
+
 function hidePreloader() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
@@ -8,6 +11,8 @@ function hidePreloader() {
         // Extra safety: force hide after transition
         setTimeout(function() {
             preloader.style.display = 'none';
+            // Re‑enable scrolling
+            document.body.style.overflow = '';
         }, 700);
     }
 }
