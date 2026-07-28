@@ -157,4 +157,4 @@ resetBtn.addEventListener('click', function() {
 //  ✨ CONSOLE – Ready message
 // ============================================================
 console.log('🚀 Portfolio ready!');
-console.log('ℹ️ Update FORMSPREE_ENDPOINT with your Formspree ID if needed.');
+
