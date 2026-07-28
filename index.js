@@ -56,22 +56,33 @@ function toggleMenu() {
 
 hamburger.addEventListener('click', toggleMenu);
 
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
+// ============================================================
+//  🔗 SMOOTH NAVIGATION – WORKS WITH MOBILE MENU
+// ============================================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === "#") return;
+
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (!targetElement) return;
+
+        e.preventDefault();
+
+        // If mobile menu is open, close it FIRST
         if (navLinks.classList.contains('active')) {
-            toggleMenu();
+            toggleMenu(); // closes menu, changes icon, removes overlay
+
+            // Wait for the slide-out animation, THEN scroll
+            setTimeout(() => {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 400);
+        } else {
+            // Desktop or menu already closed – scroll immediately
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
-});
-
-document.addEventListener('click', function(e) {
-    if (navLinks.classList.contains('active')) {
-        const isClickInsideMenu = navLinks.contains(e.target);
-        const isClickOnHamburger = hamburger.contains(e.target);
-        if (!isClickInsideMenu && !isClickOnHamburger) {
-            toggleMenu();
-        }
-    }
 });
 
 // ============================================================
@@ -140,23 +151,6 @@ resetBtn.addEventListener('click', function() {
     successDiv.classList.remove('visible');
     form.classList.remove('hidden');
     form.reset();
-});
-
-// ============================================================
-//  🔗 SMOOTH NAVIGATION – Anchor links
-// ============================================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === "#") return;
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-            setTimeout(() => {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 200);
-        }
-    });
 });
 
 // ============================================================
