@@ -278,23 +278,10 @@
             </div>
 
             <div class="contact-right-col">
-                <!-- ===== SIMPLE MAILTO TEST LINK ===== -->
-                <div style="text-align:center; padding:20px;">
-                    <a href="mailto:abdulwkhan449@gmail.com?subject=Message%20from%20Portfolio&body=Hi%20Abdul%2C%20I%20have%20a%20project%20idea%21"
-                       class="btn-primary"
-                       style="display:inline-block; padding:16px 40px; font-size:1.1rem;">
-                        ✉️ Send Email (Test)
-                    </a>
-                    <p style="color:var(--text-muted); margin-top:12px; font-size:0.8rem;">
-                        Click this link to test if your email client opens.
-                    </p>
-                </div>
-
-                <!-- ===== ORIGINAL FORM (hidden during test) ===== -->
-                <form class="contact-form" id="contactForm" style="display:none;">
-                    <input type="text" name="name" placeholder="Your Name" required />
-                    <input type="email" name="email" placeholder="Your Email" required />
-                    <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
+                    <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
+                    <textarea name="message" placeholder="Tell me about your project..." required aria-label="Your Message"></textarea>
                     <button type="submit">✦ Send Message</button>
                 </form>
 
