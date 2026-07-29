@@ -262,9 +262,9 @@
                         <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
                         LinkedIn
                     </a>
-                    <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20Wali%2C%20I%20have%20a%20project%20idea!" target="_blank" class="social-link" aria-label="WhatsApp">
+                    <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20have%20a%20project%20idea!" target="_blank" class="social-link" aria-label="WhatsApp">
                         <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
-                        Whatsapp
+                        WhatsApp
                     </a>
                     <a href="https://www.facebook.com/abdulwali.17/" class="social-link" aria-label="Facebook">
                         <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
@@ -278,37 +278,25 @@
             </div>
 
             <div class="contact-right-col">
-                <!-- ===== DIRECT MAILTO LINK ===== -->
-                <div style="text-align:center; padding:20px;">
-                    <a href="mailto:abdulwkhan449@gmail.com?subject=Message%20from%20Portfolio&body=Hi%20Abdul%2C%20I%20have%20a%20project%20idea%21"
-                       class="btn-primary"
-                       style="display:inline-block; padding:16px 40px; font-size:1.1rem; text-decoration:none;">
-                        ✉️ Send Email
-                    </a>
-                    <p style="color:var(--text-muted); margin-top:12px; font-size:0.85rem;">
-                        Click to open your email client and send me a message.
-                    </p>
-                    <p style="color:var(--text-muted); font-size:0.8rem;">
-                        <strong>Or email me directly:</strong> abdulwkhan449@gmail.com
-                    </p>
-                </div>
-
-                <!-- ===== ORIGINAL FORM (hidden) ===== -->
-                <form class="contact-form" id="contactForm" style="display:none;">
-                    <input type="text" name="name" placeholder="Your Name" required />
-                    <input type="email" name="email" placeholder="Your Email" required />
-                    <textarea name="message" placeholder="Tell me about your project..." required></textarea>
-                    <button type="submit">✦ Send Message</button>
+                <!-- ===== CONTACT FORM – WhatsApp Redirect ===== -->
+                <form class="contact-form" id="contactForm">
+                    <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
+                    <input type="email" name="email" placeholder="Your Email (optional)" aria-label="Your Email" />
+                    <textarea name="message" placeholder="Tell me about your project..." required aria-label="Your Message"></textarea>
+                    <button type="submit">
+                        <i class="fa-brands fa-whatsapp"></i> Send via WhatsApp
+                    </button>
                 </form>
 
-                <div class="form-success" id="formSuccess" style="display:none;">
+                <!-- ===== SUCCESS MESSAGE ===== -->
+                <div class="form-success" id="formSuccess">
                     <div class="success-icon">
                         <i class="fa-solid fa-check"></i>
                     </div>
                     <h3>Thank You!</h3>
                     <p>
-                        Your message has been sent successfully.<br />
-                        I will connect with you shortly.
+                        Your message has been sent.<br />
+                        I will connect with you shortly on WhatsApp.
                     </p>
                     <button class="btn-reset" id="resetFormBtn" type="button">Send another message</button>
                 </div>
@@ -316,7 +304,6 @@
         </div>
     </div>
 </section>
-
         <!-- ===== FOOTER ===== -->
         <footer>
             &copy; 2026 <span style="color:var(--text-primary);">Abdul Wali</span>.
