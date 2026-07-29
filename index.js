@@ -98,46 +98,48 @@ const observer = new IntersectionObserver((entries) => {
 revealElements.forEach((el) => observer.observe(el));
 
 // ============================================================
-//  📧 CONTACT FORM – OPENS EMAIL (mailto) – NO BLANK PAGE
+//  📧 CONTACT FORM – REDIRECT TO WHATSAPP
 // ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
+
+// Your WhatsApp number (without the '+')
+const WHATSAPP_NUMBER = '923175565531';
+
+// Default message
+const DEFAULT_MESSAGE = 'Hi Abdul, I have a project idea!';
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
 
     // Get values
     const name = document.querySelector('input[name="name"]').value.trim();
-    const email = document.querySelector('input[name="email"]').value.trim();
     const message = document.querySelector('textarea[name="message"]').value.trim();
 
-    // Validate
-    if (!name || !email || !message) {
-        alert('Please fill in all fields.');
-        return;
+    // Build the WhatsApp message
+    let whatsappMessage = DEFAULT_MESSAGE;
+    
+    // If user typed a message, use it instead
+    if (message) {
+        whatsappMessage = message;
+    }
+    
+    // If user provided a name, add it
+    if (name) {
+        whatsappMessage = `${whatsappMessage} - From ${name}`;
     }
 
-    // Build mailto link
-    const subject = `Message from ${name}`;
-    const body = `${message}\n\n---\nFrom: ${name}\nEmail: ${email}`;
-    const mailtoLink = `mailto:abdulwkhan449@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Build WhatsApp URL
+    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
     // Show success message
     form.classList.add('hidden');
     successDiv.classList.add('visible');
     form.reset();
 
-    // ---------- FIX: Use hidden anchor click (no blank page) ----------
-    const a = document.createElement('a');
-    a.href = mailtoLink;
-    a.target = '_self';   // open in same window – mailto doesn't navigate away
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-        document.body.removeChild(a);
-    }, 200);
+    // Redirect to WhatsApp (this opens the app or web)
+    window.location.href = whatsappURL;
 });
 
 // Reset button: hide success, show form again
@@ -151,4 +153,4 @@ resetBtn.addEventListener('click', function() {
 //  ✨ CONSOLE – Ready message
 // ============================================================
 console.log('🚀 Portfolio ready!');
-console.log('📧 Contact form opens email to abdulwkhan449@gmail.com');
+console.log('📱 Contact form redirects to WhatsApp: ' + WHATSAPP_NUMBER);
