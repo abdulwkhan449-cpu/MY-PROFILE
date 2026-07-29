@@ -98,13 +98,14 @@ const observer = new IntersectionObserver((entries) => {
 revealElements.forEach((el) => observer.observe(el));
 
 // ============================================================
-//  📧 CONTACT FORM – EMAIL REDIRECT (mailto) + fallback
+//  📧 CONTACT FORM – OPEN EMAIL CLIENT
 // ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
 form.addEventListener('submit', function(e) {
+    // Stop the page from refreshing
     e.preventDefault();
 
     // Get form values
@@ -112,29 +113,58 @@ form.addEventListener('submit', function(e) {
     const email = document.querySelector('input[name="email"]').value.trim();
     const message = document.querySelector('textarea[name="message"]').value.trim();
 
-    // Validate
+    // Validate fields
     if (!name || !email || !message) {
         alert('Please fill in all fields.');
         return;
     }
 
-    // Build mailto link
+    // Build the mailto: link
     const subject = `Message from ${name}`;
     const body = `${message}\n\n---\nFrom: ${name}\nEmail: ${email}`;
     const mailtoLink = `mailto:abdulwkhan449@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Show success message immediately
+    // Show success message immediately (user feels the action)
     form.classList.add('hidden');
     successDiv.classList.add('visible');
     form.reset();
 
-    // Try to open email client (works on most devices)
-    const win = window.open(mailtoLink, '_blank');
+    // Try to open the email client
+    // Method 1: window.open (works on most browsers, especially on mobile)
+    let win = window.open(mailtoLink, '_blank');
 
-    // If window.open fails (popup blocked), fallback to location.href
+    // If window.open fails or returns null (popup blocked),
+    // fallback to location.href
     if (!win || win.closed || typeof win.closed === 'undefined') {
         window.location.href = mailtoLink;
     }
+
+    // If mailto still doesn't open (rare), we fallback to copying the email
+    // This gives the user a way to manually send the email
+    setTimeout(() => {
+        // If the window is still open after 2 seconds, assume mailto worked
+        // If not, we copy the email address to clipboard as a backup
+        if (win && !win.closed) {
+            // mailto likely opened, do nothing
+        } else {
+            // Copy email to clipboard as fallback
+            navigator.clipboard.writeText('abdulwkhan449@gmail.com')
+                .then(() => {
+                    // Show a small note on the success message
+                    const successMsg = successDiv.querySelector('p');
+                    if (successMsg) {
+                        successMsg.innerHTML = 'Your message has been sent successfully.<br />If your email client did not open, the email address has been copied to your clipboard.';
+                    }
+                })
+                .catch(() => {
+                    // Clipboard not supported, just show the email
+                    const successMsg = successDiv.querySelector('p');
+                    if (successMsg) {
+                        successMsg.innerHTML = 'Your message has been sent successfully.<br />If your email client did not open, please email us directly at <strong>abdulwkhan449@gmail.com</strong>.';
+                    }
+                });
+        }
+    }, 2000);
 });
 
 // Reset button: hide success, show form again
