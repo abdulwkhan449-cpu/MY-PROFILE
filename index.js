@@ -98,13 +98,13 @@ const observer = new IntersectionObserver((entries) => {
 revealElements.forEach((el) => observer.observe(el));
 
 // ============================================================
-//  📧 CONTACT FORM – Send to Formspree (YOUR ENDPOINT)
+//  📧 CONTACT FORM – Send to Formspree
 // ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
-// ✅ Your Formspree endpoint – all submissions go to abdulwkhan449@gmail.com
+// ✅ YOUR CORRECT FORMSPREE ENDPOINT
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xojgbeqo';
 
 form.addEventListener('submit', async function(e) {
@@ -128,14 +128,19 @@ form.addEventListener('submit', async function(e) {
             body: JSON.stringify(data)
         });
 
+        // If response is ok (2xx), show success
         if (response.ok) {
             form.classList.add('hidden');
             successDiv.classList.add('visible');
             form.reset();
         } else {
+            // Try to get error message from Formspree
+            const errorData = await response.json();
+            console.error('Formspree error:', errorData);
             alert('Oops! Something went wrong. Please try again later.');
         }
     } catch (error) {
+        console.error('Network error:', error);
         alert('Network error. Please check your connection and try again.');
     }
 
@@ -153,4 +158,4 @@ resetBtn.addEventListener('click', function() {
 //  ✨ CONSOLE – Ready message
 // ============================================================
 console.log('🚀 Portfolio ready!');
-console.log('✅ Form submissions go to abdulwkhan449@gmail.com');
+console.log('ℹ️ Form submissions go to: abdulwkhan449@gmail.com');
