@@ -471,7 +471,7 @@ nav.scrolled::after { opacity: 1; }
 .skill-item:nth-child(5) .icon { color: #7952b3; }
 .skill-item:nth-child(6) .icon { color: #777bb3; }
 
-/* ===== SERVICES ===== */
+/* ===== SERVICES – ADVANCED ICONS ===== */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
 .service-card {
     background: var(--bg-card);
@@ -496,7 +496,6 @@ nav.scrolled::after { opacity: 1; }
     transform: translateY(-8px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
-/* ===== SERVICES ICONS – ADVANCED ===== */
 .service-card .icon-globe,
 .service-card .icon-palette,
 .service-card .icon-bolt {
@@ -516,8 +515,6 @@ nav.scrolled::after { opacity: 1; }
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
 }
-
-/* Pseudo‑element for extra glow */
 .service-card .icon-globe::after,
 .service-card .icon-palette::after,
 .service-card .icon-bolt::after {
@@ -533,26 +530,24 @@ nav.scrolled::after { opacity: 1; }
     filter: blur(12px);
     transition: opacity 0.4s ease;
 }
-
-/* Hover effects */
 .service-card:hover .icon-globe,
 .service-card:hover .icon-palette,
 .service-card:hover .icon-bolt {
     transform: scale(1.12) rotate(4deg);
     box-shadow: 0 0 40px rgba(253, 128, 46, 0.5), 0 0 80px rgba(230, 57, 70, 0.3);
 }
-
 .service-card:hover .icon-globe::after,
 .service-card:hover .icon-palette::after,
 .service-card:hover .icon-bolt::after {
     opacity: 1;
 }
-
-/* Optional: different colours per icon (if you want to keep individual colours) */
-/* You can either keep the gradient or override with specific colours */
-.service-card .icon-globe i { color: #fff; }
-.service-card .icon-palette i { color: #fff; }
-.service-card .icon-bolt i { color: #fff; }
+.service-card .icon-globe i,
+.service-card .icon-palette i,
+.service-card .icon-bolt i {
+    color: #fff;
+}
+.service-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 8px; color: #fff; }
+.service-card p { color: var(--text-secondary); font-size: 0.9rem; font-weight: 300; }
 
 /* ===== PROJECTS ===== */
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
@@ -811,15 +806,11 @@ footer .footer-icon.mug { color: #f39c12; font-size: 1rem; }
         margin: 0 -16px;
         border-radius: 30px;
         justify-content: space-between;
-        transition: z-index 0s; /* prevent transition on z-index */
+        transition: z-index 0s;
     }
     nav.scrolled { transform: translateY(8px); border-radius: 24px; }
     .hamburger { display: block; z-index: 1001; }
-
-    /* ===== FIX: bring nav above overlay when menu open ===== */
-    body.menu-open nav {
-        z-index: 1001; /* above overlay (z-index: 999) */
-    }
+    body.menu-open nav { z-index: 1001; }
 
     .nav-links {
         position: fixed;
@@ -835,7 +826,7 @@ footer .footer-icon.mug { color: #f39c12; font-size: 1rem; }
         justify-content: center;
         align-items: center;
         gap: 18px;
-        z-index: 1000; /* below nav but above overlay? Actually nav is above overlay, but we keep this for safety */
+        z-index: 1000;
         margin: 0;
         padding: 40px 20px;
         border: none;
@@ -846,7 +837,7 @@ footer .footer-icon.mug { color: #f39c12; font-size: 1rem; }
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
-        pointer-events: auto; /* ensure clicks work */
+        pointer-events: auto;
     }
     .nav-links.active { right: 0; }
     .nav-links a {
@@ -861,12 +852,11 @@ footer .footer-icon.mug { color: #f39c12; font-size: 1rem; }
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
-        pointer-events: auto; /* ensure clicks work */
+        pointer-events: auto;
     }
     .nav-links a:hover { color: var(--neon-orange); transform: translateX(6px); }
     .nav-links a::after { display: none; }
 
-    /* ===== OVERLAY – NO BLUR ===== */
     body.menu-open::before {
         content: '';
         position: fixed;
@@ -875,7 +865,7 @@ footer .footer-icon.mug { color: #f39c12; font-size: 1rem; }
         width: 100vw;
         height: 100vh;
         background: rgba(0, 0, 0, 0.5);
-        z-index: 999; /* below nav (which is 1001) */
+        z-index: 999;
         animation: fadeOverlay 0.3s ease;
     }
     @keyframes fadeOverlay {
