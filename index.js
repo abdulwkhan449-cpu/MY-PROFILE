@@ -123,13 +123,21 @@ form.addEventListener('submit', function(e) {
     const body = `${message}\n\n---\nFrom: ${name}\nEmail: ${email}`;
     const mailtoLink = `mailto:abdulwkhan449@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Show success message (so user knows it worked)
+    // Show success message
     form.classList.add('hidden');
     successDiv.classList.add('visible');
     form.reset();
 
-    // Open the email client – this is the most reliable method
-    window.location.href = mailtoLink;
+    // ---------- FIX: Use hidden anchor click (no blank page) ----------
+    const a = document.createElement('a');
+    a.href = mailtoLink;
+    a.target = '_self';   // open in same window – mailto doesn't navigate away
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+    }, 200);
 });
 
 // Reset button: hide success, show form again
