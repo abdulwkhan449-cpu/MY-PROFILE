@@ -98,7 +98,7 @@ const observer = new IntersectionObserver((entries) => {
 revealElements.forEach((el) => observer.observe(el));
 
 // ============================================================
-//  📧 CONTACT FORM – EMAIL REDIRECT (mailto)
+//  📧 CONTACT FORM – EMAIL REDIRECT (mailto) + fallback
 // ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
@@ -112,27 +112,32 @@ form.addEventListener('submit', function(e) {
     const email = document.querySelector('input[name="email"]').value.trim();
     const message = document.querySelector('textarea[name="message"]').value.trim();
 
-    // Validate (optional, but good practice)
+    // Validate
     if (!name || !email || !message) {
         alert('Please fill in all fields.');
         return;
     }
 
-    // Build the mailto link
+    // Build mailto link
     const subject = `Message from ${name}`;
     const body = `${message}\n\n---\nFrom: ${name}\nEmail: ${email}`;
-
     const mailtoLink = `mailto:abdulwkhan449@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Open the user's email client
-    window.location.href = mailtoLink;
-
-    // Show success message (since they are redirected to email)
+    // Show success message immediately
     form.classList.add('hidden');
     successDiv.classList.add('visible');
     form.reset();
 
-    // Optional: reset after a while (if they come back)
+    // Try to open email client (works on most devices)
+    // Using window.open() is more reliable than location.href for mailto
+    const win = window.open(mailtoLink, '_blank');
+
+    // If window.open fails (popup blocked), fallback to location.href
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+        window.location.href = mailtoLink;
+    }
+
+    // No error alert – user will see success banner
 });
 
 // Reset button: hide success, show form again
