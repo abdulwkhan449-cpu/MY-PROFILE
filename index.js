@@ -98,56 +98,44 @@ const observer = new IntersectionObserver((entries) => {
 revealElements.forEach((el) => observer.observe(el));
 
 // ============================================================
-//  📧 CONTACT FORM – Send to Formspree
+//  📧 CONTACT FORM – EMAIL REDIRECT (mailto)
 // ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
-// ✅ YOUR CORRECT FORMSPREE ENDPOINT
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xojgbeqo';
-
-form.addEventListener('submit', async function(e) {
+form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = '✦ Sending...';
-    submitBtn.disabled = true;
+    // Get form values
+    const name = document.querySelector('input[name="name"]').value.trim();
+    const email = document.querySelector('input[name="email"]').value.trim();
+    const message = document.querySelector('textarea[name="message"]').value.trim();
 
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-
-    try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        // If response is ok (2xx), show success
-        if (response.ok) {
-            form.classList.add('hidden');
-            successDiv.classList.add('visible');
-            form.reset();
-        } else {
-            // Try to get error message from Formspree
-            const errorData = await response.json();
-            console.error('Formspree error:', errorData);
-            alert('Oops! Something went wrong. Please try again later.');
-        }
-    } catch (error) {
-        console.error('Network error:', error);
-        alert('Network error. Please check your connection and try again.');
+    // Validate (optional, but good practice)
+    if (!name || !email || !message) {
+        alert('Please fill in all fields.');
+        return;
     }
 
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
+    // Build the mailto link
+    const subject = `Message from ${name}`;
+    const body = `${message}\n\n---\nFrom: ${name}\nEmail: ${email}`;
+
+    const mailtoLink = `mailto:abdulwkhan449@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open the user's email client
+    window.location.href = mailtoLink;
+
+    // Show success message (since they are redirected to email)
+    form.classList.add('hidden');
+    successDiv.classList.add('visible');
+    form.reset();
+
+    // Optional: reset after a while (if they come back)
 });
 
+// Reset button: hide success, show form again
 resetBtn.addEventListener('click', function() {
     successDiv.classList.remove('visible');
     form.classList.remove('hidden');
@@ -158,4 +146,4 @@ resetBtn.addEventListener('click', function() {
 //  ✨ CONSOLE – Ready message
 // ============================================================
 console.log('🚀 Portfolio ready!');
-console.log('ℹ️ Form submissions go to: abdulwkhan449@gmail.com');
+console.log('📧 Contact form opens email to abdulwkhan449@gmail.com');
