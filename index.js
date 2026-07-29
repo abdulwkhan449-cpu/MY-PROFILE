@@ -70,16 +70,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
         e.preventDefault();
 
-        // If mobile menu is open, close it FIRST
         if (navLinks.classList.contains('active')) {
-            toggleMenu(); // closes menu, changes icon, removes overlay
-
-            // Wait for the slide-out animation, THEN scroll
+            toggleMenu();
             setTimeout(() => {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 400);
         } else {
-            // Desktop or menu already closed – scroll immediately
             targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
@@ -102,14 +98,14 @@ const observer = new IntersectionObserver((entries) => {
 revealElements.forEach((el) => observer.observe(el));
 
 // ============================================================
-//  📧 CONTACT FORM – Send to Formspree
+//  📧 CONTACT FORM – Send to Formspree (YOUR ENDPOINT)
 // ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
-// ⚠️ Replace with your actual Formspree endpoint
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormID';
+// ✅ Your Formspree endpoint – all submissions go to abdulwkhan449@gmail.com
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xojgbeqo';
 
 form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -157,4 +153,4 @@ resetBtn.addEventListener('click', function() {
 //  ✨ CONSOLE – Ready message
 // ============================================================
 console.log('🚀 Portfolio ready!');
-
+console.log('✅ Form submissions go to abdulwkhan449@gmail.com');
