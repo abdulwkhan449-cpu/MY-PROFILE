@@ -129,15 +129,12 @@ form.addEventListener('submit', function(e) {
     form.reset();
 
     // Try to open email client (works on most devices)
-    // Using window.open() is more reliable than location.href for mailto
     const win = window.open(mailtoLink, '_blank');
 
     // If window.open fails (popup blocked), fallback to location.href
     if (!win || win.closed || typeof win.closed === 'undefined') {
         window.location.href = mailtoLink;
     }
-
-    // No error alert – user will see success banner
 });
 
 // Reset button: hide success, show form again
