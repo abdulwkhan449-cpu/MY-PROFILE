@@ -241,64 +241,78 @@
             </div>
         </section>
 
-        <!-- ===== CONTACT ===== -->
-        <section id="contact">
-            <div class="section-glass reveal">
-                <h2 class="section-title">Let's <span class="accent">Connect</span></h2>
-                <div class="contact-wrapper">
-                    <div class="contact-info">
-                        <h2>Get in touch.</h2>
-                        <p>
-                            Have a project, an idea, or just want to say hello?
-                            I'm always open to interesting conversations.
-                        </p>
-                        <div class="social-links">
-                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-link" aria-label="Email">
-                                <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-                                Email
-                            </a>
-                            <a href="https://www.linkedin.com/in/abdul-wali-15829a40a/" target="_blank" class="social-link" aria-label="LinkedIn">
-                                <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
-                                LinkedIn
-                            </a>
-                            <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20Wali%2C%20I%20have%20a%20project%20idea!" target="_blank" class="social-link" aria-label="WhatsApp">
-                                <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
-                                Whatsapp
-                            </a>
-                            <a href="https://www.facebook.com/abdulwali.17/" class="social-link" aria-label="Facebook">
-                                <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
-                                Facebook
-                            </a>
-                            <a href="https://www.instagram.com/iabdulwali19/" class="social-link" aria-label="Instagram">
-                                <span class="icon"><i class="fa-brands fa-instagram"></i></span>
-                                Instagram
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="contact-right-col">
-                        <form class="contact-form" id="contactForm">
-                            <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
-                            <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
-                            <textarea name="message" placeholder="Tell me about your project..." required aria-label="Your Message"></textarea>
-                            <button type="submit">✦ Send Message</button>
-                        </form>
-
-                        <div class="form-success" id="formSuccess">
-                            <div class="success-icon">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                            <h3>Thank You!</h3>
-                            <p>
-                                Your message has been sent successfully.<br />
-                                I will connect with you shortly.
-                            </p>
-                            <button class="btn-reset" id="resetFormBtn" type="button">Send another message</button>
-                        </div>
-                    </div>
+      
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+    <div class="section-glass reveal">
+        <h2 class="section-title">Let's <span class="accent">Connect</span></h2>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h2>Get in touch.</h2>
+                <p>
+                    Have a project, an idea, or just want to say hello?
+                    I'm always open to interesting conversations.
+                </p>
+                <div class="social-links">
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-link" aria-label="Email">
+                        <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                        Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/abdul-wali-15829a40a/" target="_blank" class="social-link" aria-label="LinkedIn">
+                        <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
+                        LinkedIn
+                    </a>
+                    <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20Wali%2C%20I%20have%20a%20project%20idea!" target="_blank" class="social-link" aria-label="WhatsApp">
+                        <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+                        Whatsapp
+                    </a>
+                    <a href="https://www.facebook.com/abdulwali.17/" class="social-link" aria-label="Facebook">
+                        <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
+                        Facebook
+                    </a>
+                    <a href="https://www.instagram.com/iabdulwali19/" class="social-link" aria-label="Instagram">
+                        <span class="icon"><i class="fa-brands fa-instagram"></i></span>
+                        Instagram
+                    </a>
                 </div>
             </div>
-        </section>
+
+            <div class="contact-right-col">
+                <!-- ===== SIMPLE MAILTO TEST LINK ===== -->
+                <div style="text-align:center; padding:20px;">
+                    <a href="mailto:abdulwkhan449@gmail.com?subject=Message%20from%20Portfolio&body=Hi%20Abdul%2C%20I%20have%20a%20project%20idea%21"
+                       class="btn-primary"
+                       style="display:inline-block; padding:16px 40px; font-size:1.1rem;">
+                        ✉️ Send Email (Test)
+                    </a>
+                    <p style="color:var(--text-muted); margin-top:12px; font-size:0.8rem;">
+                        Click this link to test if your email client opens.
+                    </p>
+                </div>
+
+                <!-- ===== ORIGINAL FORM (hidden during test) ===== -->
+                <form class="contact-form" id="contactForm" style="display:none;">
+                    <input type="text" name="name" placeholder="Your Name" required />
+                    <input type="email" name="email" placeholder="Your Email" required />
+                    <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+                    <button type="submit">✦ Send Message</button>
+                </form>
+
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h3>Thank You!</h3>
+                    <p>
+                        Your message has been sent successfully.<br />
+                        I will connect with you shortly.
+                    </p>
+                    <button class="btn-reset" id="resetFormBtn" type="button">Send another message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- ===== FOOTER ===== -->
         <footer>
