@@ -85,7 +85,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 //  👁️ REVEAL ANIMATIONS – Intersection Observer
 // ============================================================
 const revealElements = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
@@ -95,7 +95,110 @@ const observer = new IntersectionObserver((entries) => {
     threshold: 0.15,
     rootMargin: '0px 0px -20px 0px'
 });
-revealElements.forEach((el) => observer.observe(el));
+revealElements.forEach((el) => revealObserver.observe(el));
+
+// ============================================================
+//  🔢 COUNTER ANIMATION – About section stats
+// ============================================================
+(function initCounters() {
+    const statCards = document.querySelectorAll('.stat-card');
+    if (!statCards.length) return;
+
+    // Store counter data
+    const counters = [];
+    statCards.forEach((card) => {
+        const count = parseInt(card.getAttribute('data-count'), 10);
+        const suffix = card.getAttribute('data-suffix') || '';
+        const numEl = card.querySelector('.number .num-only');
+        if (!numEl) return;
+
+        counters.push({
+            card,
+            numEl,
+            target: count,
+            suffix,
+            current: 0,
+            animated: false
+        });
+    });
+
+    if (!counters.length) return;
+
+    // Intersection Observer – start counting when about section is visible
+    const aboutSection = document.getElementById('about');
+    if (!aboutSection) return;
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                counters.forEach((c) => {
+                    if (!c.animated) {
+                        c.animated = true;
+                        animateCounter(c);
+                    }
+                });
+            }
+        });
+    }, {
+        threshold: 0.25
+    });
+
+    counterObserver.observe(aboutSection);
+
+    // Also check if already visible on load
+    if (aboutSection.getBoundingClientRect().top < window.innerHeight * 0.75) {
+        counters.forEach((c) => {
+            if (!c.animated) {
+                c.animated = true;
+                animateCounter(c);
+            }
+        });
+    }
+
+    // ── animation function ──
+    function animateCounter(c) {
+        const { numEl, target } = c;
+        const duration = 1200; // ms
+        const startTime = performance.now();
+
+        // Special case: target === 1 (show "1" after a tiny delay)
+        if (target === 1) {
+            setTimeout(() => {
+                numEl.textContent = '1';
+            }, 200);
+            return;
+        }
+
+        function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const currentVal = Math.floor(eased * target);
+
+            // Clamp
+            const display = Math.min(currentVal, target);
+            numEl.textContent = display;
+
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            } else {
+                numEl.textContent = target; // final value
+            }
+        }
+
+        requestAnimationFrame(updateCounter);
+    }
+
+    // If any counter has target === 0, just show 0
+    counters.forEach((c) => {
+        if (c.target === 0) {
+            c.numEl.textContent = '0';
+            c.animated = true;
+        }
+    });
+})();
 
 // ============================================================
 //  📧 CONTACT FORM – REDIRECT TO WHATSAPP
@@ -119,26 +222,25 @@ form.addEventListener('submit', function(e) {
 
     // Build the WhatsApp message
     let whatsappMessage = DEFAULT_MESSAGE;
-    
-    // If user typed a message, use it instead
+
     if (message) {
         whatsappMessage = message;
     }
-    
-    // If user provided a name, add it
+
     if (name) {
         whatsappMessage = `${whatsappMessage} - From ${name}`;
     }
 
     // Build WhatsApp URL
-    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappURL =
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
     // Show success message
     form.classList.add('hidden');
     successDiv.classList.add('visible');
     form.reset();
 
-    // Redirect to WhatsApp (this opens the app or web)
+    // Redirect to WhatsApp
     window.location.href = whatsappURL;
 });
 
@@ -154,3 +256,4 @@ resetBtn.addEventListener('click', function() {
 // ============================================================
 console.log('🚀 Portfolio ready!');
 console.log('📱 Contact form redirects to WhatsApp: ' + WHATSAPP_NUMBER);
+console.log('🔢 Counter animation active on About stats.');
