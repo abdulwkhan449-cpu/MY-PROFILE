@@ -201,47 +201,42 @@ revealElements.forEach((el) => revealObserver.observe(el));
 })();
 
 // ============================================================
-//  📧 CONTACT FORM – REDIRECT TO WHATSAPP
+//  📧 CONTACT FORM – Formspree submission
 // ============================================================
 const form = document.getElementById('contactForm');
 const successDiv = document.getElementById('formSuccess');
 const resetBtn = document.getElementById('resetFormBtn');
 
-// Your WhatsApp number (without the '+')
-const WHATSAPP_NUMBER = '923175565531';
-
-// Default message
-const DEFAULT_MESSAGE = 'Hi Abdul, I have a project idea!';
+// Formspree endpoint is already in the form's action attribute.
+// We'll handle the submit via AJAX to show success without page reload.
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Get values
-    const name = document.querySelector('input[name="name"]').value.trim();
-    const message = document.querySelector('textarea[name="message"]').value.trim();
+    const formData = new FormData(form);
 
-    // Build the WhatsApp message
-    let whatsappMessage = DEFAULT_MESSAGE;
-
-    if (message) {
-        whatsappMessage = message;
-    }
-
-    if (name) {
-        whatsappMessage = `${whatsappMessage} - From ${name}`;
-    }
-
-    // Build WhatsApp URL
-    const whatsappURL =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
-
-    // Show success message
-    form.classList.add('hidden');
-    successDiv.classList.add('visible');
-    form.reset();
-
-    // Redirect to WhatsApp
-    window.location.href = whatsappURL;
+    fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            // Success: show success message
+            form.classList.add('hidden');
+            successDiv.classList.add('visible');
+            form.reset();
+        } else {
+            // Error: you can show an alert or custom message
+            alert('Oops! Something went wrong. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Form submission error:', error);
+        alert('Network error. Please check your connection and try again.');
+    });
 });
 
 // Reset button: hide success, show form again
@@ -255,5 +250,5 @@ resetBtn.addEventListener('click', function() {
 //  ✨ CONSOLE – Ready message
 // ============================================================
 console.log('🚀 Portfolio ready!');
-console.log('📱 Contact form redirects to WhatsApp: ' + WHATSAPP_NUMBER);
+console.log('📧 Contact form uses Formspree endpoint: https://formspree.io/f/xojgbeqo');
 console.log('🔢 Counter animation active on About stats.');
