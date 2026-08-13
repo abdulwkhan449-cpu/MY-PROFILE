@@ -15,7 +15,8 @@
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link rel="stylesheet" href="./index.css">
+    <!-- ===== External Styles ===== -->
+    <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
@@ -100,20 +101,20 @@
                         </p>
                     </div>
                     <div class="about-stats">
-                        <div class="stat-card">
-                            <div class="number">1+</div>
+                        <div class="stat-card" data-count="1" data-suffix="+">
+                            <div class="number"><span class="num-only">0</span>+</div>
                             <div class="label">Years of Experience</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="number">30+</div>
+                        <div class="stat-card" data-count="30" data-suffix="+">
+                            <div class="number"><span class="num-only">0</span>+</div>
                             <div class="label">Projects Shipped</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="number">20+</div>
+                        <div class="stat-card" data-count="20" data-suffix="+">
+                            <div class="number"><span class="num-only">0</span>+</div>
                             <div class="label">Happy Clients</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="number">100%</div>
+                        <div class="stat-card" data-count="100" data-suffix="%">
+                            <div class="number"><span class="num-only">0</span>%</div>
                             <div class="label">Commitment</div>
                         </div>
                     </div>
@@ -241,73 +242,71 @@
             </div>
         </section>
 
-      
-<!-- ===== CONTACT ===== -->
-<section id="contact">
-    <div class="section-glass reveal">
-        <h2 class="section-title">Let's <span class="accent">Connect</span></h2>
-        <div class="contact-wrapper">
-            <div class="contact-info">
-                <h2>Get in touch.</h2>
-                <p>
-                    Have a project, an idea, or just want to say hello?
-                    I'm always open to interesting conversations.
-                </p>
-                <div class="social-links">
-                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-link" aria-label="Email">
-                        <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-                        Email
-                    </a>
-                    <a href="https://www.linkedin.com/in/abdul-wali-15829a40a/" target="_blank" class="social-link" aria-label="LinkedIn">
-                        <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
-                        LinkedIn
-                    </a>
-                    <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20have%20a%20project%20idea!" target="_blank" class="social-link" aria-label="WhatsApp">
-                        <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
-                        WhatsApp
-                    </a>
-                    <a href="https://www.facebook.com/abdulwali.17/" class="social-link" aria-label="Facebook">
-                        <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
-                        Facebook
-                    </a>
-                    <a href="https://www.instagram.com/iabdulwali19/" class="social-link" aria-label="Instagram">
-                        <span class="icon"><i class="fa-brands fa-instagram"></i></span>
-                        Instagram
-                    </a>
-                </div>
-            </div>
-
-            <div class="contact-right-col">
-                <!-- ===== CONTACT FORM – Formspree ===== -->
-                <form class="contact-form" id="contactForm"
-                      action="https://formspree.io/f/xojgbeqo"
-                      method="POST">
-                    <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
-                    <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
-                    <textarea name="message" placeholder="Tell me about your project..." required aria-label="Your Message"></textarea>
-                    <button type="submit">
-                        <i class="fa-regular fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
-
-                <!-- ===== SUCCESS MESSAGE ===== -->
-                <div class="form-success" id="formSuccess">
-                    <div class="success-icon">
-                        <i class="fa-solid fa-check"></i>
+        <!-- ===== CONTACT ===== -->
+        <section id="contact">
+            <div class="section-glass reveal">
+                <h2 class="section-title">Let's <span class="accent">Connect</span></h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h2>Get in touch.</h2>
+                        <p>
+                            Have a project, an idea, or just want to say hello?
+                            I'm always open to interesting conversations.
+                        </p>
+                        <div class="social-links">
+                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-link" aria-label="Email">
+                                <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                                Email
+                            </a>
+                            <a href="https://www.linkedin.com/in/abdul-wali-15829a40a/" target="_blank" class="social-link" aria-label="LinkedIn">
+                                <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
+                                LinkedIn
+                            </a>
+                            <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20have%20a%20project%20idea!" target="_blank" class="social-link" aria-label="WhatsApp">
+                                <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+                                WhatsApp
+                            </a>
+                            <a href="https://www.facebook.com/abdulwali.17/" class="social-link" aria-label="Facebook">
+                                <span class="icon"><i class="fa-brands fa-facebook-f"></i></span>
+                                Facebook
+                            </a>
+                            <a href="https://www.instagram.com/iabdulwali19/" class="social-link" aria-label="Instagram">
+                                <span class="icon"><i class="fa-brands fa-instagram"></i></span>
+                                Instagram
+                            </a>
+                        </div>
                     </div>
-                    <h3>Thank You!</h3>
-                    <p>
-                        Your message has been sent successfully.<br />
-                        I'll get back to you shortly.
-                    </p>
-                    <button class="btn-reset" id="resetFormBtn" type="button">Send another message</button>
+
+                    <div class="contact-right-col">
+                        <!-- ===== CONTACT FORM – Formspree ===== -->
+                        <form class="contact-form" id="contactForm"
+                              action="https://formspree.io/f/xojgbeqo"
+                              method="POST">
+                            <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
+                            <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
+                            <textarea name="message" placeholder="Tell me about your project..." required aria-label="Your Message"></textarea>
+                            <button type="submit">
+                                <i class="fa-regular fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+
+                        <!-- ===== SUCCESS MESSAGE ===== -->
+                        <div class="form-success" id="formSuccess">
+                            <div class="success-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h3>Thank You!</h3>
+                            <p>
+                                Your message has been sent successfully.<br />
+                                I'll get back to you shortly.
+                            </p>
+                            <button class="btn-reset" id="resetFormBtn" type="button">Send another message</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-        
         <!-- ===== FOOTER ===== -->
         <footer>
             &copy; 2026 <span style="color:var(--text-primary);">Abdul Wali</span>.
@@ -317,7 +316,8 @@
 
     </div>
 
-    <script src="./index.js"></script>
+    <!-- ===== External Script ===== -->
+    <script src="index.js"></script>
 </body>
 
 </html>
