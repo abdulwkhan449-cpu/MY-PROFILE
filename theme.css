@@ -29,42 +29,84 @@ html.is-scrolling *::after {
     animation-play-state: paused !important;
 }
 
-/* ---------- THEME TOGGLE BUTTON ---------- */
+/* ---------- THEME TOGGLE (pill switch) ---------- */
 .theme-toggle {
+    --w: 68px;
+    --h: 36px;
+    --k: 28px;
     position: relative;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background: var(--bg-card);
-    color: var(--neon-orange);
-    cursor: pointer;
+    display: block;
+    width: var(--w);
+    height: var(--h);
+    padding: 0;
     flex-shrink: 0;
     margin-left: 20px;
-    overflow: hidden;
+    border-radius: 40px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    cursor: pointer;
     z-index: 2;
-    transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color .3s ease, box-shadow .3s ease, background-color .45s ease;
 }
 .theme-toggle:hover {
     border-color: var(--neon-orange);
     box-shadow: var(--shadow-orange);
-    transform: translateY(-2px);
 }
-.theme-toggle i {
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--neon-orange);
+    outline-offset: 3px;
+}
+/* track ke andar halke sun / moon */
+.theme-toggle .tt-sun,
+.theme-toggle .tt-moon {
     position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.05rem;
-    transition: transform .5s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: .8rem;
+    color: var(--text-muted);
+    opacity: .75;
+    pointer-events: none;
 }
-/* dark mode: sun dikhao (click = light) */
-.theme-toggle .fa-sun  { opacity: 1; transform: rotate(0) scale(1); }
-.theme-toggle .fa-moon { opacity: 0; transform: rotate(-90deg) scale(.4); }
-/* light mode: moon dikhao (click = dark) */
-html[data-theme="light"] .theme-toggle .fa-sun  { opacity: 0; transform: rotate(90deg) scale(.4); }
-html[data-theme="light"] .theme-toggle .fa-moon { opacity: 1; transform: rotate(0) scale(1); }
+.theme-toggle .tt-sun  { left: 10px; }
+.theme-toggle .tt-moon { right: 10px; }
+
+/* sliding knob */
+.theme-toggle .tt-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: var(--k);
+    height: var(--k);
+    border-radius: 50%;
+    background: var(--gradient-hero);
+    box-shadow: 0 0 14px rgba(253, 128, 46, .55);
+    transform: translateX(calc(var(--w) - var(--k) - 8px));  /* dark = right */
+    transition: transform .5s cubic-bezier(.34, 1.4, .64, 1), box-shadow .4s ease;
+    pointer-events: none;
+}
+html[data-theme="light"] .theme-toggle .tt-knob {
+    transform: translateX(0);                                   /* light = left */
+    box-shadow: 0 0 18px rgba(253, 128, 46, .6);
+}
+.theme-toggle .tt-knob i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: .85rem;
+    color: #0d0b09;
+    transition: transform .5s cubic-bezier(.34, 1.56, .64, 1), opacity .3s ease;
+}
+/* dark: moon dikhao */
+.theme-toggle .k-moon { opacity: 1; transform: translate(-50%, -50%) rotate(0) scale(1); }
+.theme-toggle .k-sun  { opacity: 0; transform: translate(-50%, -50%) rotate(-120deg) scale(.3); }
+/* light: sun dikhao */
+html[data-theme="light"] .theme-toggle .k-moon { opacity: 0; transform: translate(-50%, -50%) rotate(120deg) scale(.3); }
+html[data-theme="light"] .theme-toggle .k-sun  { opacity: 1; transform: translate(-50%, -50%) rotate(0) scale(1); }
+
+html[data-theme="light"] .theme-toggle {
+    background: #fff3e6;
+}
 
 /* theme badalte waqt smooth color transition */
 html.theme-anim *,
@@ -143,11 +185,12 @@ html[data-theme="light"] footer { border-top-color: rgba(42, 31, 23, 0.08); }
 /* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
     .theme-toggle {
+        --w: 60px;
+        --h: 32px;
+        --k: 24px;
         order: 1;
         margin-left: auto;
         margin-right: 8px;
-        width: 38px;
-        height: 38px;
     }
     .hamburger { order: 2; }
     html[data-theme="light"] .nav-links {
