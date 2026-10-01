@@ -1,28 +1,63 @@
 // ============================================================
-//  🚀 PRELOADER – GUARANTEED HIDE (3 seconds)
+//  🚀 PRELOADER – 0 to 100% COUNTER (Poppins Bold Gradient)
 // ============================================================
 document.body.style.overflow = 'hidden';
 
+const preloaderEl = document.getElementById('preloader');
+const percentNumEl = document.getElementById('percentNum');
+
 function hidePreloader() {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        preloader.classList.add('fade-out');
-        setTimeout(function() {
-            preloader.style.display = 'none';
-            document.body.style.overflow = '';
-        }, 700);
-    }
+    if (!preloaderEl) return;
+    preloaderEl.classList.add('fade-out');
+    setTimeout(function () {
+        preloaderEl.style.display = 'none';
+        document.body.style.overflow = '';
+    }, 700);
 }
 
-window.addEventListener('load', function() {
-    setTimeout(hidePreloader, 3000);
-});
+function runPercentCounter() {
+    if (!percentNumEl) {
+        // no counter element, just hide after delay
+        setTimeout(hidePreloader, 2000);
+        return;
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(hidePreloader, 3000);
-});
+    const duration = 2200;       // total count time (ms)
+    const startTime = performance.now();
 
-setTimeout(hidePreloader, 4000);
+    function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out cubic for smooth finish
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(eased * 100);
+
+        percentNumEl.textContent = value;
+
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        } else {
+            percentNumEl.textContent = '100';
+            setTimeout(hidePreloader, 350); // chhota sa pause 100% par
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
+// Start as early as possible
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runPercentCounter);
+} else {
+    runPercentCounter();
+}
+
+// Absolute failsafe – agar kuch bhi fail ho jaye
+setTimeout(function () {
+    if (preloaderEl && preloaderEl.style.display !== 'none') {
+        hidePreloader();
+    }
+}, 5000);
 
 // ============================================================
 //  📌 NAV: scrolled class
@@ -60,7 +95,7 @@ hamburger.addEventListener('click', toggleMenu);
 //  🔗 SMOOTH NAVIGATION – WORKS WITH MOBILE MENU
 // ============================================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href === "#") return;
 
@@ -210,7 +245,7 @@ const resetBtn = document.getElementById('resetFormBtn');
 // Formspree endpoint is already in the form's action attribute.
 // We'll handle the submit via AJAX to show success without page reload.
 
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const formData = new FormData(form);
@@ -240,7 +275,7 @@ form.addEventListener('submit', function(e) {
 });
 
 // Reset button: hide success, show form again
-resetBtn.addEventListener('click', function() {
+resetBtn.addEventListener('click', function () {
     successDiv.classList.remove('visible');
     form.classList.remove('hidden');
     form.reset();
@@ -252,3 +287,4 @@ resetBtn.addEventListener('click', function() {
 console.log('🚀 Portfolio ready!');
 console.log('📧 Contact form uses Formspree endpoint: https://formspree.io/f/xojgbeqo');
 console.log('🔢 Counter animation active on About stats.');
+console.log('🎯 Preloader: 0 → 100% Poppins gradient counter');
