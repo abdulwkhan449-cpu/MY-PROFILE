@@ -18,13 +18,35 @@
     <!-- ===== External Styles ===== -->
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="theme.css" />
-    <!-- Saved theme ko page dikhne se pehle apply karo (flash na ho) -->
+    <!-- ===== THEME LOGIC (self-contained: dark / light) ===== -->
     <script>
-        try {
-            if (localStorage.getItem('portfolio-theme') === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
+        (function () {
+            var R = document.documentElement, K = 'portfolio-theme';
+            try { if (localStorage.getItem(K) === 'light') R.setAttribute('data-theme', 'light'); } catch (e) {}
+
+            function sync(t) {
+                var b = document.getElementById('themeToggle');
+                if (!b) return;
+                b.setAttribute('aria-checked', t === 'dark' ? 'true' : 'false');
+                b.setAttribute('title', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
             }
-        } catch (e) {}
+            function setTheme(t) {
+                R.setAttribute('data-theme', t);
+                try { localStorage.setItem(K, t); } catch (e) {}
+                sync(t);
+            }
+            window.toggleTheme = function () {
+                R.classList.add('theme-anim');
+                setTheme(R.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+                setTimeout(function () { R.classList.remove('theme-anim'); }, 600);
+            };
+            document.addEventListener('click', function (e) {
+                if (e.target.closest && e.target.closest('#themeToggle')) window.toggleTheme();
+            });
+            document.addEventListener('DOMContentLoaded', function () {
+                sync(R.getAttribute('data-theme') || 'dark');
+            });
+        })();
     </script>
 </head>
 
@@ -59,9 +81,14 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <!-- ===== THEME TOGGLE (Dark / Light) ===== -->
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-                <i class="fa-solid fa-sun"></i>
-                <i class="fa-solid fa-moon"></i>
+            <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="true"
+                aria-label="Toggle dark and light theme" title="Switch to light mode">
+                <i class="fa-solid fa-sun tt-sun"></i>
+                <i class="fa-solid fa-moon tt-moon"></i>
+                <span class="tt-knob">
+                    <i class="fa-solid fa-moon k-moon"></i>
+                    <i class="fa-solid fa-sun k-sun"></i>
+                </span>
             </button>
         </nav>
 
