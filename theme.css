@@ -201,3 +201,68 @@ html[data-theme="light"] footer { border-top-color: rgba(42, 31, 23, 0.08); }
     .section-glass { background: rgba(13, 11, 9, 0.8); }
     html[data-theme="light"] .section-glass { background: rgba(255, 255, 255, 0.82); }
 }
+
+
+/* ============================================================
+   🌈 BLURRED GRADIENT BACKGROUND (theme ke colors se)
+   html::before / html::after = fixed layers, HTML me kuch add nahi karna
+   Sirf transform animate hota hai => smooth, GPU pe, scroll rough nahi karta
+   ============================================================ */
+html::before,
+html::after {
+    content: '';
+    position: fixed;
+    inset: -25%;
+    z-index: -1;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* ---- DARK ---- */
+html::before {
+    background:
+        radial-gradient(40% 35% at 18% 22%, rgba(253, 128, 46, 0.20), transparent 70%),
+        radial-gradient(38% 34% at 82% 30%, rgba(230, 57, 70, 0.16), transparent 70%);
+    animation: bgDriftA 26s ease-in-out infinite alternate;
+}
+html::after {
+    background:
+        radial-gradient(42% 36% at 75% 82%, rgba(253, 128, 46, 0.15), transparent 70%),
+        radial-gradient(36% 32% at 20% 80%, rgba(230, 57, 70, 0.14), transparent 70%);
+    animation: bgDriftB 32s ease-in-out infinite alternate;
+}
+
+/* ---- LIGHT ---- */
+html[data-theme="light"]::before {
+    background:
+        radial-gradient(40% 35% at 18% 22%, rgba(253, 128, 46, 0.30), transparent 70%),
+        radial-gradient(38% 34% at 82% 30%, rgba(230, 57, 70, 0.20), transparent 70%);
+}
+html[data-theme="light"]::after {
+    background:
+        radial-gradient(42% 36% at 75% 82%, rgba(253, 160, 80, 0.30), transparent 70%),
+        radial-gradient(36% 32% at 20% 80%, rgba(230, 57, 70, 0.16), transparent 70%);
+}
+
+@keyframes bgDriftA {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    100% { transform: translate3d(6%, 5%, 0) scale(1.15) rotate(6deg); }
+}
+@keyframes bgDriftB {
+    0%   { transform: translate3d(0, 0, 0) scale(1.1); }
+    100% { transform: translate3d(-6%, -5%, 0) scale(1) rotate(-6deg); }
+}
+
+/* cards thode transparent taa ke gradient peeche se jhalke */
+.section-glass { background: rgba(13, 11, 9, 0.62); }
+html[data-theme="light"] .section-glass { background: rgba(255, 255, 255, 0.62); }
+
+@media (max-width: 768px) {
+    html::before, html::after { inset: -35%; }
+    .section-glass { background: rgba(13, 11, 9, 0.7); }
+    html[data-theme="light"] .section-glass { background: rgba(255, 255, 255, 0.72); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html::before, html::after { animation: none; }
+}
