@@ -266,3 +266,44 @@ html[data-theme="light"] .section-glass { background: rgba(255, 255, 255, 0.62);
 @media (prefers-reduced-motion: reduce) {
     html::before, html::after { animation: none; }
 }
+
+
+/* ============================================================
+   🖱️ POINTER-FOLLOW GRADIENT GLOW
+   theme.js ye element khud bana deta hai (.cursor-glow)
+   Sirf transform move hota hai => smooth, GPU pe
+   ============================================================ */
+.cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 640px;
+    height: 640px;
+    margin: -320px 0 0 -320px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity .7s ease;
+    will-change: transform;
+    background: radial-gradient(circle,
+        rgba(253, 128, 46, 0.34) 0%,
+        rgba(230, 57, 70, 0.20) 38%,
+        transparent 70%);
+}
+.cursor-glow.active { opacity: 1; }
+
+html[data-theme="light"] .cursor-glow {
+    background: radial-gradient(circle,
+        rgba(253, 128, 46, 0.42) 0%,
+        rgba(230, 57, 70, 0.24) 38%,
+        transparent 70%);
+}
+
+@media (max-width: 768px) {
+    .cursor-glow {
+        width: 420px;
+        height: 420px;
+        margin: -210px 0 0 -210px;
+    }
+}
