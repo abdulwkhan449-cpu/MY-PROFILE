@@ -133,3 +133,70 @@
         target = clamp(target, 0, maxScroll());
     });
 })();
+
+
+// ============================================================
+//  🖱️ POINTER-FOLLOW GRADIENT GLOW
+//  Mouse / touch ke peeche orange-red glow smoothly follow karta hai
+// ============================================================
+(function () {
+    'use strict';
+
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    glow.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(glow);
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const EASE = 0.08;          // chhota = zyada lazy follow, bada = tez follow
+
+    let tx = window.innerWidth / 2, ty = window.innerHeight / 2;   // target (pointer)
+    let cx = tx, cy = ty;                                          // current (glow)
+    let raf = null;
+
+    function loop() {
+        cx += (tx - cx) * EASE;
+        cy += (ty - cy) * EASE;
+        glow.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+
+        if (Math.abs(tx - cx) < 0.3 && Math.abs(ty - cy) < 0.3) {
+            raf = null;
+            return;
+        }
+        raf = requestAnimationFrame(loop);
+    }
+
+    function move(e) {
+        tx = e.clientX;
+        ty = e.clientY;
+        if (!glow.classList.contains('active')) {
+            // pehli baar: seedha pointer pe aao, phir follow
+            cx = tx; cy = ty;
+            glow.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+            glow.classList.add('active');
+        }
+        if (reduce) {
+            cx = tx; cy = ty;
+            glow.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+        } else if (!raf) {
+            raf = requestAnimationFrame(loop);
+        }
+    }
+
+    window.addEventListener('pointermove', move, { passive: true });
+    window.addEventListener('pointerdown', move, { passive: true });
+
+    // pointer window se bahar gaya to glow dheere se gayab
+    document.documentElement.addEventListener('mouseleave', function () {
+        glow.classList.remove('active');
+    });
+    document.documentElement.addEventListener('mouseenter', function () {
+        glow.classList.add('active');
+    });
+    // touch uthane ke baad thodi der me fade
+    window.addEventListener('pointerup', function (e) {
+        if (e.pointerType === 'touch') {
+            setTimeout(function () { glow.classList.remove('active'); }, 900);
+        }
+    }, { passive: true });
+})();
