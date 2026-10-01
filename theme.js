@@ -1,50 +1,10 @@
 // ============================================================
 //  theme.js  –  index.js ke BAAD load karna
-//  1) Light / Dark toggle (header me)   2) Smooth scroll
+//  Smooth scroll (theme toggle ab index.html me hai)
 // ============================================================
 (function () {
     'use strict';
     const root = document.documentElement;
-
-    // ----------------------------------------------------------
-    //  🌗 THEME TOGGLE
-    // ----------------------------------------------------------
-    const KEY = 'portfolio-theme';
-
-    function getSaved() {
-        try { return localStorage.getItem(KEY); } catch (e) { return null; }
-    }
-    function save(t) {
-        try { localStorage.setItem(KEY, t); } catch (e) { /* ignore */ }
-    }
-
-    // Button ab index.html me hi hai (#themeToggle). Na mile to JS bana dega.
-    let btn = document.getElementById('themeToggle');
-    if (!btn) {
-        const nav = document.getElementById('navbar');
-        btn = document.createElement('button');
-        btn.id = 'themeToggle';
-        btn.type = 'button';
-        btn.className = 'theme-toggle';
-        btn.innerHTML = '<i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>';
-        if (nav) nav.appendChild(btn);
-    }
-
-    function applyTheme(t) {
-        root.setAttribute('data-theme', t);
-        btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-        btn.setAttribute('title', t === 'dark' ? 'Light mode' : 'Dark mode');
-    }
-
-    applyTheme(getSaved() === 'light' ? 'light' : 'dark');
-
-    btn.addEventListener('click', function () {
-        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.classList.add('theme-anim');
-        applyTheme(next);
-        save(next);
-        setTimeout(function () { root.classList.remove('theme-anim'); }, 600);
-    });
 
     // ----------------------------------------------------------
     //  🧈 SMOOTH SCROLL
@@ -80,7 +40,7 @@
 
     // --- Mouse wheel: inertia (sirf desktop) ---
     function wheelLoop() {
-        current += (target - current) * 0.055;
+        current += (target - current) * 0.12;
         if (Math.abs(target - current) < 0.4) {
             current = target;
             window.scrollTo(0, current);
@@ -106,7 +66,7 @@
             if (e.deltaMode === 1) delta *= 33;
             else if (e.deltaMode === 2) delta *= window.innerHeight;
 
-            target = clamp(target + delta * 0.7, 0, maxScroll());
+            target = clamp(target + delta, 0, maxScroll());
             if (!wheelRaf) wheelRaf = requestAnimationFrame(wheelLoop);
         }, { passive: false });
     }
@@ -119,7 +79,7 @@
         const from = window.scrollY;
         const dist = clamp(y, 0, maxScroll()) - from;
         const t0 = performance.now();
-        duration = duration || clamp(Math.abs(dist) * 0.9, 900, 2000);
+        duration = duration || clamp(Math.abs(dist) * 0.6, 600, 1200);
 
         function frame(now) {
             const p = Math.min((now - t0) / duration, 1);
