@@ -18,12 +18,17 @@
         try { localStorage.setItem(KEY, t); } catch (e) { /* ignore */ }
     }
 
-    const nav = document.getElementById('navbar');
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'theme-toggle';
-    btn.innerHTML = '<i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>';
-    if (nav) nav.appendChild(btn);
+    // Button ab index.html me hi hai (#themeToggle). Na mile to JS bana dega.
+    let btn = document.getElementById('themeToggle');
+    if (!btn) {
+        const nav = document.getElementById('navbar');
+        btn = document.createElement('button');
+        btn.id = 'themeToggle';
+        btn.type = 'button';
+        btn.className = 'theme-toggle';
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>';
+        if (nav) nav.appendChild(btn);
+    }
 
     function applyTheme(t) {
         root.setAttribute('data-theme', t);
@@ -75,7 +80,7 @@
 
     // --- Mouse wheel: inertia (sirf desktop) ---
     function wheelLoop() {
-        current += (target - current) * 0.09;
+        current += (target - current) * 0.055;
         if (Math.abs(target - current) < 0.4) {
             current = target;
             window.scrollTo(0, current);
@@ -101,7 +106,7 @@
             if (e.deltaMode === 1) delta *= 33;
             else if (e.deltaMode === 2) delta *= window.innerHeight;
 
-            target = clamp(target + delta, 0, maxScroll());
+            target = clamp(target + delta * 0.7, 0, maxScroll());
             if (!wheelRaf) wheelRaf = requestAnimationFrame(wheelLoop);
         }, { passive: false });
     }
@@ -114,7 +119,7 @@
         const from = window.scrollY;
         const dist = clamp(y, 0, maxScroll()) - from;
         const t0 = performance.now();
-        duration = duration || clamp(Math.abs(dist) * 0.6, 600, 1400);
+        duration = duration || clamp(Math.abs(dist) * 0.9, 900, 2000);
 
         function frame(now) {
             const p = Math.min((now - t0) / duration, 1);
