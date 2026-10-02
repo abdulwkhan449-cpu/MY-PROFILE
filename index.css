@@ -60,7 +60,7 @@ a {
 .container {
     max-width: 1140px;
     margin: 0 auto;
-    padding: 5px 24px 0;   /* 🎯 top space = 5px */
+    padding: 95px 24px 0;   /* 🎯 nav height + top + gap */
 }
 section {
     padding: 80px 0;
@@ -285,26 +285,30 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 5px;                        /* 🎯 top space = 5px */
-    z-index: 999;                    /* 🎯 upar rahe, kabhi chhupe nahi */
+
+    /* 🎯 FIXED – hamesha screen par rahega */
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    width: calc(100% - 48px);
+    max-width: 1140px;
+    transform: translateX(-50%) translateY(0);
+
+    z-index: 999;
     background: rgba(13, 11, 9, 0.88);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    margin: 0 -24px;
     padding-left: 24px;
     padding-right: 24px;
     border-radius: 50px;
-    margin-bottom: 10px;
-    /* 🎯 SMOOTHER easing – no bounce, pure smooth slide */
+
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
                 background 0.6s ease,
                 backdrop-filter 0.6s ease,
                 box-shadow 0.6s ease,
                 border-color 0.6s ease,
                 border-radius 0.6s ease;
-    transform: translateY(0);
     will-change: transform, background, backdrop-filter, box-shadow;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0);
     -webkit-font-smoothing: antialiased;
@@ -312,7 +316,7 @@ nav {
     text-rendering: optimizeLegibility;
 }
 nav.scrolled {
-    transform: translateY(8px);      /* 🎯 smoothly 8px aur neeche */
+    transform: translateX(-50%) translateY(8px);   /* 🎯 center + slide down */
     background: rgba(13, 11, 9, 0.94);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -1244,13 +1248,13 @@ footer .footer-icon.mug {
         flex-direction: row;
         flex-wrap: wrap;
         padding: 12px 16px;
-        margin: 0 -16px;
         border-radius: 30px;
         justify-content: space-between;
+        width: calc(100% - 32px);        /* 🎯 16px on each side */
         transition: z-index 0s;
     }
     nav.scrolled {
-        transform: translateY(6px);
+        transform: translateX(-50%) translateY(6px);   /* 🎯 */
         border-radius: 24px;
     }
     .hamburger {
@@ -1410,11 +1414,17 @@ footer .footer-icon.mug {
         font-size: 0.7rem;
         letter-spacing: 4px;
     }
+        .container {
+        padding-top: 85px;    /* 🎯 chhota nav on mobile */
+    }
 }
 
 @media (max-width: 480px) {
     .about-stats {
         grid-template-columns: 1fr;
+    }
+       .container {
+        padding-top: 80px;
     }
     .skills-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1435,7 +1445,7 @@ footer .footer-icon.mug {
         padding: 20px 14px;
     }
     nav.scrolled {
-        transform: translateY(4px);
+        transform: translateX(-50%) translateY(4px);   /* 🎯 */
         border-radius: 20px;
     }
     .form-success {
