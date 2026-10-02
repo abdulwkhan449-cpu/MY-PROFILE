@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Solutions · Abdul Wali</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/png" sizes="16x16" href="./protfolio.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./protfolio.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="./protfolio.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./protfolio.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <!-- ===== External Styles ===== -->
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="ai-solutions.css" />
+    <!-- ===== THEME LOGIC (same as index) ===== -->
+    <script>
+        (function () {
+            var R = document.documentElement, K = 'portfolio-theme';
+            try { if (localStorage.getItem(K) === 'light') R.setAttribute('data-theme', 'light'); } catch (e) {}
+
+            function sync(t) {
+                var b = document.getElementById('themeToggle');
+                if (!b) return;
+                b.setAttribute('aria-checked', t === 'dark' ? 'true' : 'false');
+                b.setAttribute('title', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function setTheme(t) {
+                R.setAttribute('data-theme', t);
+                try { localStorage.setItem(K, t); } catch (e) {}
+                sync(t);
+            }
+            window.toggleTheme = function () {
+                R.classList.add('theme-anim');
+                setTheme(R.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+                setTimeout(function () { R.classList.remove('theme-anim'); }, 600);
+            };
+            document.addEventListener('click', function (e) {
+                if (e.target.closest && e.target.closest('#themeToggle')) window.toggleTheme();
+            });
+            document.addEventListener('DOMContentLoaded', function () {
+                sync(R.getAttribute('data-theme') || 'dark');
+            });
+        })();
+    </script>
+</head>
+
+<body>
+
+    <!-- ===== PRELOADER ===== -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="loader-percent">
+                <span id="percentNum">0</span><span class="percent-symbol">%</span>
+            </div>
+            <p class="loader-sub">Loading AI Solutions...</p>
+        </div>
+    </div>
+
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+
+        <!-- ===== NAVIGATION ===== -->
+        <nav id="navbar">
+            <a href="index.html" class="logo" style="text-decoration:none;">ABDUL WALI</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#work">Projects</a></li>
+                <li><a href="ai-solutions.html" class="active-link">AI Solutions</a></li>
+                <li><a href="#ai-contact">Contact</a></li>
+            </ul>
+            <!-- ===== THEME TOGGLE ===== -->
+            <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="true"
+                aria-label="Toggle dark and light theme" title="Switch to light mode">
+                <i class="fa-solid fa-sun tt-sun"></i>
+                <i class="fa-solid fa-moon tt-moon"></i>
+                <span class="tt-knob">
+                    <i class="fa-solid fa-moon k-moon"></i>
+                    <i class="fa-solid fa-sun k-sun"></i>
+                </span>
+            </button>
+        </nav>
+
+        <!-- ===== AI HERO ===== -->
+        <section class="hero" id="ai-home">
+            <div class="section-glass reveal">
+                <div class="hero-content ai-hero-content">
+                    <span class="badge">✦ AI Video & Image Creation</span>
+                    <h1>
+                        Turn Ideas Into<br />
+                        <span class="gradient-text">AI Visuals</span>
+                    </h1>
+                    <p>
+                        Stunning <span style="color:var(--neon-orange);">AI-generated videos</span> and
+                        <span style="color:var(--neon-red);">images</span> for brands, creators, and
+                        businesses — perfect for ads, reels, thumbnails, and product showcases.
+                    </p>
+                    <div class="btn-group">
+                        <a href="#ai-work" class="btn-primary">See Examples</a>
+                        <a href="#ai-contact" class="btn-secondary">Start a Project</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== AI SERVICES ===== -->
+        <section id="ai-services">
+            <div class="section-glass reveal">
+                <h2 class="section-title">AI <span class="accent">Services</span></h2>
+                <p class="ai-solutions-intro">
+                    Everything you need to bring your brand to life with
+                    <strong>AI-generated visuals</strong> — fast, affordable, and modern.
+                </p>
+                <div class="ai-solutions-grid">
+                    <div class="ai-solution-card">
+                        <div class="ai-solution-icon">
+                            <i class="fa-solid fa-film"></i>
+                        </div>
+                        <h3>AI Video Ads</h3>
+                        <p>Promotional videos, reels, and product demos generated with cutting-edge AI tools.</p>
+                    </div>
+                    <div class="ai-solution-card">
+                        <div class="ai-solution-icon">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3>AI Images</h3>
+                        <p>Thumbnails, social posts, and product visuals designed with AI precision.</p>
+                    </div>
+                    <div class="ai-solution-card">
+                        <div class="ai-solution-icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <h3>Content Bundles</h3>
+                        <p>Complete visual packages — images + videos — tailored to your brand.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== AI WORK / EXAMPLES ===== -->
+        <section id="ai-work">
+            <div class="section-glass reveal">
+                <h2 class="section-title">Featured <span class="accent">Work</span></h2>
+                <div class="ai-work-grid">
+                    <div class="ai-work-card">
+                        <div class="ai-work-thumb">
+                            <img src="./ai-video-1.png" alt="AI Video Ad" loading="lazy" />
+                            <span class="ai-work-tag"><i class="fa-solid fa-video"></i> AI Video</span>
+                        </div>
+                        <h3>Product Promo Reel</h3>
+                        <p>30-second AI-generated promotional video for a lifestyle brand.</p>
+                    </div>
+                    <div class="ai-work-card">
+                        <div class="ai-work-thumb">
+                            <img src="./ai-image-1.png" alt="AI Thumbnail" loading="lazy" />
+                            <span class="ai-work-tag"><i class="fa-solid fa-image"></i> AI Image</span>
+                        </div>
+                        <h3>YouTube Thumbnail</h3>
+                        <p>Eye-catching thumbnail design generated with AI for a tech channel.</p>
+                    </div>
+                    <div class="ai-work-card">
+                        <div class="ai-work-thumb">
+                            <img src="./ai-video-2.png" alt="AI Product Video" loading="lazy" />
+                            <span class="ai-work-tag"><i class="fa-solid fa-video"></i> AI Video</span>
+                        </div>
+                        <h3>Product Showcase</h3>
+                        <p>Cinematic AI video highlighting key product features for e-commerce.</p>
+                    </div>
+                    <div class="ai-work-card">
+                        <div class="ai-work-thumb">
+                            <img src="./ai-image-2.png" alt="AI Social Post" loading="lazy" />
+                            <span class="ai-work-tag"><i class="fa-solid fa-image"></i> AI Image</span>
+                        </div>
+                        <h3>Social Media Post</h3>
+                        <p>Scroll-stopping Instagram visual created entirely with AI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROCESS ===== -->
+        <section id="ai-process">
+            <div class="section-glass reveal">
+                <h2 class="section-title">My <span class="accent">Process</span></h2>
+                <div class="ai-process-grid">
+                    <div class="ai-process-step">
+                        <div class="step-num">01</div>
+                        <h3>Brief</h3>
+                        <p>You share your idea, brand, and goals. I ask questions to understand exactly what you need.</p>
+                    </div>
+                    <div class="ai-process-step">
+                        <div class="step-num">02</div>
+                        <h3>Concept</h3>
+                        <p>I design the visual direction — style, mood, colors — and confirm it with you before generating.</p>
+                    </div>
+                    <div class="ai-process-step">
+                        <div class="step-num">03</div>
+                        <h3>Generate</h3>
+                        <p>Using advanced AI tools, I create high-quality videos or images tailored to your brief.</p>
+                    </div>
+                    <div class="ai-process-step">
+                        <div class="step-num">04</div>
+                        <h3>Deliver</h3>
+                        <p>Final files in your preferred format, ready for ads, social media, or your website.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WHY AI ===== -->
+        <section id="ai-why">
+            <div class="section-glass reveal">
+                <h2 class="section-title">Why <span class="accent">AI</span></h2>
+                <div class="ai-why-grid">
+                    <div class="ai-why-card">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3>Fast Delivery</h3>
+                        <p>AI-powered workflows mean you get results in days, not weeks.</p>
+                    </div>
+                    <div class="ai-why-card">
+                        <i class="fa-solid fa-coins"></i>
+                        <h3>Cost Effective</h3>
+                        <p>Studio-quality visuals at a fraction of traditional production costs.</p>
+                    </div>
+                    <div class="ai-why-card">
+                        <i class="fa-solid fa-infinity"></i>
+                        <h3>Unlimited Ideas</h3>
+                        <p>No limits on creativity — every concept can be explored and refined.</p>
+                    </div>
+                    <div class="ai-why-card">
+                        <i class="fa-solid fa-star"></i>
+                        <h3>Modern Look</h3>
+                        <p>Stay ahead with visuals that feel fresh, futuristic, and on-brand.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section id="ai-contact">
+            <div class="section-glass reveal">
+                <h2 class="section-title">Let's <span class="accent">Create</span></h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h2>Start your AI project.</h2>
+                        <p>
+                            Need AI videos or images for your brand? Tell me your idea — I'll bring it to life.
+                        </p>
+                        <div class="social-links">
+                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-link" aria-label="Email">
+                                <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                                Email
+                            </a>
+                            <a href="https://wa.me/+923175565531?text=Hi%20Abdul%2C%20I%20need%20AI%20videos%2Fimages!" target="_blank" class="social-link" aria-label="WhatsApp">
+                                <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+                                WhatsApp
+                            </a>
+                            <a href="https://www.instagram.com/iabdulwali19/" class="social-link" aria-label="Instagram">
+                                <span class="icon"><i class="fa-brands fa-instagram"></i></span>
+                                Instagram
+                            </a>
+                            <a href="https://www.linkedin.com/in/abdul-wali-15829a40a/" target="_blank" class="social-link" aria-label="LinkedIn">
+                                <span class="icon"><i class="fa-brands fa-linkedin-in"></i></span>
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-right-col">
+                        <form class="contact-form" id="contactForm"
+                              action="https://formspree.io/f/xojgbeqo"
+                              method="POST">
+                            <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name" />
+                            <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email" />
+                            <textarea name="message" placeholder="Tell me about your AI project..." required aria-label="Your Message"></textarea>
+                            <button type="submit">
+                                <i class="fa-regular fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+
+                        <div class="form-success" id="formSuccess">
+                            <div class="success-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h3>Thank You!</h3>
+                            <p>
+                                Your message has been sent successfully.<br />
+                                I'll get back to you shortly.
+                            </p>
+                            <button class="btn-reset" id="resetFormBtn" type="button">Send another message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            &copy; 2026 <span style="color:var(--text-primary);">Abdul Wali</span>.
+            Crafted with <span class="footer-icon"><i class="fa-solid fa-heart"></i></span>
+            and a lot of <span class="footer-icon mug"><i class="fa-solid fa-mug-hot"></i></span>.
+        </footer>
+
+    </div>
+
+    <!-- ===== External Scripts ===== -->
+    <script src="index.js"></script>
+    <script src="theme.js"></script>
+</body>
+
+</html>
