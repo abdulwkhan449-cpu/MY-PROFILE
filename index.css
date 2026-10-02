@@ -25,6 +25,7 @@ html {
     scroll-behavior: smooth;
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* 🎯 FIX: horizontal overscroll band */
 }
 body {
     font-family: 'Inter', sans-serif;
@@ -34,6 +35,8 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    width: 100%;
+    max-width: 100vw;
 }
 body.menu-open {
     overflow: hidden;
@@ -1159,10 +1162,11 @@ footer .footer-icon.mug {
         z-index: 1001;
     }
 
+    /* 🎯 KEY FIX: use transform + visibility to fully hide off-screen */
     .nav-links {
         position: fixed;
         top: 0;
-        right: -280px;
+        right: 0;
         width: 260px;
         height: 100vh;
         background: rgba(13, 11, 9, 0.98);
@@ -1180,15 +1184,26 @@ footer .footer-icon.mug {
         border-radius: 0;
         border-left: 2px solid rgba(253, 128, 46, 0.2);
         box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
-        transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+        /* KEY FIX start */
+        transform: translateX(100%);
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                    visibility 0.4s ease;
+        will-change: transform;
+        /* KEY FIX end */
+
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
-        pointer-events: auto;
     }
     .nav-links.active {
-        right: 0;
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
     }
+
     .nav-links a {
         font-size: 1.2rem;
         font-weight: 600;
