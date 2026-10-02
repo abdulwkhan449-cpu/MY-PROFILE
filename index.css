@@ -1374,6 +1374,9 @@ footer .footer-icon.mug {
         font-size: 0.65rem;
         letter-spacing: 3px;
     }
+        .ai-teaser-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 360px) {
@@ -1427,4 +1430,27 @@ footer .footer-icon.mug {
         opacity: 1 !important;
         transform: none !important;
     }
+}
+/* ===== AI SOLUTIONS TEASER (main page) ===== */
+.ai-teaser-intro {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 760px;
+    margin-bottom: 32px;
+}
+.ai-teaser-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 26px;
+    margin-bottom: 32px;
+}
+.ai-teaser-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+.ai-mini-card h3 {
+    font-size: 1.15rem;
 }
